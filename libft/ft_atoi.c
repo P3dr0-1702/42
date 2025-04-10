@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:02:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/07 12:31:55 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/10 10:51:08 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 int	what_signal(const char *str, int *i)
 {

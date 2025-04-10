@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:49:08 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/09 13:58:15 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:01:02 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	ft_iset(const char *set, char a)
 	while (set[i] != '\0')
 	{
 		if (a == set[i])
-			return (True);
+			return (true);
 		i++;
 	}
-	return (False);
+	return (false);
 }
 char	*ft_strncpy(char *dest, const char *src, unsigned int n)
 {

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/20 16:39:32 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 10:08:26 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/04/10 10:27:34 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/04/10 10:29:52 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+void ft_putstr_fd(char *s, int fd)
 {
-	size_t	i;
+	int i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while(s[i] != '\0')
 	{
+		ft_putchar_fd(s[i], fd);
 		i++;
 	}
-	return (i);
 }

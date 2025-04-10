@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:58:54 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/09 17:43:19 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:57:48 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_count_words(char const *s, char c)
 	return (count);
 }
 
-int	ft_word_size(char *s, char c, int word_id)
+int	ft_word_size(const char *s, char c)
 {
 	int	i;
 	int	j;
@@ -63,29 +63,23 @@ int	ft_word_size(char *s, char c, int word_id)
 	return (j);
 }
 
-char	*ft_wordcpy(char **s, char c, int word_id)
+char	*ft_wordcpy(const char **s, char c)
 {
-	int		i;
-	int		j;
 	char	*dest;
+	int		counter;
 
-	i = 0;
-	j = 0;
-	while (*s == c)
+	counter = 0;
+	while (**s == c)
 		(*s)++;
-	while (*s != c)
+	while (**s != c)
+	{
+		counter++;
 		(*s)++;
-	dest = malloc();
-	while (word_id > 0)
-	{
-		if (s[i] == c && s[i - 1] != c)
-			word_id--;
 	}
-	while (s[i + j] != '\0' || (s[i + j] == c && s[i + j - 1] == c))
-	{
-		dest[j] = s[i + j];
-		j++;
-	}
+	dest = malloc(sizeof(char) * (counter + 1));
+	if (!dest)
+		return (NULL);
+	ft_strlcpy(dest, ((*s) - counter), counter + 1);
 	return (dest);
 }
 
@@ -97,35 +91,17 @@ char	**ft_split(char const *s, char c)
 
 	i = -1;
 	wordnbr = ft_count_words(s, c);
-	array = malloc(sizeof(char) * (wordnbr + 1));
+	array = malloc(sizeof(char *) * (wordnbr + 1));
 	if (!array)
 		return (NULL);
-	while (++i < wordnbr)
-	{
-		array[i] = malloc(sizeof(char) * (ft_word_size(s, c, i) + 1));
-		if (!array[i])
-			return (i_wanna_break_free(array), NULL);
-	}
 	i = 0;
 	while (i < wordnbr)
 	{
-		array[i] = ft_wordcpy(&s, c, i);
+		array[i] = ft_wordcpy(&s, c);
+		if(array[i] == NULL)
+			return (i_wanna_break_free(array), NULL);
 		i++;
 	}
-	array[1 + i] = NULL;
+	array[i] = NULL;
 	return (array);
-}
-
-#include <stdio.h>
-
-int	main(void)
-{
-	char *s = "    Hoje o pedro tropecou no xao";
-	char **res;
-
-	printf("count workds = %d\n ", ft_count_words(s, ' '));
-	res = ft_split(s, ' ');
-	int i = -1;
-	while (res[++i])
-		printf("str = %s", res[i]);
 }

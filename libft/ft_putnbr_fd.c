@@ -1,25 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/20 16:39:32 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 10:08:26 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/04/10 10:33:29 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/04/10 10:38:58 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
+#include <unistd.h>
 
-	i = 0;
-	while (str[i] != '\0')
+
+
+void	ft_putnbr(int nb, int fd)
+{
+	if (nb == -2147483648)
 	{
-		i++;
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	return (i);
+	if (nb < 0)
+	{
+		ft_putchar_fd('-', fd);
+		nb = nb * -1;
+	}
+	if (nb >= 10)
+	{
+		ft_putnbr(nb / 10, fd);
+		ft_putnbr(nb % 10, fd);
+	}
+	if (nb < 10)
+	{
+		ft_putchar (nb + '0', fd);
+	}
+}
+
+void ft_putnbr_fd(int n, int fd)
+{
+	ft_putnbr(n, fd);
 }

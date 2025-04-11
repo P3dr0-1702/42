@@ -6,14 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:49:08 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 11:01:02 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:02:45 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-int	ft_iset(const char *set, char a)
+static int	ft_iset(const char *set, char a)
 {
 	int	i;
 
@@ -26,48 +25,42 @@ int	ft_iset(const char *set, char a)
 	}
 	return (false);
 }
-char	*ft_strncpy(char *dest, const char *src, unsigned int n)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < n && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
-}
-int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
 
 char	*ft_strtrim(const char *s1, char const *set)
 {
 	int		i;
 	int		f;
+	int		k;
 	char	*str;
 
 	i = 0;
 	f = ft_strlen(s1);
 	while (s1[i] && ft_iset(set, s1[i]))
 		i++;
-	while (f > 0 && ft_iset(set, s1[f - 1]))
+	while (f > i && ft_iset(set, s1[f - 1]))
 		f--;
 	str = malloc(sizeof(char) * ((f - i) + 1));
-	str = ft_strncpy(str, s1 + i, f - i);
+	if (!str)
+		return (NULL);
+	k = 0;
+	while(i < f)
+	{
+		str[k] = s1[i];
+		i++;
+		k++;
+	}
+	str[k] = '\0';
 	return (str);
 }
+
+// int	main(void)
+// {
+// 	char	*s1;
+// 	char	*b;
+// 	char	*s2;
+
+// 	s1 = "   xxx aaaaaaaaaaaaaaa  xxx";
+// 	b = " x";
+// 	s2 = ft_strtrim(s1, b);
+// 	printf("%s", s2);
+// }

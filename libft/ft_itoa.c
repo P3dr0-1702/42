@@ -6,17 +6,17 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:02:45 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/09 10:52:12 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:40:26 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-char	*min_int(void)
+static char	*min_int(void)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 11);
+	str = malloc(sizeof(char) * 12);
 	if (!str)
 		return (NULL);
 	str[0] = '-';
@@ -34,9 +34,14 @@ char	*min_int(void)
 	return (str);
 }
 
-void	popul(int n, int size, char **str, int *i)
+static void	popul(int n, int size, char **str, int *i)
 {
-	*str = malloc(size + 1);
+	int j;
+	
+	j = 1;
+	if(n < 0)
+		j = 2;
+	*str = malloc(size + j);
 	if (!*str)
 		return;
 	if (n < 0)
@@ -47,10 +52,10 @@ void	popul(int n, int size, char **str, int *i)
 	}
 	else
 		*i = 0;
-	(*str)[size] = '\0';
+	(*str)[size +  (j - 1)] = '\0';
 }
 
-int	lenofn(int n)
+static int	lenofn(int n)
 {
 	int	len;
 
@@ -65,7 +70,7 @@ int	lenofn(int n)
 	return (len);
 }
 
-char	*nzero(void)
+static char	*nzero(void)
 {
 	char	*str;
 
@@ -82,23 +87,33 @@ char	*ft_itoa(int n)
 	char	*str;
 	int		len;
 	int		i;
-	long	nb;
-
+	
+	i = 0;
 	if (n == 0)
 		return (nzero());
 	if(n == -2147483648)
 		return(min_int());
-	nb = n;
 	len = lenofn(n);
 	popul(n, len, &str, &i);
 	if (!str)
 		return NULL;
-	if(nb < 0)
-		nb *= -1;
-	while(nb > 0)
+	if(n < 0)
 	{
-		str[--len] = (nb % 10) + '0';
-		nb /= 10;
+		str[0] = '-';
+		n *= -1;
+		len++;
+	}
+	while(n > 0)
+	{
+		str[--len] = (n % 10) + '0';
+		n /= 10;
 	}
 	return (str);
 }
+// int main()
+// {
+// 	int i = -0;
+// 	char *str = ft_itoa(i);
+// 	printf("%s\n", str);
+// 	free(str);
+// }

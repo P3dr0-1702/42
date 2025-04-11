@@ -5,46 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/01 12:02:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 10:51:08 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/04/10 14:12:09 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/04/10 17:36:26 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	what_signal(const char *str, int *i)
+int	ft_atoi(const char *s)
 {
-	int	sign;
-
-	sign = 1;
-	while (str[*i] == ' ' || (str[*i] >= 9 && str[*i] <= 13))
-	{
-		(*i)++;
-	}
-	while (str[*i] != '\0' && (str[*i] == 45 || str[*i] == 43))
-	{
-		if (str[*i] == 45)
-		{
-			sign *= -1;
-		}
-		(*i)++;
-	}
-	return (sign);
-}
-
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	signal1;
-	int	result;
+	int i;
+	int signal;
+	int result;
 
 	i = 0;
 	result = 0;
-	signal1 = what_signal(str, &i);
-	while (str[i] >= '0' && str[i] <= '9')
+	signal = 1;
+	while((s[i] && s[i] == ' ') || (s[i] >= 9 && s[i] <= 13))
+		i++;
+	if(s[i] == '-')
 	{
-		result = result * 10 + (str[i] - '0');
+		signal = -1;
 		i++;
 	}
-	return (result * signal1);
+	else if(s[i] == '+')
+		i++;
+	if(!(s[i] >= '0' && s[i] <= '9'))
+		return (0);
+	while(s[i] != '\0' && (s[i] >= '0' && s[i] <= '9'))
+	{
+		result *= 10;
+		result += (s[i] - '0');
+		i++;
+	}
+		return(result * signal);
 }
+// int main()
+// {
+// 	char *nptr;
+
+// 	nptr = NULL;
+// 	printf("%d\n", ft_atoi(nptr));
+// 	printf("%ld\n", strtol(nptr, NULL, 10));
+// 	printf("%d\n", atoi(nptr));
+// }

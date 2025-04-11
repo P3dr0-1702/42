@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:52:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 10:58:11 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:09:24 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 int	ft_str_is_printable(char *str)
 {

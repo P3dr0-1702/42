@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_slit.c                                          :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:58:54 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 11:57:48 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:52:50 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	i_wanna_break_free(char **array)
+static void	i_wanna_break_free(char **array)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ void	i_wanna_break_free(char **array)
 	free(array);
 }
 
-int	ft_count_words(char const *s, char c)
+static int	ft_count_words(char const *s, char c)
 {
 	int		i;
 	int		count;
@@ -47,31 +47,15 @@ int	ft_count_words(char const *s, char c)
 	return (count);
 }
 
-int	ft_word_size(const char *s, char c)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s[i] == c)
-		i++;
-	while (s[i + j] != c)
-	{
-		j++;
-	}
-	return (j);
-}
-
-char	*ft_wordcpy(const char **s, char c)
+static char	*ft_wordcpy(const char **s, char c)
 {
 	char	*dest;
 	int		counter;
 
 	counter = 0;
-	while (**s == c)
+	while ((**s == c) && (**s != '\0'))
 		(*s)++;
-	while (**s != c)
+	while ((**s != c) && (**s != '\0'))
 	{
 		counter++;
 		(*s)++;
@@ -105,3 +89,18 @@ char	**ft_split(char const *s, char c)
 	array[i] = NULL;
 	return (array);
 }
+
+// int	main()
+// {
+// 	char	*str = "          ";
+// 	char	**array;
+// 	int		i;
+
+// 	i = 0;
+// 	array = ft_split(str, 'T');
+// 	while(array[i])
+// 	{
+// 		printf("str = %s\n", array[i]);
+// 		i++;
+// 	}
+// }

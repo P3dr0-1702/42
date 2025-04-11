@@ -6,11 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:20:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/07 12:34:17 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:09:21 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isascii(char a)
+#include "libft.h"
+
+int	ft_isascii(int a)
 {
 	if (a >= 0 && a <= 127)
 		return(1);

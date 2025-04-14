@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/04/14 13:32:10 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/04/14 15:51:35 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,9 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-bonus: all $(BOBJS)
-	ar rcs $(NAME) $(BOBJS)
+bonus: $(BOBJS) $(OBJS)
+	ar rcs $(NAME) $(OBJS) $(BOBJS)
+	touch bonus
 	
 $(OBJS): %.o: %.c
 	cc $(CFLAGS) -c $< -o $@
@@ -34,6 +35,8 @@ $(BOBJS): %.o:%.c
 clean:
 	rm -f $(OBJS)
 	rm -f $(BOBJS)
+	touch bonus
+	rm bonus
 
 fclean: clean
 	rm -f $(NAME)

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:52:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 12:09:18 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:04:28 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_str_is_alpha(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if ((str[i] >= 'a' && str[i] <= 'z')
-			|| (str[i] >= 'A' && str[i] <= 'Z'))
+		if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A'
+				&& str[i] <= 'Z'))
 		{
 			i++;
 		}
@@ -35,7 +35,7 @@ int	ft_str_is_alpha(char *str)
 {
 	char str[50] = "hello";
 	char str1[50] = "!hello world";
-	
+
 	int h = ft_str_is_alpha(str);
 	int k = ft_str_is_alpha(str1);
 

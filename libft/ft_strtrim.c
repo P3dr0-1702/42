@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:49:08 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/11 15:02:45 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:05:13 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strtrim(const char *s1, char const *set)
 	if (!str)
 		return (NULL);
 	k = 0;
-	while(i < f)
+	while (i < f)
 	{
 		str[k] = s1[i];
 		i++;

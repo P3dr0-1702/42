@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:58:54 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/11 13:52:50 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:04:23 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**ft_split(char const *s, char c)
 	while (i < wordnbr)
 	{
 		array[i] = ft_wordcpy(&s, c);
-		if(array[i] == NULL)
+		if (array[i] == NULL)
 			return (i_wanna_break_free(array), NULL);
 		i++;
 	}
@@ -90,7 +90,7 @@ char	**ft_split(char const *s, char c)
 	return (array);
 }
 
-// int	main()
+// int	main(void)
 // {
 // 	char	*str = "          ";
 // 	char	**array;

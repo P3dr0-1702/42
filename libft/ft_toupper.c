@@ -6,13 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:57:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 12:10:10 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:05:26 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_toupper(int a)
+int	ft_toupper(int a)
 {
 	if (a >= 'a' && a <= 'z')
 	{

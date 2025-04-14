@@ -6,14 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 10:33:29 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/11 13:46:43 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:13:11 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
-
-
 
 static void	ft_putnbr(int nb, int fd)
 {

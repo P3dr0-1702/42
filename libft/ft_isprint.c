@@ -6,13 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:37:35 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 12:08:23 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:07:22 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isprint(char a)
+int	ft_isprint(char a)
 {
 	if (a >= 32 && a <= 126)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:02:45 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/11 14:40:26 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:03:10 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ static char	*min_int(void)
 
 static void	popul(int n, int size, char **str, int *i)
 {
-	int j;
-	
+	int	j;
+
 	j = 1;
-	if(n < 0)
+	if (n < 0)
 		j = 2;
 	*str = malloc(size + j);
 	if (!*str)
-		return;
+		return ;
 	if (n < 0)
 	{
 		(*str)[0] = '-';
@@ -52,14 +52,14 @@ static void	popul(int n, int size, char **str, int *i)
 	}
 	else
 		*i = 0;
-	(*str)[size +  (j - 1)] = '\0';
+	(*str)[size + (j - 1)] = '\0';
 }
 
 static int	lenofn(int n)
 {
 	int	len;
 
-	if(n < 0)
+	if (n < 0)
 		n *= -1;
 	len = 0;
 	while (n > 0)
@@ -87,23 +87,23 @@ char	*ft_itoa(int n)
 	char	*str;
 	int		len;
 	int		i;
-	
+
 	i = 0;
 	if (n == 0)
 		return (nzero());
-	if(n == -2147483648)
-		return(min_int());
+	if (n == -2147483648)
+		return (min_int());
 	len = lenofn(n);
 	popul(n, len, &str, &i);
 	if (!str)
-		return NULL;
-	if(n < 0)
+		return (NULL);
+	if (n < 0)
 	{
 		str[0] = '-';
 		n *= -1;
 		len++;
 	}
-	while(n > 0)
+	while (n > 0)
 	{
 		str[--len] = (n % 10) + '0';
 		n /= 10;

@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_printable.c                              :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 14:52:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/10 12:09:24 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/04/14 11:26:25 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/04/14 11:26:52 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_str_is_printable(char *str)
+int	ft_printf(const char *, ...)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] > 31 && str[i] < 127)
-		{
-			i++;
-		}
-		else
-		{
-			return (0);
-		}
-	}
-	return (1);
+	
 }

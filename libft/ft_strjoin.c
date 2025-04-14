@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:24:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/14 11:04:47 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:40:01 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	j;
 
 	r1 = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
+	if (!r1)
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (i < ft_strlen(s1))

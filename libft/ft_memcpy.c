@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:19:34 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/14 11:12:01 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:29:53 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t i)
 	unsigned char	*str;
 	unsigned char	*strdest;
 
+	if (dest == NULL && src == NULL)
+		return (NULL);
 	str = (unsigned char *)src;
 	strdest = (unsigned char *)dest;
 	j = 0;

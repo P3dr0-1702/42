@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/14 13:12:19 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:25:07 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int					ft_atoi(const char *s);
 void				ft_bzero(void *a, size_t i);
 void				*ft_calloc(size_t nmemb, size_t size);
 int					ft_isalnum(char a);
-int					ft_isalpha(char a);
+int					ft_isalpha(int a);
 int					ft_isascii(int a);
 int					ft_isdigit(int i);
-int					ft_isprint(char a);
+int					ft_isprint(int a);
 char				*ft_itoa(int n);
 void				*ft_memchr(const void *a, int b, size_t c);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);

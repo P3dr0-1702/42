@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:32:05 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/11 11:03:17 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:30:41 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*ft_memmove(void *dest, const void *src, size_t i)
 	unsigned char	*source;
 	unsigned char	*destin;
 
+	if (dest == NULL && src == NULL)
+		return (NULL);
 	destin = (unsigned char *)dest;
 	source = (unsigned char *)src;
 	len = i;

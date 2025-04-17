@@ -6,15 +6,12 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 14:12:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:57:25 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:02:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/// @brief Alpha to Interger conversion
-/// @param s string to convert
-/// @return interger of string
 int	ft_atoi(const char *s)
 {
 	int	i;
@@ -24,12 +21,13 @@ int	ft_atoi(const char *s)
 	i = 0;
 	result = 0;
 	signal = 1;
-	if (!s)
-		return (0);
 	while ((s[i] && s[i] == ' ') || (s[i] >= 9 && s[i] <= 13))
 		i++;
-	if (s[i++] == '-')
+	if (s[i] == '-')
+	{
 		signal = -1;
+		i++;
+	}
 	else if (s[i] == '+')
 		i++;
 	if (!(s[i] >= '0' && s[i] <= '9'))
@@ -42,3 +40,12 @@ int	ft_atoi(const char *s)
 	}
 	return (result * signal);
 }
+// int main()
+// {
+// 	char *nptr;
+
+// 	nptr = NULL;
+// 	printf("%d\n", ft_atoi(nptr));
+// 	printf("%ld\n", strtol(nptr, NULL, 10));
+// 	printf("%d\n", atoi(nptr));
+// }

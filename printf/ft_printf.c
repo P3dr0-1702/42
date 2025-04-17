@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:26:25 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/15 11:48:20 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:49:34 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_printf(const char *format, ...)
 	int		i;
 	int char_nbr;
 
+	if (!format)
+		return(-1);
 	va_start(args, format);
 	i = 0;
 	char_nbr = 0;
@@ -60,10 +62,14 @@ int	ft_printf(const char *format, ...)
 
 // int main()
 // {
-// 	char c = 'o';
-// 	char s[]= "cao";
-// 	int i = 55;
-// 	unsigned int j = INT_MAX;
-// 	ft_printf("%c %s fugiu de casa e foi para endereco %p, as %d e %i ele ganhou na loteria $%u\n ele contou o dinheiro e deu %x, %X!!!, %%",
-// 	 c, s, (void*)42, i, (i - 10), j, i ,i);
+// 	char c = 'g';
+// 	char *s= NULL;
+// 	int i;
+// 	int len;
+// 	unsigned int j = INT_MIN;
+// 	i = 42;
+// 	len = ft_printf("%c %s correu ate o endereco %p, ficou \
+// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i, j, i, j) - printf("%c %s correu ate o endereco %p, ficou \
+// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i, j, i, j);
+// 	printf("%d\n", len);
 // }

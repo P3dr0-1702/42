@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 11:21:17 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/16 15:42:10 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/18 11:10:37 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printft.h"
 
 static void	ft_putnbr_hexadrs(unsigned long nb, int *n)
 {

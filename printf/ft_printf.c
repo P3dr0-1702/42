@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:26:25 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/16 15:49:34 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/18 11:13:22 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printft.h"
 
 void	ft_case(char a, va_list *arg, int *n)
 {

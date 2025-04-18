@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:14:27 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 17:36:42 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/18 11:09:01 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;

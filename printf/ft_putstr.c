@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:53:32 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/16 15:40:56 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/18 11:11:06 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printft.h"
 
 void	ft_putstr(char *str, int *n)
 {

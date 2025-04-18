@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:26:25 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/18 11:13:22 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:53:30 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		i;
-	int char_nbr;
+	int		char_nbr;
 
 	if (!format)
-		return(-1);
+		return (-1);
 	va_start(args, format);
 	i = 0;
 	char_nbr = 0;
@@ -51,7 +51,7 @@ int	ft_printf(const char *format, ...)
 		{
 			ft_case(format[i + 1], &args, &char_nbr);
 			i += 2;
-			continue;
+			continue ;
 		}
 		ft_putchar(format[i], &char_nbr);
 		i++;
@@ -69,7 +69,9 @@ int	ft_printf(const char *format, ...)
 // 	unsigned int j = INT_MIN;
 // 	i = 42;
 // 	len = ft_printf("%c %s correu ate o endereco %p, ficou \
-// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i, j, i, j) - printf("%c %s correu ate o endereco %p, ficou \
-// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i, j, i, j);
+// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i,
+//			j, i, j) - printf("%c %s correu ate o endereco %p, ficou \
+// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i,
+//			j, i, j);
 // 	printf("%d\n", len);
 // }

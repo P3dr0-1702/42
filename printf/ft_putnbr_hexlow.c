@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:28:17 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/18 11:10:59 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:55:19 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_hexlow(unsigned int nb, int *n)
 {
-	char *hex;
+	char	*hex;
 
 	hex = "0123456789abcdef";
 	if (nb >= 16)

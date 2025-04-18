@@ -28,8 +28,6 @@ $(BOBJS): %.o:%.c
 
 clean:
 	rm -f $(OBJS)
-	touch bonus
-	rm bonus
 
 fclean: clean
 	rm -f $(NAME)

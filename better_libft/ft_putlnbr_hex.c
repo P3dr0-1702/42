@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:18:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 11:55:51 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:33:03 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_putlnbr_hex(unsigned int nb, int *n)
 		ft_putlnbr_hex(nb / 16, n);
 	ft_putlchar(hex[nb % 16], n);
 }
+
 // int main()
 // {
 // 	int i;

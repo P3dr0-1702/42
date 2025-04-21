@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:17:44 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:08:55 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:33:50 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strrchr(const char *a, int b)
 	int	i;
 
 	if (!a)
-		return NULL;
+		return (NULL);
 	i = ft_strlen(a);
 	while (i >= 0)
 	{

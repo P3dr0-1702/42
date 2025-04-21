@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 11:21:17 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:51:53 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:38:24 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_putlnbr_hexadrs(unsigned long nb, int *n)
 {
-	char *hex;
+	char	*hex;
 
 	hex = "0123456789abcdef";
 	if (nb >= 16)
@@ -22,19 +22,19 @@ static void	ft_putlnbr_hexadrs(unsigned long nb, int *n)
 	ft_putlchar(hex[nb % 16], n);
 }
 
-/// @brief Prints the hexadecimal adress of the pointer 
+/// @brief Prints the hexadecimal adress of the pointer
 //	and counts the number of chars printed
 /// @param ptr pointer
 /// @param n adress of the counter
-void ft_printlhex(void *ptr, int *n)
+void	ft_printlhex(void *ptr, int *n)
 {
-	unsigned long i;
+	unsigned long	i;
 
 	i = (unsigned long)ptr;
-	if(ptr == NULL)
+	if (ptr == NULL)
 	{
 		ft_putlstr("(nil)", n);
-		return;
+		return ;
 	}
 	ft_putlchar('0', n);
 	ft_putlchar('x', n);

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:59:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:00:12 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:35:43 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_putstr(char *str)
 	if (!str)
 	{
 		ft_putstr("(null)");
-		return;
+		return ;
 	}
 	while (str[i] != '\0')
 	{

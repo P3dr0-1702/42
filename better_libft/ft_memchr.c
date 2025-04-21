@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:22:56 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:42:31 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:31:06 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	*ft_memchr(const void *a, int b, size_t c)
 	unsigned char	*str;
 
 	i = 0;
-	if(!a)
-		return NULL;
+	if (!a)
+		return (NULL);
 	str = (unsigned char *)a;
 	while (i < c)
 	{

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 11:49:44 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:50:43 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:37:34 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_putnbr_hexadrs(unsigned long nb)
 {
-	char *hex;
+	char	*hex;
 
 	hex = "0123456789abcdef";
 	if (nb >= 16)
@@ -24,15 +24,15 @@ static void	ft_putnbr_hexadrs(unsigned long nb)
 
 /// @brief Prints the hex adress of a pointer
 /// @param ptr pointer
-void ft_printhex(void *ptr)
+void	ft_printhex(void *ptr)
 {
-	unsigned long i;
+	unsigned long	i;
 
 	i = (unsigned long)ptr;
-	if(ptr == NULL)
+	if (ptr == NULL)
 	{
 		ft_putstr("(nil)");
-		return;
+		return ;
 	}
 	ft_putchar('0');
 	ft_putchar('x');

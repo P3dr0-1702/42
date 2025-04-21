@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:52:41 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:38:39 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:30:48 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 	t_list	*i;
 
 	if (!lst)
-		return;
+		return ;
 	i = lst;
 	while (i != NULL)
 	{

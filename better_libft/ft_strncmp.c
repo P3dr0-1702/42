@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:33:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:59:54 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:35:03 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	unsigned char	*str2;
 
 	i = 0;
-	if(!s1 || !s2)
+	if (!s1 || !s2)
 		return (0);
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
 	if (n == 0)
 		return (0);
 	while (i < n - 1 && str1[i] != '\0' && str1[i] == str2[i])
-	{
 		i++;
-	}
 	return (str1[i] - str2[i]);
 }

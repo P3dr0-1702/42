@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:49:08 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:08:36 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:33:34 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	*ft_strtrim(const char *s1, char const *set)
 	char	*str;
 
 	i = 0;
-	if(!s1 || !set)
-		return NULL;
+	if (!s1 || !set)
+		return (NULL);
 	f = ft_strlen(s1);
 	while (s1[i] && ft_iset(set, s1[i]))
 		i++;

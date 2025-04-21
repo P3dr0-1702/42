@@ -6,11 +6,12 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:15:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 12:31:48 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:39:05 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 /// @brief Count number of words in a string separated by a delimiter
 /// @param s string
 /// @param c delimiter

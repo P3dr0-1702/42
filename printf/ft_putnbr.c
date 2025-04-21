@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:18:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/18 14:53:54 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:46:18 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printft.h"
+#include "ft_printf.h"
 
 void	ft_putnbr(int nb, int *n)
 {

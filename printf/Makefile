@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = printft.a
+NAME = libftprintf.a
 CFLAGS = -Wall -Werror -Wextra
 SRCS = ft_printf.c ft_printhex.c ft_putchar.c ft_putnbr_hex.c ft_putstr.c ft_putnbr_hexlow.c ft_putnbr.c ft_putunbr.c 
 OBJS = $(SRCS:.c=.o)
@@ -22,10 +22,7 @@ $(NAME): $(OBJS)
 	
 $(OBJS): %.o: %.c
 	cc $(CFLAGS) -c $< -o $@
-
-$(BOBJS): %.o:%.c
-	cc $(CFLAGS) -c $< -o $@
-
+	
 clean:
 	rm -f $(OBJS)
 

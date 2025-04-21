@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:14:27 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/18 11:09:01 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:23:10 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*isolate_line(char *line, char *buffer)
 	char	*temp;
 
 	i = 0;
-	j = 0;
+	j = -1;
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
 	if (buffer[i] == '\n')
@@ -27,7 +27,7 @@ char	*isolate_line(char *line, char *buffer)
 	temp = malloc(i + 1);
 	if (!temp)
 		return (NULL);
-	while ((++j - 1) < i)
+	while (++j < i)
 		temp[j] = buffer[j];
 	temp[j] = '\0';
 	j = 0;
@@ -97,3 +97,13 @@ char	*ft_strchr(const char *s, int b)
 	}
 	return (NULL);
 }
+
+// char *found_line(char *buffer, char *line)
+// {
+// 	if (ft_strchr(buffer, '\n'))
+// 	{
+// 		*line = isolate_line(line, buffer);
+// 		return (line);
+// 	}
+// 	return(line);
+// }

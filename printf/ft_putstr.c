@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 12:53:32 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/18 14:53:57 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:46:21 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printft.h"
+#include "ft_printf.h"
 
 void	ft_putstr(char *str, int *n)
 {

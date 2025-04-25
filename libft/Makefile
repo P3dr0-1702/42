@@ -26,8 +26,8 @@ bonus: $(BOBJS) $(OBJS)
 	ar rcs $(NAME) $(OBJS) $(BOBJS)
 	touch bonus
 	
-$(OBJS): %.o: %.c
-	cc $(CFLAGS) -c $< -o $@
+#$(OBJS): %.o: %.c
+#	cc $(CFLAGS) -c $< -o $@
 
 $(BOBJS): %.o:%.c
 	cc $(CFLAGS) -c $< -o $@

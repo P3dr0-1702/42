@@ -30,4 +30,5 @@ wall << EOF
         #Sudo : ${SUDOCMD} cmd
 
 EOF
+echo
 

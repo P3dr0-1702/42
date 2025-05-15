@@ -5,29 +5,44 @@
 #                                                     +:+ +:+         +:+      #
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/14 11:26:05 by pfreire-          #+#    #+#              #
-#    Updated: 2025/04/25 16:29:49 by pfreire-         ###   ########.fr        #
+#    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
+#    Updated: 2025/05/15 16:33:33 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = push_swap.a
 CFLAGS = -Wall -Werror -Wextra
-SRCS = ft_printf.c ft_printhex.c ft_putchar.c ft_putnbr_hex.c ft_putstr.c ft_putnbr_hexlow.c ft_putnbr.c ft_putunbr.c 
+
+libDIR = lib
+libNAME = libft.a
+libPATH = $(libDIR)/$(libNAME)
+
+SRCS = %.c
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+libSRCS = $(wildcard $(libDIR)/*.c)
+libOBJS = $(libSRCS:%.c=%.o)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+all: $(libPATH) $(NAME)
+
+$(libPATH): $(libOBJS)
+	ar rcs $@ $^
+
+$(libDIR)/%.o: $(libDIR)/%.c
+	cc $(CFLAGS) -I $(libDIR) -c $< -o $@
+
+$(NAME): $(OBJS) $(libPATH)
+	cc $(CFLAGS) $^ -I $(libDIR) -L $(libDIR) -lft -o $@ 
 	
-#$(OBJS): %.o: %.c
-#	cc $(CFLAGS) -c $< -o $@
-	
+%.o: %.c
+	cc $(CFLAGS) -I $(libDIR) -c $< -o $@
+
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(libOBJS)
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(libPATH)
 
 re: fclean all
 

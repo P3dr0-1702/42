@@ -6,9 +6,12 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/17 13:00:43 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/05/15 13:55:02 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef LIBFT_H
+#define LIBFT_H
 
 #include "limits.h"
 #include "stdarg.h"
@@ -93,3 +96,17 @@ int					ft_strcmp(char *s1, char *s2);
 void				i_wanna_break_free(char **array);
 char				*ft_wordcpy(const char **s, char c);
 void				ft_putstr(char *str);
+
+//get next line
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+char	*ft_strchr(const char *s, int b);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*isolate_line(char *line, char *buffer);
+size_t	ft_strlen(const char *str);
+char	*get_next_line(int fd);
+
+#endif

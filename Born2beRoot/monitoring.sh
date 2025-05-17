@@ -16,19 +16,18 @@ MAC=$(ip link | grep "link/ether" | awk '{print $2}')
 SUDOCMD=$(journalctl -q _COMM=sudo | grep COMMAND | wc -l)
 
 wall << EOF
-        #Architecture: ${arch}
-        #CPU physical : ${pCPU}
-        #vCPU : ${vCPU}
-        #Memory Usage: ${memU}
-        #Disk Usage: ${avail}/${size}B (${used})
-        #CPU load: ${CPUL}
-        #Last boot: ${LstBoot}
-        #LVM use: ${LMVStat}
-        #Connections TCP: ${Connct}
-        #User log: ${UserNbr}
-        #Network: IP ${IP}(${MAC})
-        #Sudo : ${SUDOCMD} cmd
+	#Architecture: ${arch}
+	#CPU physical : ${pCPU}
+	#vCPU : ${vCPU}
+	#Memory Usage: ${memU}
+	#Disk Usage: ${avail}/${size}B (${used})
+	#CPU load: ${CPUL}
+	#Last boot: ${LstBoot}
+	#LVM use: ${LMVStat}
+	#Connections TCP: ${Connct}
+	#User log: ${UserNbr}
+	#Network: IP ${IP}(${MAC})
+	#Sudo : ${SUDOCMD} cmd
 
 EOF
 echo
-

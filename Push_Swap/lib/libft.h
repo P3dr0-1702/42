@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/15 16:29:01 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/05/25 12:40:57 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_stack
 	struct s_stack	*next;
 	struct s_stack	*prev;
 }					t_stack;
+
 
 int					ft_atoi(const char *s);
 void				ft_bzero(void *a, size_t i);
@@ -83,6 +84,8 @@ t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 // libft functions end
 
+
+int	ft_printf(const char *format, ...);
 // use these to kick a int adress around to tally up the amout of printed chars
 // these are necessary for printf
 void				ft_printlhex(void *ptr, int *n);

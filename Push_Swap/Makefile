@@ -6,18 +6,18 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/05/15 16:33:33 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/05/19 17:13:00 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap.a
+NAME = push_swap
 CFLAGS = -Wall -Werror -Wextra
 
 libDIR = lib
 libNAME = libft.a
 libPATH = $(libDIR)/$(libNAME)
 
-SRCS = %.c
+SRCS = aux_func.c operations.c soperations.c
 OBJS = $(SRCS:.c=.o)
 
 libSRCS = $(wildcard $(libDIR)/*.c)

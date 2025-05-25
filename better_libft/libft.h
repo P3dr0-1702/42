@@ -75,6 +75,8 @@ t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 // libft functions end
 
+
+int	ft_printf(const char *format, ...);
 // use these to kick a int adress around to tally up the amout of printed chars
 // these are necessary for printf
 void				ft_printlhex(void *ptr, int *n);
@@ -96,6 +98,8 @@ int					ft_strcmp(char *s1, char *s2);
 void				i_wanna_break_free(char **array);
 char				*ft_wordcpy(const char **s, char c);
 void				ft_putstr(char *str);
+
+int	randomizer(void);
 
 //get next line
 #include <fcntl.h>

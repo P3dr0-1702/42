@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 13:23:12 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/17 15:19:42 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:25:22 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ t_stack	*mklst(char **array, t_stack **lst)
 	}
 	return (lstb);
 }
-

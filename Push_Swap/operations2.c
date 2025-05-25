@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solver.c                                           :+:      :+:    :+:   */
+/*   operations2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/17 15:19:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/17 18:10:08 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/05/19 15:35:24 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/05/25 12:44:38 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-t_stack solver(t_stack **a, t_stack **b)
+void ss_sop(t_stack **a, t_stack **b)
 {
-	
+	s_op(a, 0);
+	s_op(b, 0);
+	ft_printf("ss\n");
+}
+
+void rr_sop(t_stack **a, t_stack **b)
+{
+	r_op(a, 0);
+	r_op(b, 0);
+	ft_printf("rr\n");
+}
+
+void rrr_sop(t_stack **a, t_stack **b)
+{
+	rr_op(a, 0);
+	rr_op(b, 0);
+	ft_printf("rrr\n");
 }

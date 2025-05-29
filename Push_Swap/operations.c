@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 14:40:58 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/25 14:38:42 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:37:21 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	s_op(t_stack **lst, char is_a)
 
 	if(!lst || !*lst || !((*lst)->next))
 		return;
-	temp = lst;
+	temp = *lst;
 	temp2 = temp->next;
 	rando = temp->content;
 	temp->content = temp2->content;

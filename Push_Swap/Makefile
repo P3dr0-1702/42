@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/05/19 17:13:00 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/05/29 16:25:01 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ libDIR = lib
 libNAME = libft.a
 libPATH = $(libDIR)/$(libNAME)
 
-SRCS = aux_func.c operations.c soperations.c
+SRCS = aux_func.c operations.c illegal_solver.c operations2.c organizer.c solving_ops.c
 OBJS = $(SRCS:.c=.o)
 
 libSRCS = $(wildcard $(libDIR)/*.c)

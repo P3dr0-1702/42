@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:35:24 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/25 12:44:38 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:43:00 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,18 @@ void ss_sop(t_stack **a, t_stack **b)
 	ft_printf("ss\n");
 }
 
-void rr_sop(t_stack **a, t_stack **b)
+void rr_sop(t_stack **a, t_stack **b, char print)
 {
 	r_op(a, 0);
 	r_op(b, 0);
-	ft_printf("rr\n");
+	if(print)
+		ft_printf("r%c\n", print);
 }
 
-void rrr_sop(t_stack **a, t_stack **b)
+void rrr_sop(t_stack **a, t_stack **b, char print)
 {
 	rr_op(a, 0);
 	rr_op(b, 0);
-	ft_printf("rrr\n");
+	if(print)
+		ft_printf("rr%c\n", print);
 }

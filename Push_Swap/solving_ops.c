@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:36:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/25 18:10:19 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:23:02 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,6 @@ int	find_target(int curr, t_stack *solved)
 		if (curr == (int)(solved)->content)
 			return (target);
 		target++;
-	}
-	return (NULL);
-}
-
-int	index_of_curr(int curr, t_stack *solved)
-{
-	int	i;
-
-	i = 0;
-	while (solved)
-	{
-		if (curr == (int)solved->content)
-			return (i);
-		i++;
 	}
 	return (NULL);
 }

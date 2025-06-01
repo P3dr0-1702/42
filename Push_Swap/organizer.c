@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 17:07:19 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/29 16:06:40 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:25:49 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,19 @@
 void	legal_solver(t_stack **a, t_stack **b, t_stack **solved)
 {
 	t_stack *temp;
-	t_stack *temp2;
 	int i;
 
 	rotate_sort(a, solved);
-	while (!check_stack_status(a, 0) && !b)
+	while (!check_stack_status(*a, 0) && !b)
 	{
-		if ((int)(*a)->content != (int)(*solved)->content)
+		if ((int*)(*a)->content != (int*)(*solved)->content)
 		{
 			p_op(a, b, 'b');
-			temp = solved;
-			i = (int)(*b)->content;
-			while((int)temp->content != i)
+			temp = *solved;
+			i = *(int*)(*b)->content;
+			while((int*)temp->content != &i)
 			{
-				if((int)temp->content + 1 == (int)(*b)->content)
+				if((int*)temp->content + 1 == (int*)(*b)->content)
 					p_op(a, b, 'a');
 				temp = temp->next;
 			}
@@ -41,12 +40,12 @@ void	legal_solver(t_stack **a, t_stack **b, t_stack **solved)
 
 void	rotate_sort(t_stack **a, t_stack **solved)
 {
-	while ((int)(*a)->content != (int)(*solved)->content)
+	while ((int*)(*a)->content != (int*)(*solved)->content)
 		r_op(solved, 0);
 	r_op(a, 'a');
 }
 
-void	*indexer(t_stack **a2, t_stack **solved)
+void	indexer(t_stack **a2, t_stack **solved)
 {
 	t_stack *solving;
 	t_stack *a;
@@ -62,7 +61,7 @@ void	*indexer(t_stack **a2, t_stack **solved)
 			solving = solving->next;
 			index++;
 		}
-		a->content = index;
+		a->content = &index;
 		a = a->next;
 	}
 }

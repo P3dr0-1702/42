@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solver.c                                           :+:      :+:    :+:   */
+/*   illegal_solver.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 15:19:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/25 15:21:30 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:21:14 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_stack	*illegal_solver(t_stack **a)
 	t_stack	*new_node;
 
 	sorted = NULL;
-	*a2 = **a;
+	a2 = *a;
 	while (a2)
 	{
-		value = (int)a2->content;
+		value = *(int*)a2->content;
 		new_node = ft_stack_newnode(value);
 		sorted = put_into_stack(sorted, new_node);
 		a2 = a2->next;
@@ -35,7 +35,7 @@ t_stack	*put_into_stack(t_stack *sorted, t_stack *node)
 {
 	t_stack	*sorting;
 
-	if (!sorted || (int)node->content < (int)sorted->content)
+	if (!sorted || (int*)node->content < (int*)sorted->content)
 	{
 		node->next = sorted;
 		if (sorted)
@@ -47,7 +47,7 @@ t_stack	*put_into_stack(t_stack *sorted, t_stack *node)
 	sorting = sorted;
 	while (sorting->next)
 	{
-		if ((int)node->content < (int)sorting->content)
+		if ((int*)node->content < (int*)sorting->content)
 			sorting = sorting->next;
 		node->next = sorting->next;
 		if (sorting->next)
@@ -82,12 +82,12 @@ int	check_stack_status(t_stack *a, int is_reverse)
 	{
 		if (is_reverse)
 		{
-			if ((int)a->content > (int)a->next->content)
+			if ((int*)a->content > (int*)a->next->content)
 				drops++;
 		}
 		else
 		{
-			if ((int)a->content < (int)a->next->content)
+			if ((int*)a->content < (int*)a->next->content)
 				drops++;
 		}
 		a = a->next;

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 16:36:59 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/29 11:23:02 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:30:16 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	next_in_line(t_stack *solved, int current)
 	head = solved;
 	while (solved && solved->next)
 	{
-		if ((int)solved->content == current)
-			return ((int)solved->next->content);
+		if ((int*)solved->content == &current)
+			return (*(int*)solved->next->content);
 		solved = solved->next;
 	}
-	return ((int)head->content);
+	return (*(int*)head->content);
 }
 
 int	find_target(int curr, t_stack *solved)
@@ -33,11 +33,11 @@ int	find_target(int curr, t_stack *solved)
 	target = 0;
 	while (solved)
 	{
-		if (curr == (int)(solved)->content)
+		if (&curr == (int*)(solved)->content)
 			return (target);
 		target++;
 	}
-	return (NULL);
+	return (0);
 }
 
 int	rotation_judge(int index, int size)
@@ -54,8 +54,8 @@ void	rotate(t_stack **a, t_stack **b, t_stack *solved, int index,
 		if (is_reverse_rotation)
 			rr_op(a, 'a');
 		else
-			r_op(a, a);
-		if ((int)(*a)->content == next_in_line(solved, (int)(*b)->content))
+			r_op(a, 'a');
+		if (*(int*)(*a)->content == next_in_line(solved, *(int*)(*b)->content))
 			p_op(b, a, 'b');
 		index--;
 	}

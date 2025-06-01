@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 13:23:12 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/19 17:25:22 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:16:28 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,22 @@ t_stack	*mklst(char **array, t_stack **lst)
 {
 	int i;
 	int k;
+	int m;
 	t_stack *lstb;
 
 	i = 0;
 	k = 0;
+	m = ft_atoi(array[i]);
 	*lst = NULL;
 	lstb = NULL;
 	while (array[i] != NULL)
 	{
-		ft_stackadd_back(lst, ft_stacknew(ft_atoi(array[i])));
+		ft_stackadd_back(lst, ft_stacknew(&m));
 		i++;
 	}
-	while (k < ft_lstsize(lst))
+	while (k < ft_stacksize(*lst))
 	{
-		ft_stackadd_back(lstb, ft_stacknew(NULL));
+		ft_stackadd_back(&lstb, ft_stacknew(NULL));
 		k++;
 	}
 	return (lstb);

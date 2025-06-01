@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stacknew.c                                      :+:      :+:    :+:   */
+/*   ft_stack_size.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 18:11:15 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/01 17:10:51 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/06/01 17:13:14 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/01 17:14:35 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_stack	*ft_stacknew(int *content)
+int	ft_stacksize(t_stack *lst)
 {
-	t_stack	*s;
+	t_stack	*i;
+	int		counter;
 
-	s = malloc(sizeof(t_stack));
-	if (!s)
-		return (NULL);
-	s->content = content;
-	s->next = NULL;
-	s->prev = NULL;
-	return (s);
+	if (!lst)
+		return (0);
+	i = lst;
+	counter = 0;
+	while (i != NULL)
+	{
+		i = i->next;
+		counter++;
+	}
+	return (counter);
 }

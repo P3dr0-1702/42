@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 14:37:04 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/29 16:21:19 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:26:09 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_stack	*ft_stack_newnode(int currNBR);
 t_stack	*put_into_stack(t_stack *sorted, t_stack *node);
 t_stack	*illegal_solver(t_stack **a);
 void	rotate_sort(t_stack **a, t_stack **solved);
-void	*indexer(t_stack **a2, t_stack **solved);
+void	indexer(t_stack **a2, t_stack **solved);
 
 
 // operators

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/25 12:40:57 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/01 17:15:03 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 // libft functions end
-
+t_stack	*ft_stacknew(int *content);
+int	ft_stacksize(t_stack *lst);
 
 int	ft_printf(const char *format, ...);
 // use these to kick a int adress around to tally up the amout of printed chars

@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations2.c                                      :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 15:35:24 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/29 13:43:00 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/04/10 10:15:06 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/04/17 12:52:30 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "aux_func.h"
+#include "libft.h"
 
-void ss_sop(t_stack **a, t_stack **b)
+/// @brief Prints char in fd
+/// @param c char
+/// @param fd File Decriptor
+void	ft_putchar_fd(char c, int fd)
 {
-	s_op(a, 0);
-	s_op(b, 0);
-	ft_printf("ss\n");
-}
-
-void rr_sop(t_stack **a, t_stack **b, char print)
-{
-	r_op(a, 0);
-	r_op(b, 0);
-	if(print)
-		ft_printf("r%c\n", print);
-}
-
-void rrr_sop(t_stack **a, t_stack **b, char print)
-{
-	rr_op(a, 0);
-	rr_op(b, 0);
-	if(print)
-		ft_printf("rr%c\n", print);
+	write(fd, &c, 1);
 }

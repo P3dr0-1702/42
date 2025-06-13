@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 10:46:32 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/13 17:36:24 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:54:45 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,47 @@ t_stack *LIS_list(t_stack *a)
 	int tails;
 	t_stack *members;
 
-	head = 1;
 	head = a;
-	tail = a;
+	tails = 0;
+	heads = 0;
 	members = NULL;
 	while(heads < ft_stacksize(a))
 	{
 		tail = head->next;
 		while(tails < ft_stacksize(a))
 		{
-			bodyguard(members, head, tail, *(int*)head->content, *(int*)tail->content);
+			if(bodyguard(members, head, tail, 0) < bodyguard(members, head, tail->next, 0))
+				bodyguard(members, head, tail, 1);
 			tails++;
 			tail = tail->next;
 		}
 		heads++;
+		head = head->next;
 	}
+	return (members);
 }
 
-void bodyguard(t_stack *members, t_stack *heads, t_stack *tails, int min, int max)
+int bodyguard(t_stack *members, t_stack *heads, t_stack *tails, int write_to_members)
 {
-	if(*(int*)heads->content > min)
+	int min;
+	int max;
+	t_stack *node;
+	int curr;
+
+	min = *(int*)heads->content;
+	max = *(int*)tails->content;
+	curr = 0;
+	while(tails)
 	{
-		
+		if(*(int*)tails->content > min && *(int*)tails->content <= max)
+		{
+			node = ft_stacknew(*(int*)tails->content);
+			min = *(int*)tails->content;
+			if(write_to_members)
+				ft_stackadd_back(members, node);
+			curr++;
+		}
+		tails = tails->next;
 	}
+	return (curr);
 }

@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"stdlib.h": "c",
+		"aux_func.h": "c",
+		"unistd.h": "c",
+		"stdarg.h": "c",
+		"stdbool.h": "c",
+		"stdint.h": "c"
+	}
+}

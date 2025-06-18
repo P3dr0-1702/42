@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:35:34 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/16 17:10:14 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/18 10:34:01 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ int	*stack_to_arr_conversion(t_stack *stack)
 		i++;
 	}
 	return (arr);
+}
+
+int	fill_prev(int *prev, int *tails, int start, int i)
+{
+	if (start > 0)
+		prev[i] = tails[start - 1];
+	else
+		prev[i] = -1;
+	return (i);
 }
 
 int	fill_arr(int *arr, int *tails, int *prev, int size)
@@ -56,10 +65,7 @@ int	fill_arr(int *arr, int *tails, int *prev, int size)
 		}
 		if (start == lis_len)
 			lis_len++;
-		tails[end] = i;
-		prev[i] = -1;
-		if (start > 0)
-			prev[i] = tails[start - 1];
+		tails[end] = fill_prev(prev, tails, start, i);
 	}
 	return (lis_len);
 }

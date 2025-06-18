@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:44:17 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/16 17:11:05 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:42:32 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	rr_op(t_stack **a, char is_a)
 		last->prev->next = NULL;
 	last->prev = NULL;
 	last->next = *a;
+	(*a)->prev = last;
 	*a = last;
 	if (is_a)
 		ft_printf("rr%c\n", is_a);

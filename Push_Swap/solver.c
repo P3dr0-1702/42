@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:14:48 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/16 17:02:05 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:42:47 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,33 @@
 
 int	find_index(t_stack *b, int value)
 {
-	int		index;
-	int		max;
-	int		min;
 	t_stack	*temp;
+	int		index;
+	int		curr;
+	int		next;
 
 	index = 0;
 	temp = b;
-	while (temp)
+	while (temp->next)
 	{
-		if (min < *(int *)temp->content && *(int *)temp->content < value)
-			min = *(int *)temp->content;
-		if (max > *(int *)temp->content && *(int *)temp->content > value)
-			max = *(int *)temp->content;
+		curr = *(int *)temp->content;
+		next = *(int *)temp->next->content;
+		if (curr >= value && value >= next)
+			return (index + 1);
+		if (curr < next && (value >= next || value <= curr))
+			return (index + 1);
+		index++;
 		temp = temp->next;
 	}
-	while (b)
-	{
-		if (*(int *)b->content == min && *(int *)b->next->content == max)
-			return (index);
-		b = b->next;
-		index++;
-	}
-	return (INT_MIN);
+	return (0);
 }
 
 void	rotation_judge(t_stack **b, int index)
 {
-	if (index <= ft_stacksize(*b) / 2)
+	int	size;
+
+	size = ft_stacksize(*b);
+	if (index <= size / 2)
 	{
 		while (index > 0)
 		{
@@ -67,26 +66,26 @@ void	bouncer(t_stack **a, t_stack **b, t_list *LIS)
 	int	index;
 	int	size;
 
-	i = 0;
+	i = -1;
 	size = ft_stacksize(*a);
-	while (i < size)
+	while (++i < size)
 	{
 		val = (int *)(*a)->content;
-		if (is_in_the_LIS_list(LIS, val)) r_op(a, 0);
+		if (is_in_the_LIS_list(LIS, val))
+			r_op(a, 'a');
 		else
 		{
-			if (ft_stacksize(*b) <= 2)
-				p_op(a, b, 0);
+			if (ft_stacksize(*b) < 2)
+				p_op(a, b, 'b');
 			else
 			{
 				index = find_index(*b, *val);
 				rotation_judge(b, index);
-				p_op(a, b, 0);
+				p_op(a, b, 'b');
 			}
 		}
-		i++;
 	}
-	r_op(b, 0);
+	r_op(b, 'b');
 }
 
 int	is_in_the_LIS_list(t_list *LIS, int *val)

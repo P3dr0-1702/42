@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/13 14:14:36 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:52:08 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void				ft_putstr(char *str);
 char				*gnl_ft_strchr(const char *s, int b);
 char				*gnl_strjoin(char *s1, char *s2);
 char				*isolate_line(char *line, char *buffer);
-//size_t				ft_strlen(const char *str);
+// size_t				ft_strlen(const char *str);
 char				*get_next_line(int fd);
 
 // stack functions
@@ -123,6 +123,6 @@ void				ft_stackadd_back(t_stack **lst, t_stack *new);
 void				ft_stackadd_front(t_stack **lst, t_stack *new);
 t_stack				*ft_stackfirst(t_stack *lst);
 
-//gnl funcs
+// gnl funcs
 
 #endif

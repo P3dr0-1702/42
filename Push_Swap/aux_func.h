@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:45:31 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/16 17:03:57 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:16:21 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_list(t_list **a);
 // organizer funcs
 void	organizer(t_stack **g, t_stack **solved);
 void	stack_eater(t_stack *a);
-t_list	*LIS_tractor(t_stack *stack);
+t_list	*lis_tractor(t_stack *stack);
 
 //solver funcs
 void	bouncer(t_stack **a, t_stack **b, t_list *LIS);
@@ -50,4 +50,5 @@ int		find_index(t_stack *b, int value);
 
 // void	comparator(t_stack **a, t_stack **b, t_stack **solving);
 // void	rotator(t_stack **a, t_stack **b, t_stack **solving);
+void	debug_stack(t_stack *stack);
 #endif

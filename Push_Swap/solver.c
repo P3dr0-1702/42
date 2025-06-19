@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:14:48 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/18 16:42:47 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:33:06 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,18 @@ void	bouncer(t_stack **a, t_stack **b, t_list *LIS)
 
 	i = -1;
 	size = ft_stacksize(*a);
-	while (++i < size)
+	val = (int *)(*a)->content;
+	if (is_in_the_LIS_list(LIS, val))
+		r_op(a, 'a');
+	else
 	{
-		val = (int *)(*a)->content;
-		if (is_in_the_LIS_list(LIS, val))
-			r_op(a, 'a');
+		if (ft_stacksize(*b) < 2)
+			p_op(a, b, 'b');
 		else
 		{
-			if (ft_stacksize(*b) < 2)
-				p_op(a, b, 'b');
-			else
-			{
-				index = find_index(*b, *val);
-				rotation_judge(b, index);
-				p_op(a, b, 'b');
-			}
+			index = find_index(*b, *val);
+			rotation_judge(b, index);
+			p_op(a, b, 'b');
 		}
 	}
 	r_op(b, 'b');

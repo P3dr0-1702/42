@@ -6,43 +6,40 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/05/29 12:41:49 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/06/19 16:34:45 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-CFLAGS = -Wall -Werror -Wextra
 
-libDIR = lib
-libNAME = libft.a
-libPATH = $(libDIR)/$(libNAME)
+CC = cc
+FLAGS = -Wall -Werror -Wextra -g
+MLX = minilibx/libmlx.a
 
-SRCS = 
-OBJS = $(SRCS:.c=.o)
+SRC_FILES =	main.c
+OBJS = $(SRC_FILES:.c=.o)
+LIBFT = lib/libft.a
 
-libSRCS = $(wildcard $(libDIR)/*.c)
-libOBJS = $(libSRCS:%.c=%.o)
+all: $(NAME) 
 
-all: $(libPATH) $(NAME)
+$(NAME):$(OBJS) $(LIBFT) $(MLX)
+	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX) -lXext -lX11 -g -o $(NAME)
 
-$(libPATH): $(libOBJS)
-	ar rcs $@ $^
-
-$(libDIR)/%.o: $(libDIR)/%.c
-	cc $(CFLAGS) -I $(libDIR) -c $< -o $@
-
-$(NAME): $(OBJS) $(libPATH)
-	cc $(CFLAGS) $^ -I $(libDIR) -L $(libDIR) -lft -o $@ 
-	
 %.o: %.c
-	cc $(CFLAGS) -I $(libDIR) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
+	
+$(LIBFT):
+	@$(MAKE) -C lib
+	
+$(MLX):
+	@make -C minilibx
 
 clean:
-	rm -f $(OBJS) $(libOBJS)
-
-fclean: clean
-	rm -f $(NAME)
-	rm -f $(libPATH)
+	@rm -f $(OBJS)
+	@make clean -C lib
+fclean:clean
+	@rm -f $(NAME)
+	@make fclean -C lib
 
 re: fclean all
 

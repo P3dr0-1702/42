@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/19 18:00:36 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/20 09:58:33 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_list
 
 typedef struct s_stack
 {
-	//int				index;
+	int				cost;
 	void			*content;
 	struct s_stack	*next;
 	struct s_stack	*prev;

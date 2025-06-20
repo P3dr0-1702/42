@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:04:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/18 16:44:10 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/20 10:56:13 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(void)
 	t_stack	**stack;
 	t_list	*LIS;
 	t_list	*newtry;
+	t_stack	*headbs;
+	t_stack	**b;
 
 	k = 0;
 	head = NULL;
@@ -40,18 +42,18 @@ int	main(void)
 		ft_stackadd_back(stack, node);
 		k++;
 	}
-	//print_stack(stack);
-	//printf("\n");
+	// print_stack(stack);
+	// printf("\n");
 	*solved = illegal_solver(&head);
-	//print_stack(solved);
-	//printf("\n");
+	// print_stack(solved);
+	// printf("\n");
 	indexer(stack, solved);
 	indexer2(solved);
-	//print_stack(stack);
-	//printf("\n");
-	//printf("-------------------------------------");
-	//printf("\n");
-	//print_stack(solved);
+	// print_stack(stack);
+	// printf("\n");
+	// printf("-------------------------------------");
+	// printf("\n");
+	// print_stack(solved);
 	LIS = NULL;
 	k = 0;
 	while (k < ft_stacksize(*stack))
@@ -66,16 +68,17 @@ int	main(void)
 	}
 	print_stack(stack);
 	printf("\n\n");
-	//printf("\n");
-	//printf("\n");
-	//print_list(&LIS);
-	//printf("\n");
-	//printf("\n");
-	t_stack *headbs = NULL;
-	t_stack **b = &headbs;
-	bouncer(stack, b, LIS);
-	//print_stack(stack);
-	//printf("\n");
-	//printf("\n");
-	//printf("\n");
+	// printf("\n");
+	// printf("\n");
+	// print_list(&LIS);
+	// printf("\n");
+	// printf("\n");
+	headbs = NULL;
+	b = &headbs;
+	while (notmembers_of_LIS(*stack, LIS) > 0)
+		move_cheapest(stack, b, LIS);
+	// print_stack(stack);
+	// printf("\n");
+	// printf("\n");
+	// printf("\n");
 }

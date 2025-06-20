@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:45:31 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/18 15:16:21 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/20 10:39:44 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ void	organizer(t_stack **g, t_stack **solved);
 void	stack_eater(t_stack *a);
 t_list	*lis_tractor(t_stack *stack);
 
-//solver funcs
+// solver funcs
 void	bouncer(t_stack **a, t_stack **b, t_list *LIS);
 int		is_in_the_LIS_list(t_list *LIS, int *val);
 void	rotation_judge(t_stack **b, int index);
 int		find_index(t_stack *b, int value);
-
-// void	comparator(t_stack **a, t_stack **b, t_stack **solving);
-// void	rotator(t_stack **a, t_stack **b, t_stack **solving);
-void	debug_stack(t_stack *stack);
+int		sim_rotation_judge(t_stack *b, int index);
+void	update_cost(t_stack *a, t_stack *b, t_list *LIS);
+t_stack	*cheapest_node(t_stack *a);
+int	get_node_index(t_stack *a, t_stack *target);
+void	rotate_to_node(t_stack **a, t_stack *target);
+void	move_cheapest(t_stack **a, t_stack **b, t_list *LIS);
+int	notmembers_of_LIS(t_stack *a, t_list *LIS);
 #endif

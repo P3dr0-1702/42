@@ -1,0 +1,785 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aux_func.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/11 10:17:04 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/16 17:03:26 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+void	print_stack(t_stack **a)
+{
+	t_stack	*b;
+
+	b = *a;
+	while (b != NULL)
+	{
+		printf("%d ", *(int *)b->content);
+		b = b->next;
+	}
+}
+
+void	print_list(t_list **a)
+{
+	t_list	*b;
+
+	b = *a;
+	while (b != NULL)
+	{
+		printf("%d ", *(int *)b->content);
+		b = b->next;
+	}
+}
+
+void	indexer(t_stack **a2, t_stack **solved)
+{
+	t_stack	*solving;
+	t_stack	*a;
+	int		index;
+	int		*new_ind;
+
+	a = *a2;
+	while (a)
+	{
+		index = 1;
+		solving = *solved;
+		while (*(int *)a->content != *(int *)solving->content)
+		{
+			solving = solving->next;
+			index++;
+		}
+		new_ind = malloc(sizeof(int));
+		*new_ind = index;
+		a->content = new_ind;
+		a = a->next;
+	}
+}
+
+void	indexer2(t_stack **solved2)
+{
+	t_stack	*solved;
+	int		index;
+	int		*new_ind;
+
+	index = 1;
+	solved = *solved2;
+	while (solved)
+	{
+		new_ind = malloc(sizeof(int));
+		*new_ind = index;
+		solved->content = new_ind;
+		solved = solved->next;
+		index++;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   illegal_solver.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/11 10:03:42 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/16 17:04:09 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+t_stack	*illegal_solver(t_stack **a)
+{
+	int		value;
+	t_stack	*sorted;
+	t_stack	*a2;
+	t_stack	*new_node;
+
+	sorted = NULL;
+	a2 = *a;
+	while (a2)
+	{
+		value = *(int *)a2->content;
+		new_node = ft_stack_newnode(value);
+		sorted = put_into_stack(sorted, new_node);
+		a2 = a2->next;
+	}
+	return (sorted);
+}
+
+t_stack	*put_into_stack(t_stack *sorted, t_stack *node)
+{
+	int		sorting;
+	t_stack	*stop;
+
+	sorting = *(int *)node->content;
+	if (!sorted || sorting < *(int *)sorted->content)
+	{
+		node->next = sorted;
+		if (sorted)
+			sorted->prev = node;
+		node->prev = NULL;
+		return (node);
+	}
+	stop = sorted;
+	while (stop->next && *(int *)stop->next->content < sorting)
+		stop = stop->next;
+	node->next = stop->next;
+	if (stop->next)
+		stop->next->prev = node;
+	stop->next = node;
+	node->prev = stop;
+	return (sorted);
+}
+
+t_stack	*ft_stack_newnode(int currNBR)
+{
+	t_stack	*s;
+	int		*ptr;
+
+	s = malloc(sizeof(t_stack));
+	ptr = malloc(sizeof(int));
+	if (!s || !ptr)
+		return (NULL);
+	*ptr = currNBR;
+	s->content = ptr;
+	s->next = NULL;
+	s->prev = NULL;
+	return (s);
+}
+
+int	check_stack_status(t_stack *a, int is_reverse)
+{
+	int	k;
+
+	k = 0;
+	while (a->next != NULL || k < ft_stacksize(a) + 1)
+	{
+		if (is_reverse)
+		{
+			if (*(int *)a->content < *(int *)a->next->content)
+				return (0);
+		}
+		else
+		{
+			if (*(int *)a->content > *(int *)a->next->content)
+				return (0);
+		}
+		a = a->next;
+		k++;
+	}
+	return (1);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   LIS_list.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/16 14:35:34 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/20 11:04:11 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+int	*stack_to_arr_conversion(t_stack *stack)
+{
+	int	*arr;
+	int	i;
+	int	size;
+
+	size = ft_stacksize(stack);
+	arr = malloc(sizeof(int) * size);
+	if (!arr)
+		return (NULL);
+	i = 0;
+	while (stack && i < size)
+	{
+		arr[i] = *(int *)stack->content;
+		stack = stack->next;
+		i++;
+	}
+	return (arr);
+}
+
+int	fill_prev(int *prev, int *tails, int start, int i)
+{
+	if (start > 0)
+		prev[i] = tails[start - 1];
+	else
+		prev[i] = -1;
+	return (i);
+}
+
+int	fill_arr(int *arr, int *tails, int *prev, int size)
+{
+	int	i;
+	int	start;
+	int	end;
+	int	meio;
+	int	lis_len;
+
+	i = -1;
+	lis_len = 0;
+	while (++i < size)
+	{
+		start = 0;
+		end = lis_len;
+		while (start < end)
+		{
+			meio = (start + end) / 2;
+			if (arr[tails[meio]] < arr[i])
+				start = meio + 1;
+			else
+				end = meio;
+		}
+		if (start == lis_len)
+			lis_len++;
+		tails[end] = fill_prev(prev, tails, start, i);
+	}
+	return (lis_len);
+}
+
+t_list	*write_list(int *arr, int *prev, int last_index)
+{
+	t_list	*list;
+	int		*val;
+
+	list = NULL;
+	while (last_index >= 0)
+	{
+		val = malloc(sizeof(int));
+		if (!val)
+			break ;
+		*val = arr[last_index];
+		ft_lstadd_front(&list, ft_lstnew(val));
+		last_index = prev[last_index];
+	}
+	return (list);
+}
+
+t_list	*lis_tractor(t_stack *stack)
+{
+	int		*arr;
+	int		*tails;
+	int		*prev;
+	int		lis_len;
+	t_list	*lis;
+
+	arr = stack_to_arr_conversion(stack);
+	tails = malloc(sizeof(int) * ft_stacksize(stack));
+	prev = malloc(sizeof(int) * ft_stacksize(stack));
+	if (!arr || !tails || !prev)
+		return (NULL);
+	lis_len = fill_arr(arr, tails, prev, ft_stacksize(stack));
+	lis = write_list(arr, prev, tails[lis_len - 1]);
+	free(arr);
+	free(tails);
+	free(prev);
+	return (lis);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ops.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/01 17:44:17 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/18 16:42:32 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+void	s_op(t_stack **lst, char is_a)
+{
+	t_stack	*temp;
+	t_stack	*temp2;
+	void	*rando;
+
+	if (!lst || !*lst || !((*lst)->next))
+		return ;
+	temp = *lst;
+	temp2 = temp->next;
+	rando = temp->content;
+	temp->content = temp2->content;
+	temp2->content = rando;
+	if (is_a)
+		ft_printf("s%c\n", is_a);
+}
+
+void	p_op(t_stack **from, t_stack **to, char is_a)
+{
+	t_stack	*tempa;
+
+	if (!(*from))
+		return ;
+	tempa = *from;
+	*from = (*from)->next;
+	if (*from)
+		(*from)->prev = NULL;
+	tempa->next = *to;
+	if (*to)
+		(*to)->prev = tempa;
+	tempa->prev = NULL;
+	*to = tempa;
+	if (is_a)
+		ft_printf("p%c\n", is_a);
+}
+
+void	r_op(t_stack **a, char is_a)
+{
+	t_stack	*first;
+	t_stack	*second;
+
+	if (!a || !(*a) || !((*a)->next))
+		return ;
+	first = *a;
+	*a = (*a)->next;
+	(*a)->prev = NULL;
+	second = *a;
+	while (second->next)
+		second = second->next;
+	second->next = first;
+	first->prev = second;
+	first->next = NULL;
+	if (is_a)
+		ft_printf("r%c\n", is_a);
+}
+
+void	rr_op(t_stack **a, char is_a)
+{
+	t_stack	*last;
+
+	if (!a || !(*a) || !((*a)->next))
+		return ;
+	last = *a;
+	while (last->next)
+		last = last->next;
+	if (last->prev)
+		last->prev->next = NULL;
+	last->prev = NULL;
+	last->next = *a;
+	(*a)->prev = last;
+	*a = last;
+	if (is_a)
+		ft_printf("rr%c\n", is_a);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sim_cost.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/19 17:32:30 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/20 10:16:07 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+int	sim_rotation_judge(t_stack *b, int index)
+{
+	int	size;
+
+	size = ft_stacksize(b);
+	if (index <= size / 2)
+		return (index);
+	else
+		return (size - index);
+}
+
+void	update_cost(t_stack *a, t_stack *b, t_list *LIS)
+{
+	t_stack	*curr;
+	int		indexa;
+	int		indexb;
+	int		costa;
+	int		costb;
+
+	curr = a;
+	indexa = 0;
+	while (curr)
+	{
+		if (is_in_the_LIS_list(LIS, (int *)curr->content))
+			curr->cost = INT_MAX;
+		else
+		{
+			costa = sim_rotation_judge(a, indexa);
+			indexb = find_index(b, *(int *)curr->content);
+			costb = sim_rotation_judge(b, indexb);
+			curr->cost = costa + costb + 1;
+		}
+		curr = curr->next;
+		indexa++;
+	}
+}
+
+t_stack *cheapest_node(t_stack *a)
+{
+	t_stack *min_node;
+
+	min_node = NULL;
+	while(a)
+	{
+		if(a->cost != INT_MAX && (!min_node || a->cost < min_node->cost))
+			min_node = a;
+		a = a->next;
+	}
+	return (min_node);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solver.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/16 11:14:48 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/20 11:07:36 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+int	find_index(t_stack *b, int value)
+{
+	t_stack	*temp;
+	int		index;
+	int		curr;
+	int		next;
+
+	index = 0;
+	temp = b;
+	while (temp->next)
+	{
+		curr = *(int *)temp->content;
+		next = *(int *)temp->next->content;
+		if (curr >= value && value >= next)
+			return (index + 1);
+		if (curr < next && (value >= next || value <= curr))
+			return (index + 1);
+		index++;
+		temp = temp->next;
+	}
+	return (0);
+}
+
+void	rotation_judge(t_stack **b, int index)
+{
+	int	size;
+
+	size = ft_stacksize(*b);
+	if (index <= size / 2)
+	{
+		while (index > 0)
+		{
+			r_op(b, 'b');
+			index--;
+		}
+	}
+	else
+	{
+		index = ft_stacksize(*b) - index;
+		while (index > 0)
+		{
+			rr_op(b, 'b');
+			index--;
+		}
+	}
+}
+
+void	bouncer(t_stack **a, t_stack **b, t_list *LIS)
+{
+	int	i;
+	int	*val;
+	int	index;
+	int	size;
+
+	i = -1;
+	size = ft_stacksize(*a);
+	val = (int *)(*a)->content;
+	if (is_in_the_LIS_list(LIS, val))
+		r_op(a, 'a');
+	else
+	{
+		if (ft_stacksize(*b) < 2 )
+			p_op(a, b, 'b');
+		else
+		{
+			index = find_index(*b, *val);
+			rotation_judge(b, index);
+			p_op(a, b, 'b');
+		}
+	}
+	r_op(b, 'b');
+}
+
+int	is_in_the_LIS_list(t_list *LIS, int *val)
+{
+	while (LIS)
+	{
+		if (*(int *)LIS->content == *val)
+			return (1);
+		LIS = LIS->next;
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sops.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/11 09:54:38 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/16 17:11:18 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+void	ss_sop(t_stack **a, t_stack **b)
+{
+	s_op(a, 0);
+	s_op(b, 0);
+	ft_printf("ss\n");
+}
+
+void	rr_sop(t_stack **a, t_stack **b, char *print)
+{
+	r_op(a, 0);
+	r_op(b, 0);
+	if (print)
+		ft_printf("r%s\n", print);
+}
+
+void	rrr_sop(t_stack **a, t_stack **b, char *print)
+{
+	rr_op(a, 0);
+	rr_op(b, 0);
+	if (print)
+		ft_printf("r%s\n", print);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   testing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/11 10:04:22 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/20 10:56:13 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+#include "stdlib.h"
+
+int	main(void)
+{
+	int		*i;
+	int		k;
+	t_stack	*head;
+	t_stack	*headb;
+	t_stack	*node;
+	t_stack	**solved;
+	t_stack	**stack;
+	t_list	*LIS;
+	t_list	*newtry;
+	t_stack	*headbs;
+	t_stack	**b;
+
+	k = 0;
+	head = NULL;
+	headb = NULL;
+	node = NULL;
+	stack = &head;
+	solved = &headb;
+	while (k < 1000)
+	{
+		i = malloc(sizeof(int));
+		*i = rand() % rand();
+		// printf("%d ", *i);
+		node = ft_stacknew(i);
+		ft_stackadd_back(stack, node);
+		k++;
+	}
+	// print_stack(stack);
+	// printf("\n");
+	*solved = illegal_solver(&head);
+	// print_stack(solved);
+	// printf("\n");
+	indexer(stack, solved);
+	indexer2(solved);
+	// print_stack(stack);
+	// printf("\n");
+	// printf("-------------------------------------");
+	// printf("\n");
+	// print_stack(solved);
+	LIS = NULL;
+	k = 0;
+	while (k < ft_stacksize(*stack))
+	{
+		newtry = lis_tractor(*stack);
+		if (ft_lstsize(newtry) > ft_lstsize(LIS))
+		{
+			LIS = newtry;
+		}
+		r_op(stack, 0);
+		k++;
+	}
+	print_stack(stack);
+	printf("\n\n");
+	// printf("\n");
+	// printf("\n");
+	// print_list(&LIS);
+	// printf("\n");
+	// printf("\n");
+	headbs = NULL;
+	b = &headbs;
+	while (notmembers_of_LIS(*stack, LIS) > 0)
+		move_cheapest(stack, b, LIS);
+	// print_stack(stack);
+	// printf("\n");
+	// printf("\n");
+	// printf("\n");
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tio_patinhas.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/20 10:36:22 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/20 11:05:09 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aux_func.h"
+
+int	get_node_index(t_stack *a, t_stack *target)
+{
+	int	i;
+
+	i = 0;
+	while (a)
+	{
+		if (a == target)
+			return (i);
+		a = a->next;
+		i++;
+	}
+	return (-1);
+}
+void	rotate_to_node(t_stack **a, t_stack *target)
+{
+	int	index;
+	int	size;
+
+	index = get_node_index(*a, target);
+	size = ft_stacksize(*a);
+	if (index <= size / 2)
+	{
+		while (index-- > 0)
+			r_op(a, 'a');
+	}
+	else
+	{
+		index = size - index;
+		while (index-- > 0)
+			rr_op(a, 'a');
+	}
+}
+void	move_cheapest(t_stack **a, t_stack **b, t_list *LIS)
+{
+	t_stack	*target;
+	int		indexb;
+
+	update_cost(*a, *b, LIS);
+	target = cheapest_node(*a);
+	if (!target)
+		return ;
+	rotate_to_node(a, target);
+	indexb = find_index(*b, *(int *)target->content);
+	rotation_judge(b, indexb);
+	bouncer(a, b, LIS);
+}
+
+int	notmembers_of_LIS(t_stack *a, t_list *LIS)
+{
+	int count;
+
+	count = 0;
+	while (a)
+	{
+		if (!is_in_the_LIS_list(LIS, (int *)a->content))
+			count++;
+		a = a->next;
+	}
+	return (count);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aux_func.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/01 17:45:31 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/06/20 10:39:44 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef AUX_FUNC_H
+# define AUX_FUNC_H
+
+# include "lib/libft.h"
+
+// push_swap ops
+void	s_op(t_stack **lst, char is_a);
+void	p_op(t_stack **from, t_stack **to, char is_a);
+void	r_op(t_stack **a, char is_a);
+void	rr_op(t_stack **a, char is_a);
+void	ss_sop(t_stack **a, t_stack **b);
+void	rr_sop(t_stack **a, t_stack **b, char *print);
+void	rrr_sop(t_stack **a, t_stack **b, char *print);
+
+// illegal solve funcs
+t_stack	*illegal_solver(t_stack **a);
+t_stack	*put_into_stack(t_stack *sorted, t_stack *node);
+t_stack	*ft_stack_newnode(int currNBR);
+int		check_stack_status(t_stack *a, int is_reverse);
+
+// testing funcs
+void	print_stack(t_stack **a);
+void	indexer(t_stack **a2, t_stack **solved);
+void	indexer2(t_stack **solved2);
+int		arr_size(int *arr);
+void	print_list(t_list **a);
+
+// organizer funcs
+void	organizer(t_stack **g, t_stack **solved);
+void	stack_eater(t_stack *a);
+t_list	*lis_tractor(t_stack *stack);
+
+// solver funcs
+void	bouncer(t_stack **a, t_stack **b, t_list *LIS);
+int		is_in_the_LIS_list(t_list *LIS, int *val);
+void	rotation_judge(t_stack **b, int index);
+int		find_index(t_stack *b, int value);
+int		sim_rotation_judge(t_stack *b, int index);
+void	update_cost(t_stack *a, t_stack *b, t_list *LIS);
+t_stack	*cheapest_node(t_stack *a);
+int	get_node_index(t_stack *a, t_stack *target);
+void	rotate_to_node(t_stack **a, t_stack *target);
+void	move_cheapest(t_stack **a, t_stack **b, t_list *LIS);
+int	notmembers_of_LIS(t_stack *a, t_list *LIS);
+#endif

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:14:48 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/19 17:33:06 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:10:13 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	find_index(t_stack *b, int value)
 	int		curr;
 	int		next;
 
+	if (!b || !b->next)
+		return (0);
 	index = 0;
 	temp = b;
 	while (temp->next)

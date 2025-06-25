@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sim_cost.h                                         :+:      :+:    :+:   */
+/*   sim_cost.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:32:30 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/20 10:16:07 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:28:58 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-int	sim_rotation_judge(t_stack *b, int index)
+static int	sim_rotation_judge(t_stack *b, int index)
 {
 	int	size;
 
@@ -23,7 +23,7 @@ int	sim_rotation_judge(t_stack *b, int index)
 		return (size - index);
 }
 
-void	update_cost(t_stack *a, t_stack *b, t_list *LIS)
+void	update_cost(t_stack *a, t_stack *b, t_list *lis)
 {
 	t_stack	*curr;
 	int		indexa;
@@ -35,8 +35,8 @@ void	update_cost(t_stack *a, t_stack *b, t_list *LIS)
 	indexa = 0;
 	while (curr)
 	{
-		if (is_in_the_LIS_list(LIS, (int *)curr->content))
-			curr->cost = INT_MAX;
+		if (is_in_the_lis_list(lis, (int *)curr->content))
+			curr->cost = INT_MAX - 1;
 		else
 		{
 			costa = sim_rotation_judge(a, indexa);
@@ -49,14 +49,14 @@ void	update_cost(t_stack *a, t_stack *b, t_list *LIS)
 	}
 }
 
-t_stack *cheapest_node(t_stack *a)
+t_stack	*cheapest_node(t_stack *a)
 {
-	t_stack *min_node;
+	t_stack	*min_node;
 
 	min_node = NULL;
-	while(a)
+	while (a)
 	{
-		if(a->cost != INT_MAX && (!min_node || a->cost < min_node->cost))
+		if (a->cost != INT_MAX && (!min_node || a->cost < min_node->cost))
 			min_node = a;
 		a = a->next;
 	}

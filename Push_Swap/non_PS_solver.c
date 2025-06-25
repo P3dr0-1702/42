@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   illegal_solver.c                                   :+:      :+:    :+:   */
+/*   non_PS_solver.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:03:42 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/16 17:04:09 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:13:40 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-t_stack	*illegal_solver(t_stack **a)
+t_stack	*non_ps_solver(t_stack **a)
 {
 	int		value;
 	t_stack	*sorted;
@@ -70,27 +70,4 @@ t_stack	*ft_stack_newnode(int currNBR)
 	s->next = NULL;
 	s->prev = NULL;
 	return (s);
-}
-
-int	check_stack_status(t_stack *a, int is_reverse)
-{
-	int	k;
-
-	k = 0;
-	while (a->next != NULL || k < ft_stacksize(a) + 1)
-	{
-		if (is_reverse)
-		{
-			if (*(int *)a->content < *(int *)a->next->content)
-				return (0);
-		}
-		else
-		{
-			if (*(int *)a->content > *(int *)a->next->content)
-				return (0);
-		}
-		a = a->next;
-		k++;
-	}
-	return (1);
 }

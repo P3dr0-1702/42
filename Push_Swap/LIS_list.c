@@ -6,13 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:35:34 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/20 11:04:11 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:17:44 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-int	*stack_to_arr_conversion(t_stack *stack)
+static int	*stack_to_arr_conversion(t_stack *stack)
 {
 	int	*arr;
 	int	i;
@@ -32,7 +32,7 @@ int	*stack_to_arr_conversion(t_stack *stack)
 	return (arr);
 }
 
-int	fill_prev(int *prev, int *tails, int start, int i)
+static int	fill_prev(int *prev, int *tails, int start, int i)
 {
 	if (start > 0)
 		prev[i] = tails[start - 1];
@@ -41,7 +41,7 @@ int	fill_prev(int *prev, int *tails, int start, int i)
 	return (i);
 }
 
-int	fill_arr(int *arr, int *tails, int *prev, int size)
+static int	fill_arr(int *arr, int *tails, int *prev, int size)
 {
 	int	i;
 	int	start;
@@ -70,7 +70,7 @@ int	fill_arr(int *arr, int *tails, int *prev, int size)
 	return (lis_len);
 }
 
-t_list	*write_list(int *arr, int *prev, int last_index)
+static t_list	*write_list(int *arr, int *prev, int last_index)
 {
 	t_list	*list;
 	int		*val;

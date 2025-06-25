@@ -6,11 +6,18 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:14:48 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/20 11:10:13 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:44:45 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
+
+int	abs(int x)
+{
+	if (x < 0)
+		return (x * -1);
+	return (x);
+}
 
 int	find_index(t_stack *b, int value)
 {
@@ -29,7 +36,7 @@ int	find_index(t_stack *b, int value)
 		next = *(int *)temp->next->content;
 		if (curr >= value && value >= next)
 			return (index + 1);
-		if (curr < next && (value >= next || value <= curr))
+		else if (curr < next && (value >= next || value <= curr))
 			return (index + 1);
 		index++;
 		temp = temp->next;
@@ -37,63 +44,75 @@ int	find_index(t_stack *b, int value)
 	return (0);
 }
 
-void	rotation_judge(t_stack **b, int index)
+void	rr_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb)
 {
-	int	size;
-
-	size = ft_stacksize(*b);
-	if (index <= size / 2)
+	while (*indexa < 0 && *indexb < 0)
 	{
-		while (index > 0)
-		{
-			r_op(b, 'b');
-			index--;
-		}
+		rrr_sop(a, b, "rr");
+		(*indexa)++;
+		(*indexb)++;
 	}
-	else
+	while (*indexa < 0)
 	{
-		index = ft_stacksize(*b) - index;
-		while (index > 0)
-		{
-			rr_op(b, 'b');
-			index--;
-		}
+		rr_op(a, 'a');
+		(*indexa)++;
+	}
+	while (*indexb < 0)
+	{
+		rr_op(b, 'b');
+		(*indexb)++;
 	}
 }
 
-void	bouncer(t_stack **a, t_stack **b, t_list *LIS)
+void	r_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb)
 {
-	int	i;
-	int	*val;
-	int	index;
-	int	size;
-
-	i = -1;
-	size = ft_stacksize(*a);
-	val = (int *)(*a)->content;
-	if (is_in_the_LIS_list(LIS, val))
+	while (*indexa > 0 && *indexb > 0)
+	{
+		rr_sop(a, b, "r");
+		(*indexa)--;
+		(*indexb)--;
+	}
+	while (*indexa > 0)
+	{
 		r_op(a, 'a');
-	else
-	{
-		if (ft_stacksize(*b) < 2)
-			p_op(a, b, 'b');
-		else
-		{
-			index = find_index(*b, *val);
-			rotation_judge(b, index);
-			p_op(a, b, 'b');
-		}
+		(*indexa)--;
 	}
-	r_op(b, 'b');
+	while (*indexb > 0)
+	{
+		r_op(b, 'b');
+		(*indexb)--;
+	}
 }
 
-int	is_in_the_LIS_list(t_list *LIS, int *val)
+void rotation_judge_a2b(t_stack **a, t_stack **b, int indexa, int indexb)
 {
-	while (LIS)
+	int	siza;
+	int	sizb;
+	int	offseta;
+	int	offsetb;
+
+	siza = ft_stacksize(*a);
+	sizb = ft_stacksize(*b);
+	offseta = indexa;
+	if ((indexa > siza / 2))
+		offseta = (abs(indexa - siza)) * -1;
+	offsetb = indexb;
+	if ((indexb > sizb / 2))
+		offsetb = (abs(indexb - sizb)) * -1;
+	rr_sop_multi(a, b, &offseta, &offsetb);
+	r_sop_multi(a, b, &offseta, &offsetb);
+	p_op(a, b, 'b');
+}
+
+int	is_in_the_lis_list(t_list *lis, int *val)
+{
+	if (!lis)
+		return (0);
+	while (lis)
 	{
-		if (*(int *)LIS->content == *val)
+		if (*(int *)lis->content == *val)
 			return (1);
-		LIS = LIS->next;
+		lis = lis->next;
 	}
 	return (0);
 }

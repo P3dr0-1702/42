@@ -5,6 +5,11 @@
 		"unistd.h": "c",
 		"stdarg.h": "c",
 		"stdbool.h": "c",
-		"stdint.h": "c"
+		"stdint.h": "c",
+		"array": "c",
+		"string_view": "c",
+		"format": "c",
+		"initializer_list": "c",
+		"span": "c"
 	}
 }

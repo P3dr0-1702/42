@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/20 09:58:33 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:03:50 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int					ft_tolower(int a);
 int					ft_toupper(int a);
 
 // list functions
-void				ft_lstadd_back(t_list **lst, t_list *new);
-void				ft_lstadd_front(t_list **lst, t_list *new);
+void				ft_lstadd_back(t_list **lst, t_list *node);
+void				ft_lstadd_front(t_list **lst, t_list *node);
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
@@ -120,8 +120,8 @@ char				*get_next_line(int fd);
 
 // stack functions
 void				ft_stack_reverse_iter(t_stack *lst, void (*f)(void *));
-void				ft_stackadd_back(t_stack **lst, t_stack *new);
-void				ft_stackadd_front(t_stack **lst, t_stack *new);
+void				ft_stackadd_back(t_stack **lst, t_stack *node);
+void				ft_stackadd_front(t_stack **lst, t_stack *node);
 t_stack				*ft_stackfirst(t_stack *lst);
 
 // gnl funcs

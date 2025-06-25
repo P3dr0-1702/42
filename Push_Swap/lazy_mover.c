@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tio_patinhas.c                                     :+:      :+:    :+:   */
+/*   lazy_mover.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 10:36:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/20 11:05:09 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:08:39 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,48 +26,28 @@ int	get_node_index(t_stack *a, t_stack *target)
 	}
 	return (-1);
 }
-void	rotate_to_node(t_stack **a, t_stack *target)
-{
-	int	index;
-	int	size;
 
-	index = get_node_index(*a, target);
-	size = ft_stacksize(*a);
-	if (index <= size / 2)
-	{
-		while (index-- > 0)
-			r_op(a, 'a');
-	}
-	else
-	{
-		index = size - index;
-		while (index-- > 0)
-			rr_op(a, 'a');
-	}
-}
-void	move_cheapest(t_stack **a, t_stack **b, t_list *LIS)
+void	move_cheapest_a2b(t_stack **a, t_stack **b, t_list *lis)
 {
 	t_stack	*target;
 	int		indexb;
 
-	update_cost(*a, *b, LIS);
+	update_cost(*a, *b, lis);
 	target = cheapest_node(*a);
 	if (!target)
 		return ;
-	rotate_to_node(a, target);
 	indexb = find_index(*b, *(int *)target->content);
-	rotation_judge(b, indexb);
-	bouncer(a, b, LIS);
+	rotation_judge_a2b(a, b, get_node_index(*a, target), indexb);
 }
 
-int	notmembers_of_LIS(t_stack *a, t_list *LIS)
+int	notmembers_of_lis(t_stack *a, t_list *lis)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (a)
 	{
-		if (!is_in_the_LIS_list(LIS, (int *)a->content))
+		if (!is_in_the_lis_list(lis, (int *)a->content))
 			count++;
 		a = a->next;
 	}

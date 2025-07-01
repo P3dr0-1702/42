@@ -6,53 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:56:05 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/25 15:30:31 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 13:38:59 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-static bool	is_aldigit(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == ' ')
-		{
-			i++;
-			continue ;
-		}
-		if (s[i] == '-' || s[i] == '+')
-		{
-			if ((i > 0 && s[i - 1] != ' ') || !ft_isdigit(s[i + 1]))
-				return (false);
-			i++;
-		}
-		if (!ft_isdigit(s[i]))
-			return (false);
-		while (ft_isdigit(s[i]))
-			i++;
-	}
-	return (true);
-}
-
-bool	valid_input(char **argv)
-{
-	int		j;
-
-	j = 1;
-	while (argv[j])
-	{
-		if (!is_aldigit(argv[j]))
-			return (false);
-		j++;
-	}
-	return (true);
-}
-
-static int	arr_len(char **ar)
+int	arr_len(char **ar)
 {
 	int	i;
 	int	count;
@@ -75,7 +35,7 @@ char	*join_args(char **argv)
 	int		s;
 	char	*str;
 
-	str = malloc(sizeof(char) * arr_len(argv));
+	str = malloc(sizeof(char) * (arr_len(argv) + 1));
 	j = 1;
 	s = 0;
 	while (argv[j])
@@ -93,7 +53,7 @@ char	*join_args(char **argv)
 		str[s++] = '|';
 		j++;
 	}
-	str[s - 1] = '\0';
+	str[s] = '\0';
 	return (str);
 }
 

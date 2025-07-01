@@ -6,69 +6,12 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:35:34 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/24 15:17:44 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:21:34 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-static int	*stack_to_arr_conversion(t_stack *stack)
-{
-	int	*arr;
-	int	i;
-	int	size;
-
-	size = ft_stacksize(stack);
-	arr = malloc(sizeof(int) * size);
-	if (!arr)
-		return (NULL);
-	i = 0;
-	while (stack && i < size)
-	{
-		arr[i] = *(int *)stack->content;
-		stack = stack->next;
-		i++;
-	}
-	return (arr);
-}
-
-static int	fill_prev(int *prev, int *tails, int start, int i)
-{
-	if (start > 0)
-		prev[i] = tails[start - 1];
-	else
-		prev[i] = -1;
-	return (i);
-}
-
-static int	fill_arr(int *arr, int *tails, int *prev, int size)
-{
-	int	i;
-	int	start;
-	int	end;
-	int	meio;
-	int	lis_len;
-
-	i = -1;
-	lis_len = 0;
-	while (++i < size)
-	{
-		start = 0;
-		end = lis_len;
-		while (start < end)
-		{
-			meio = (start + end) / 2;
-			if (arr[tails[meio]] < arr[i])
-				start = meio + 1;
-			else
-				end = meio;
-		}
-		if (start == lis_len)
-			lis_len++;
-		tails[end] = fill_prev(prev, tails, start, i);
-	}
-	return (lis_len);
-}
 
 static t_list	*write_list(int *arr, int *prev, int last_index)
 {
@@ -98,7 +41,9 @@ t_list	*lis_tractor(t_stack *stack)
 
 	arr = stack_to_arr_conversion(stack);
 	tails = malloc(sizeof(int) * ft_stacksize(stack));
+	ft_bzero(tails, sizeof(int) * ft_stacksize(stack));
 	prev = malloc(sizeof(int) * ft_stacksize(stack));
+	ft_memset(prev, 0, sizeof(int) * ft_stacksize(stack));
 	if (!arr || !tails || !prev)
 		return (NULL);
 	lis_len = fill_arr(arr, tails, prev, ft_stacksize(stack));
@@ -106,5 +51,27 @@ t_list	*lis_tractor(t_stack *stack)
 	free(arr);
 	free(tails);
 	free(prev);
+	return (lis);
+}
+
+t_list	*list_lis(t_stack *stack)
+{
+	t_list	*node;
+	int		k;
+	t_list	*lis;
+
+	lis = NULL;
+	node = NULL;
+	k = 0;
+	while (k < ft_stacksize(stack))
+	{
+		node = lis_tractor(stack);
+		if (ft_lstsize(node) > ft_lstsize(lis))
+		{
+			lis = node;
+		}
+		r_op(&stack, 0);
+		k++;
+	}
 	return (lis);
 }

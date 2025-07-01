@@ -6,13 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:32:30 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/25 15:28:58 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 13:47:17 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-static int	sim_rotation_judge(t_stack *b, int index)
+int	sim_rotation_judge(t_stack *b, int index)
 {
 	int	size;
 

@@ -6,11 +6,18 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:17:04 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/16 17:03:26 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 11:34:05 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
+
+int	abs(int x)
+{
+	if (x < 0)
+		return (x * -1);
+	return (x);
+}
 
 void	print_stack(t_stack **a)
 {
@@ -36,44 +43,42 @@ void	print_list(t_list **a)
 	}
 }
 
-void	indexer(t_stack **a2, t_stack **solved)
+int	is_stack_solved(t_stack *a, int is_reverse)
 {
-	t_stack	*solving;
-	t_stack	*a;
-	int		index;
-	int		*new_ind;
+	int	k;
 
-	a = *a2;
-	while (a)
+	k = 0;
+	while (a->next != NULL)
 	{
-		index = 1;
-		solving = *solved;
-		while (*(int *)a->content != *(int *)solving->content)
+		if (is_reverse)
 		{
-			solving = solving->next;
-			index++;
+			if (*(int *)a->content < *(int *)a->next->content)
+				return (0);
 		}
-		new_ind = malloc(sizeof(int));
-		*new_ind = index;
-		a->content = new_ind;
+		else
+		{
+			if (*(int *)a->content > *(int *)a->next->content)
+				return (0);
+		}
 		a = a->next;
+		k++;
 	}
+	return (1);
 }
 
-void	indexer2(t_stack **solved2)
+int	last_val(t_stack *a)
 {
-	t_stack	*solved;
-	int		index;
-	int		*new_ind;
+	t_stack	*target;
 
-	index = 1;
-	solved = *solved2;
-	while (solved)
+	target = a;
+	if (target->next)
 	{
-		new_ind = malloc(sizeof(int));
-		*new_ind = index;
-		solved->content = new_ind;
-		solved = solved->next;
-		index++;
+		while (target->next)
+		{
+			target = target->next;
+		}
+		return (*(int *)target->content);
 	}
+	else
+		return (*(int *)target->content);
 }

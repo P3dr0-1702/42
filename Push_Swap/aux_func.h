@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:45:31 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/24 15:27:47 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 13:38:29 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,54 +15,77 @@
 
 # include "lib/libft.h"
 
-// Auxiliary Functions
+//Array Manipulation
+int	*stack_to_arr_conversion(t_stack *stack);
+int	fill_prev(int *prev, int *tails, int start, int i);
+int	fill_arr(int *arr, int *tails, int *prev, int size);
+
+//Auxiliary Functions
+int	abs(int x);
 void	print_stack(t_stack **a);
-void	indexer(t_stack **a2, t_stack **solved);
-void	indexer2(t_stack **solved2);
 void	print_list(t_list **a);
+int	is_stack_solved(t_stack *a, int is_reverse);
+int	last_val(t_stack *a);
 
-// Non-PS Solver
-t_stack	*non_ps_solver(t_stack **a);
-t_stack	*put_into_stack(t_stack *sorted, t_stack *node);
-t_stack	*ft_stack_newnode(int currNBR);
+//Indexer
+void	indexer(t_stack **a2, t_stack **solved);
 
-// Lazy Mover
-int		get_node_index(t_stack *a, t_stack *target);
-void	move_cheapest_a2b(t_stack **a, t_stack **b, t_list *LIS);
-int		notmembers_of_lis(t_stack *a, t_list *LIS);
+//Input Validation
+bool	has_dulicate(t_stack *stack);
+bool	is_alldigit(char *s);
+bool	is_valid_input(char **argv);
 
-// Lazy Unmover
-void	rotation_judge_b2a(t_stack **a, t_stack **b, int indexa, int indexb);
-void	move_cheapest_b2a(t_stack **a, t_stack **b, t_list *LIS);
+//Lazy Mover
+int	get_node_index(t_stack *a, t_stack *target);
+void	move_cheapest(t_stack **a, t_stack **b, t_list *lis);
+int	notmembers_of_lis(t_stack *a, t_list *lis);
 
-// LIS list
+//LIS List Functions
 t_list	*lis_tractor(t_stack *stack);
+t_list	*list_lis(t_stack *stack);
 
-// Push Swap Operations
+// Parsing Function
+int	arr_len(char **ar);
+char	*join_args(char **argv);
+t_stack	*string_to_stack(char **slitted);
+
+//Push Swap Operations
 void	s_op(t_stack **lst, char is_a);
 void	p_op(t_stack **from, t_stack **to, char is_a);
 void	r_op(t_stack **a, char is_a);
 void	rr_op(t_stack **a, char is_a);
 
-// Push Swap Simultaneous Operations
+//Push Swap Simultaneous Operations
 void	ss_sop(t_stack **a, t_stack **b);
 void	rr_sop(t_stack **a, t_stack **b, char *print);
 void	rrr_sop(t_stack **a, t_stack **b, char *print);
 
-// Parsing Functions
-bool	valid_input(char **argv);
-char	*join_args(char **argv);
-t_stack	*string_to_stack(char **slitted);
+//Rotation Judge
+void	rr_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb);
+void	r_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb);
+void	rotation_judge(t_stack **a, t_stack **b, int indexa, int indexb);
+void	rotation_judge_nopush(t_stack **a, t_stack **b, int indexa, int indexb);
 
-// Cost Simulation Functions
+//Rotator Functions
+int	rotate_to_min(t_stack *target);
+int	rotate_to_max(t_stack *s);
+void	rotate_to_extremes(t_stack **a, t_stack **b, t_list *lis);
+
+//Cost Simulation Functions
+int	sim_rotation_judge(t_stack *b, int index);
 void	update_cost(t_stack *a, t_stack *b, t_list *lis);
 t_stack	*cheapest_node(t_stack *a);
 
-// Solver Functions
-int		find_index(t_stack *b, int value);
-void	rr_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb);
-void	r_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb);
-void	rotation_judge_a2b(t_stack **a, t_stack **b, int indexa, int indexb);
-int		is_in_the_lis_list(t_list *lis, int *val);
+//Solver
+int	find_index(t_stack *b, int value);
+int	is_in_the_lis_list(t_list *lis, int *val);
+void	all_to_a(t_stack **a, t_stack **b);
+void solver(t_stack *a, t_stack *b, t_list *lis);
+
+//Stack Solver
+t_stack	*stack_solver(t_stack **a);
+t_stack	*put_into_stack(t_stack *sorted, t_stack *node);
+t_stack	*ft_stack_newnode(int currNBR);
+
 
 #endif

@@ -6,18 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:14:48 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/25 15:44:45 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:28:22 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
-
-int	abs(int x)
-{
-	if (x < 0)
-		return (x * -1);
-	return (x);
-}
 
 int	find_index(t_stack *b, int value)
 {
@@ -44,66 +37,6 @@ int	find_index(t_stack *b, int value)
 	return (0);
 }
 
-void	rr_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb)
-{
-	while (*indexa < 0 && *indexb < 0)
-	{
-		rrr_sop(a, b, "rr");
-		(*indexa)++;
-		(*indexb)++;
-	}
-	while (*indexa < 0)
-	{
-		rr_op(a, 'a');
-		(*indexa)++;
-	}
-	while (*indexb < 0)
-	{
-		rr_op(b, 'b');
-		(*indexb)++;
-	}
-}
-
-void	r_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb)
-{
-	while (*indexa > 0 && *indexb > 0)
-	{
-		rr_sop(a, b, "r");
-		(*indexa)--;
-		(*indexb)--;
-	}
-	while (*indexa > 0)
-	{
-		r_op(a, 'a');
-		(*indexa)--;
-	}
-	while (*indexb > 0)
-	{
-		r_op(b, 'b');
-		(*indexb)--;
-	}
-}
-
-void rotation_judge_a2b(t_stack **a, t_stack **b, int indexa, int indexb)
-{
-	int	siza;
-	int	sizb;
-	int	offseta;
-	int	offsetb;
-
-	siza = ft_stacksize(*a);
-	sizb = ft_stacksize(*b);
-	offseta = indexa;
-	if ((indexa > siza / 2))
-		offseta = (abs(indexa - siza)) * -1;
-	offsetb = indexb;
-	if ((indexb > sizb / 2))
-		offsetb = (abs(indexb - sizb)) * -1;
-	rr_sop_multi(a, b, &offseta, &offsetb);
-	r_sop_multi(a, b, &offseta, &offsetb);
-	p_op(a, b, 'b');
-}
-
 int	is_in_the_lis_list(t_list *lis, int *val)
 {
 	if (!lis)
@@ -115,4 +48,37 @@ int	is_in_the_lis_list(t_list *lis, int *val)
 		lis = lis->next;
 	}
 	return (0);
+}
+
+void	all_to_a(t_stack **a, t_stack **b)
+{
+	int	i;
+	int	bval;
+
+	i = last_val(*a);
+	bval = *(int *)(*b)->content;
+	if (bval == *(int *)(*a)->content - 1)
+		p_op(b, a, 'a');
+	else
+		rr_op(a, 'a');
+}
+
+void	solver(t_stack *a, t_stack *b, t_list *lis)
+{
+	if (!a || !a->next || is_stack_solved(a, 0))
+		return ;
+	while (notmembers_of_lis(a, lis) > 0)
+		move_cheapest(&a, &b, lis);
+	while (!(is_stack_solved(a, 0)))
+		rotate_to_extremes(&a, &b, lis);
+	if (!b)
+		return ;
+	while (!(is_stack_solved(b, 1)))
+		r_op(&b, 'b');
+	if (last_val(a) < *(int *)b->content)
+		p_op(&b, &a, 'a');
+	while (b)
+		all_to_a(&a, &b);
+	while (!(is_stack_solved(a, 0)))
+		rr_op(&a, 'a');
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   non_PS_solver.c                                    :+:      :+:    :+:   */
+/*   stack_solver.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:03:42 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/24 15:13:40 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 11:21:37 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
 
-t_stack	*non_ps_solver(t_stack **a)
+t_stack	*stack_solver(t_stack **a)
 {
 	int		value;
 	t_stack	*sorted;

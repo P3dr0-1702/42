@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/06/23 14:44:17 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/06/27 10:52:58 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ libDIR = lib
 libNAME = libft.a
 libPATH = $(libDIR)/$(libNAME)
 
-SRCS = aux_func.c 
+SRCS = aux_func.c lazy_mover.c lazy_unmover.c LIS_list.c non_PS_solver.c ops.c parsing.c sim_cost.c solver.c sops.c testing.c
 OBJS = $(SRCS:.c=.o)
 
 libSRCS = $(wildcard $(libDIR)/*.c)

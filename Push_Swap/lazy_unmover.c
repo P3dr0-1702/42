@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 14:46:37 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/25 16:57:33 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/06/27 14:12:49 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,42 @@ int	rotate_to_min(t_stack *target)
 	}
 	return (min);
 }
-
-int rotate_to_max(t_stack *target)
+int rotate_to_max(t_stack *s)
 {
-	int	max;
+    int     idx = 0;
+    int     max_idx = 0;
+    int     max_val;
+    t_stack *cur = s;
 
-	max = *(int*)target;
-	while (target)
-	{
-		if (max < *(int *)(target)->content)
-			max = *(int*)target->content;
-		target = target->next;
-	}
-	return (max);
+    if (!cur)
+        return 0;
+    max_val = *(int*)cur->content;
+    while (cur)
+    {
+        if (*(int*)cur->content > max_val)
+        {
+            max_val = *(int*)cur->content;
+            max_idx = idx;
+        }
+        cur = cur->next;
+        idx++;
+    }
+    return max_idx;
 }
+
+// int rotate_to_max(t_stack *target)
+// {
+// 	int	max;
+
+// 	max = *(int*)target;
+// 	while (target)
+// 	{
+// 		if (max < *(int *)(target)->content)
+// 			max = *(int*)target->content;
+// 		target = target->next;
+// 	}
+// 	return (max);
+// }
 
 void	move_cheapest_b2a(t_stack **a, t_stack **b, t_list *lis)
 {

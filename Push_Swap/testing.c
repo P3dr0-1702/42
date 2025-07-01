@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:04:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/06/25 17:53:15 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/01 10:29:24 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,15 @@ int	last_val(t_stack *a)
 
 void	all_to_a(t_stack **a, t_stack **b)
 {
-	int i =  last_val(*a);
-	if (*(int *)(*b)->content > *(int *)(*a)->content
-		|| *(int *)(*b)->content < i)
-		p_op(b, a, 'b');
-	rr_op(a, 'a');
+	int	i;
+	int	bval;
+
+	i = last_val(*a);
+	bval = *(int *)(*b)->content;
+	if (bval == *(int *)(*a)->content - 1)
+		p_op(b, a, 'a');
+	else
+		rr_op(a, 'a');
 }
 
 int	does_b_exist(t_stack *b)
@@ -93,6 +97,19 @@ int	does_b_exist(t_stack *b)
 void	breakpoint(void)
 {
 	return ;
+}
+
+int	check_b(t_stack *b)
+{
+	t_stack	*temp;
+
+	temp = b;
+	while (temp->prev)
+		temp = temp->prev;
+	if (temp->next)
+		return (0);
+	else
+		return (1);
 }
 
 int	main(int argc, char **argv)
@@ -109,27 +126,34 @@ int	main(int argc, char **argv)
 	lis = NULL;
 	if (!valid_input(argv) || argc == 1)
 	{
+		if (argc == 1)
+			return (-1);
 		ft_printf("Error\n");
 		return (1);
 	}
 	a = string_to_stack(ft_split(join_args(argv), '|'));
 	solved = non_ps_solver(&a);
-	// indexer(&a, &solved);
-	// indexer2(&solved);
+	indexer(&a, &solved);
+	indexer2(&solved);
 	lis = list_lis(a);
 	// print_list(&lis);
 	// printf("\n");
 	while (notmembers_of_lis(a, lis) > 0)
 		move_cheapest_a2b(&a, &b, lis);
-	while (!(check_stack_status(a, 0) && !(check_stack_status(b, 1))))
+	while (!(check_stack_status(a, 0)))
 		move_cheapest_b2a(&a, &b, lis);
-	breakpoint();
+	while (!(check_stack_status(b, 1)))
+		r_op(&b, 'b');
+	// breakpoint();
 	i = 0;
-	while ((!(check_stack_status(a, 0)) || b->next != NULL) && i < 1000000)
+	if (last_val(a) < *(int *)b->content)
+		p_op(&b, &a, 'a');
+	while (b)
 	{
 		all_to_a(&a, &b);
 		i++;
 	}
+	// p_op(&b, &a, 'a');
 	// print_list(&lis);
 	// printf("\n");
 	// print_stack(&b);

@@ -6,12 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:27:20 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/01 11:28:22 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/02 11:27:19 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aux_func.h"
-//usado para criar a LIS
+
+// usado para criar a LIS
 
 int	*stack_to_arr_conversion(t_stack *stack)
 {

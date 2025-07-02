@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:45:45 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/02 11:21:20 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/02 11:27:42 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_stack(t_stack *stack)
 {
 	t_stack	*temp;
 
-	while(stack && stack->prev)
+	while (stack && stack->prev)
 		stack = stack->prev;
 	while (stack)
 	{
@@ -44,10 +44,10 @@ void	free_list(t_list *list)
 
 void	free_arr(void **arr)
 {
-	int i;
+	int	i;
 
-	if(!arr)
-		return;
+	if (!arr)
+		return ;
 	i = 0;
 	while (arr[i])
 	{

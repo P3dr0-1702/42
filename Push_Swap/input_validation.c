@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:24:30 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/01 13:56:59 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/02 09:54:29 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	has_dulicate(t_stack *stack)
 	int		val;
 
 	outer = stack;
+	if (!stack)
+		return (true);
 	while (outer)
 	{
 		val = *(int *)outer->content;

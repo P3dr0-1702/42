@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 14:35:34 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/01 14:21:34 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/02 10:21:42 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ t_list	*list_lis(t_stack *stack)
 		node = lis_tractor(stack);
 		if (ft_lstsize(node) > ft_lstsize(lis))
 		{
+			free_list(lis);
 			lis = node;
 		}
+		else
+			free_list(node);
 		r_op(&stack, 0);
 		k++;
 	}

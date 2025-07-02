@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:16:37 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/01 11:35:27 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/02 10:54:51 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	indexer(t_stack **a2, t_stack **solved)
 		}
 		new_ind = malloc(sizeof(int));
 		*new_ind = index;
+		free(a->content);
 		a->content = new_ind;
 		a = a->next;
 	}
@@ -48,6 +49,7 @@ void	indexer_solved(t_stack **solved2)
 	{
 		new_ind = malloc(sizeof(int));
 		*new_ind = index;
+		free(solved->content);
 		solved->content = new_ind;
 		solved = solved->next;
 		index++;

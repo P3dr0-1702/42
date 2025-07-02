@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:45:31 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/01 13:38:29 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/02 10:10:59 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	print_stack(t_stack **a);
 void	print_list(t_list **a);
 int	is_stack_solved(t_stack *a, int is_reverse);
 int	last_val(t_stack *a);
+
+//Cleaner
+void	free_stack(t_stack *stack);
+void	free_list(t_list *list);
+void	free_arr(void **arr);
 
 //Indexer
 void	indexer(t_stack **a2, t_stack **solved);

@@ -5,27 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 17:39:10 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/02 18:07:39 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/05/29 12:45:01 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/02 17:34:54 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <sys/time.h>
 
-void	ft_pixel_put(t_window *s, int x, int y, int color)
+int	main(void)
 {
-	char	*dest;
+	t_window	*s;
+	int			i;
+	int			y;
 
-	dest = s->img_addr + (y * s->line_leght + x * (s->bits_per_pixel / 8));
-	*(unsigned int *)dest = color;
-}
-
-void render_ground(t_window *s)
-{
+	s = malloc(sizeof(t_window));
+	s->mlx_ptr = mlx_init();
+	s->width = 64;
+	s->height = 64;
+	if (!s->mlx_ptr)
+		return (1);
+	s->win_ptr = mlx_new_window(s->mlx_ptr, 1280, 960,
+			"Tatical Espionage Action: Metal Gear Solid");
 	s->img_ptr = mlx_xpm_file_to_image(s->mlx_ptr, "assets/Ground.xpm",
 			&s->height, &s->width);
-	int i = 0;
-	int y = 0;
+	i = 0;
+	y = 0;
 	while (i <= 1280)
 	{
 		y = 0;
@@ -36,20 +41,13 @@ void render_ground(t_window *s)
 		}
 		i += 126;
 	}
-}
-
-int	main(void)
-{
-	t_window	*map;
-	t_player	player;
-
-	s = malloc(sizeof(t_window));
-	s->mlx_ptr = mlx_init();
-	s->win_ptr = mlx_new_window(s->mlx_ptr, 1280, 960,
-			"Tatical Espionage Action: Metal Gear Solid");
-	s->img_ptr = mlx_new_image(s->mlx_ptr, 64, 64);
-	s->img_addr = mlx_get_data_addr(s->img_ptr, &s->bits_per_pixel,
-			&s->line_leght, &s->endian);
-	render_ground(s);
+	i = 0;
+	s->img_ptr = mlx_xpm_file_to_image(s->mlx_ptr, "assets/Solid_Snake.xpm",
+			&s->height, &s->width);
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img_ptr, 0, 0);
+	s->img_ptr = mlx_xpm_file_to_image(s->mlx_ptr, "assets/Boxed_SS1.xpm",
+			&s->height, &s->width);
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img_ptr, 0, 64);
 	mlx_loop(s->mlx_ptr);
+	free(s);
 }

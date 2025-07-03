@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 16:10:42 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/02 18:08:35 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/03 15:10:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib/libft.h"
+#include "libft/libft.h"
 #include "minilibx/mlx.h"
 #include "minilibx/mlx_int.h"
 #include <X11/Xlib.h>
@@ -68,3 +68,5 @@ typedef struct s_point
 	int				x;
 	int				y;
 }					point;
+
+bool	is_valid(char *map);

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 16:10:42 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/03 15:10:36 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:31:15 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,65 @@
 #include "minilibx/mlx.h"
 #include "minilibx/mlx_int.h"
 #include <X11/Xlib.h>
+#include <sys/time.h>
 
-typedef enum e_player_state
+typedef struct s_image
 {
-	BOXED,
-	UNBOXED,
-	IMMUNE
-}					t_snake_is;
-
-typedef struct s_anim
-{
-	void			*idle;
-	void			*move;
-}					t_anim;
-
-typedef struct s_snake
-{
-	int				x;
-	int				y;
-	int				colectibles;
-	int				steps;
-	char *img_adrr;
-	
-	t_snake_is		mode;
-	t_anim			anims[2][4];
-	int				direction;
-	int				is_moving;
-}					t_player;
-
-typedef enum e_game_state
-{
-	GS_NORMAL,
-	GS_CAUTIOUS
-}					t_game_state;
+	char			*img_addr;
+	int				width;
+	int				height;
+	int				bits_per_pixel;
+	int				line_len;
+	int				endian;
+	void			*img_ptr;
+}					t_image;
 
 typedef struct s_window
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	void			*img_ptr;
-	char			*img_addr;
-	int				bits_per_pixel;
-	int				line_leght;
-	int				endian;
+	t_image			frame_buffer;
+	t_image			background;
 	int				width;
 	int				height;
-	t_game_state	game_state;
-	t_player		*player;
 }					t_window;
+
+typedef struct s_map
+{
+	char			*map;
+	char			**grid;
+	char			**guard_map;
+}					t_map;
+
+typedef struct s_snake
+{
+	t_image			sprite;
+	int x, y;
+	bool			boxed;
+	bool			immune;
+	double			immunity_time;
+	int				collectibles;
+}					t_player;
+
+typedef enum e_guard_state
+{
+	GUARD_IDLE,
+	GUARD_SUSPICIOUS,
+	GUARD_ALERT,
+	GUARD_STUNNED,
+	GUARD_RETURNING
+}					t_guard_state;
+
+typedef struct s_guard
+{
+	t_image			sprite;
+	int x, y;
+	bool			is_stationary;
+	t_guard_state	state;
+	double			state_timer;
+	int				target_x;
+	int				target_y;
+}					t_guard;
 
 typedef struct s_point
 {
@@ -69,4 +80,15 @@ typedef struct s_point
 	int				y;
 }					point;
 
-bool	is_valid(char *map);
+typedef struct s_game
+{
+	t_window		win;
+	t_map			map;
+	t_player		player;
+	t_image			background;
+	t_guard			*guards;
+	int				guard_number;
+	double			alert_cooldown;
+}					t_game;
+
+bool				is_valid(char *map);

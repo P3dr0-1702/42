@@ -6,17 +6,17 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:39:10 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/04 16:45:04 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:14:19 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_pixel_put(t_player*s, int x, int y, int color)
+void	ft_pixel_put(t_game *s, int x, int y, unsigned int color)
 {
 	char	*dest;
 
-	dest = s->sprite.img_addr + (y * s->sprite.line_len + x * (s->sprite.bits_per_pixel / 8));
+	dest = s->win.frame_buffer.img_addr + (y * s->win.frame_buffer.line_len + x * (s->win.frame_buffer.bits_per_pixel / 8));
 	*(unsigned int *)dest = color;
 }
 
@@ -28,21 +28,21 @@ int pixel_get(t_image *data, int x, int y)
 	return(*(unsigned int *) dest);
 }
 
-void render_player(t_player *pla)
+void render_player(t_game *game)
 {
 	int x;
 	int y;
 	unsigned int color;
 	y = 0;
-	while (y < pla->sprite.height)
+	while (y < game->player.sprite.height)
 	{
 		x = 0;
-		while(x < pla->sprite.width)
+		while(x < game->player.sprite.width)
 		{
-			color = pixel_get(&pla->sprite, x, y);
+			color = pixel_get(&game->player.sprite, x, y);
 			if((color >> 24) != 0xFF)
 			{
-				ft_pixel_put(pla, pla->x + x, pla->y + y, color);
+				ft_pixel_put(game, game->player.x + x, game->player.y + y, color);
 			}
 			x++;
 		}
@@ -228,11 +228,25 @@ char *make_window(t_game *s)
 	return (s->map.map);
 }
 
-void init_player(t_game *s)
+void init_player(t_game *s, int spawnx, int spawny)
 {
 	s->player.sprite.img_ptr= mlx_xpm_file_to_image(s->win.mlx_ptr, "assets/Solid_Snake.xpm", &s->player.sprite.width, &s->player.sprite.height);
 	s->player.sprite.img_addr = mlx_get_data_addr(s->player.sprite.img_ptr, &s->player.sprite.bits_per_pixel, &s->player.sprite.line_len, &s->player.sprite.endian);
-	render_player(&s->player);
+	s->player.x = spawnx;
+	s->player.y = spawny;
+	render_player(s);
+}
+
+void init_game(t_game *game)
+{
+	game->win.tilex = xtile(game->map.map);
+	game->win.tiley = ytile(game->map.map);
+	game->win.width = game->win.tilex * 64;
+	game->win.height = game->win.tiley * 64;
+	game->win.frame_buffer.img_ptr = mlx_new_image(game->win.mlx_ptr, game->win.width, game->win.height);
+	game->win.frame_buffer.img_addr = mlx_get_data_addr(game->win.frame_buffer.img_ptr, &game->win.frame_buffer.bits_per_pixel, &game->win.frame_buffer.line_len, &game->win.frame_buffer.endian);
+	game->win.frame_buffer.width = game->win.width;
+	game->win.frame_buffer.height = game->win.height;
 }
 
 int	main(int argc, char **argv)
@@ -247,12 +261,9 @@ int	main(int argc, char **argv)
 		printf("Error\n");
 	game->win.mlx_ptr = mlx_init();
 	game->map.map = make_window(game);
-	// game->background.img_ptr = mlx_xpm_file_to_image(game->win.mlx_ptr, "assets/Solid_Snake.xpm",
-	// 		&game->win.width, &game->win.height);
-	// mlx_put_image_to_window(game->win.mlx_ptr, game->win.win_ptr, game->background.img_ptr, 10, 10);
 	render_base(game);
-	init_player(game);
+	init_player(game, 100, 100);
+	mlx_put_image_to_window(game->win.mlx_ptr, game->win.win_ptr, game->win.frame_buffer.img_ptr, 0 ,0);
 	sleep(500);
-	//mlx_loop(game->win.mlx_ptr);
 	free(game);
 }

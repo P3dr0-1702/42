@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 16:10:42 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/04 16:31:15 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:11:17 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_window
 	t_image			background;
 	int				width;
 	int				height;
+	int				tilex;
+	int				tiley;
 }					t_window;
 
 typedef struct s_map
@@ -47,7 +49,10 @@ typedef struct s_map
 typedef struct s_snake
 {
 	t_image			sprite;
-	int x, y;
+	int				x;
+	int				y;
+	int				tilex;
+	int				tiley;
 	bool			boxed;
 	bool			immune;
 	double			immunity_time;

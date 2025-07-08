@@ -6,14 +6,14 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 17:45:31 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/02 11:26:13 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:53:37 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AUX_FUNC_H
 # define AUX_FUNC_H
 
-# include "lib/libft.h"
+# include "libft/libft.h"
 
 // Array Manipulation
 int		*stack_to_arr_conversion(t_stack *stack);
@@ -26,6 +26,7 @@ void	print_stack(t_stack **a);
 void	print_list(t_list **a);
 int		is_stack_solved(t_stack *a, int is_reverse);
 int		last_val(t_stack *a);
+char	*limits(int sign);
 
 // Cleaner
 void	free_stack(t_stack *stack);
@@ -39,6 +40,7 @@ void	indexer(t_stack **a2, t_stack **solved);
 bool	has_dulicate(t_stack *stack);
 bool	is_alldigit(char *s);
 bool	is_valid_input(char **argv);
+bool	within_bounds(char **str);
 
 // Lazy Mover
 int		get_node_index(t_stack *a, t_stack *target);
@@ -64,6 +66,9 @@ void	rr_op(t_stack **a, char is_a);
 void	ss_sop(t_stack **a, t_stack **b);
 void	rr_sop(t_stack **a, t_stack **b, char *print);
 void	rrr_sop(t_stack **a, t_stack **b, char *print);
+
+//Quick Solve
+void	quick_solve(t_stack *a);
 
 // Rotation Judge
 void	rr_sop_multi(t_stack **a, t_stack **b, int *indexa, int *indexb);

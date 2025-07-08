@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:22:25 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/02 11:16:38 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:04:55 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	str_temp = join_args(argv);
 	temp = ft_split(str_temp, '|');
 	a = string_to_stack(temp);
-	if (!a || has_dulicate(a))
+	if ((!a || has_dulicate(a)) || !within_bounds(temp))
 		return (free_main(a, lis, temp, str_temp), error());
 	b = stack_solver(&a);
 	indexer(&a, &b);

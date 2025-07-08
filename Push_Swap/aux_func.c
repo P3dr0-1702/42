@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:17:04 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/02 11:26:30 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:02:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,11 @@ int	abs(int x)
 	return (x);
 }
 
-void	print_stack(t_stack **a)
+char	*limits(int sign)
 {
-	t_stack	*b;
-
-	b = *a;
-	while (b != NULL)
-	{
-		printf("%d ", *(int *)b->content);
-		b = b->next;
-	}
-}
-
-void	print_list(t_list **a)
-{
-	t_list	*b;
-
-	b = *a;
-	while (b != NULL)
-	{
-		printf("%d ", *(int *)b->content);
-		b = b->next;
-	}
+	if (sign < 0)
+		return ("2147483648");
+	return ("2147483647");
 }
 
 int	is_stack_solved(t_stack *a, int is_reverse)

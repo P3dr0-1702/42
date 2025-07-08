@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 13:54:46 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/03 15:57:07 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:26:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,4 +163,27 @@ bool	no_forbidden_chars(char *map)
 bool	is_valid(char *map)
 {
 	return (no_forbidden_chars(map) && enough_objects(map) && is_closed(map));
+}
+
+
+char	*map_parser(char **argv)
+{
+	int		fd;
+	char	*temp;
+	char	*line;
+	char	*map;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	map = ft_strdup("");
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		temp = ft_strjoin(map, line);
+		free(map);
+		map = temp;
+		free(line);
+	}
+	close(fd);
+	return (map);
 }

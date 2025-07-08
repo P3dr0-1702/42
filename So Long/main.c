@@ -6,202 +6,18 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:39:10 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/04 19:14:19 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:45:06 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_pixel_put(t_game *s, int x, int y, unsigned int color)
-{
-	char	*dest;
-
-	dest = s->win.frame_buffer.img_addr + (y * s->win.frame_buffer.line_len + x * (s->win.frame_buffer.bits_per_pixel / 8));
-	*(unsigned int *)dest = color;
-}
-
-int pixel_get(t_image *data, int x, int y)
-{
-	char *dest;
-
-	dest = data->img_addr + (y * data->line_len + x * (data->bits_per_pixel / 8));
-	return(*(unsigned int *) dest);
-}
-
-void render_player(t_game *game)
-{
-	int x;
-	int y;
-	unsigned int color;
-	y = 0;
-	while (y < game->player.sprite.height)
-	{
-		x = 0;
-		while(x < game->player.sprite.width)
-		{
-			color = pixel_get(&game->player.sprite, x, y);
-			if((color >> 24) != 0xFF)
-			{
-				ft_pixel_put(game, game->player.x + x, game->player.y + y, color);
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-char	*map_parser(char **argv)
-{
-	int		fd;
-	char	*temp;
-	char	*line;
-	char	*map;
-
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	map = ft_strdup("");
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		temp = ft_strjoin(map, line);
-		free(map);
-		map = temp;
-		free(line);
-	}
-	close(fd);
-	return (map);
-}
-
-int	xtile(char *map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i] != '\n')
-	{
-		i++;
-	}
-	return (i);
-}
-
-int	ytile(char *map)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (map[i] != '\0')
-	{
-		if (map[i] == '\n')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-int	random_number(void)
-{
-	struct timeval	tv;
-	struct timeval	tv2;
-	int i;
-
-	gettimeofday(&tv, NULL);
-	i = 0;
-	while(i < tv.tv_usec)
-		i++;
-	gettimeofday(&tv2, NULL);
-	return (tv.tv_usec * tv2.tv_usec);
-}
-
-int	firstline(char *map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i] != '\n')
-		i++;
-	return (i);
-}
-
-bool	should_put_wall(char *map, int i)
-{
-	if ((map[i - 1] == '\n' || map[i + 1] == '\n' || map[i + 1] == '\0' || i == 0)
-		|| (map[i + 1] == '1' && map[i - 1] == '1'))
-		return (true);
-	return (false);
-}
-
-bool	is_first_line(char *map, int i)
-{
-	if ((map[i - 1] != '\0' && map[i + 1] != '\n') && map[i - 1] != '\n'
-		&& i < firstline(map))
-		return (true);
-	return (false);
-}
-
-void	*which_sprite(t_game *s, int i)
-{
-	if (s->map.map[i] == 'B')
-		return (mlx_xpm_file_to_image(s->win.mlx_ptr, "assets/walls/Wall3.xpm",
-				&s->win.width, &s->win.height));
-	else if (s->map.map[i] == 'M')
-		return (mlx_xpm_file_to_image(s->win.mlx_ptr, "assets/walls/Wall2.xpm",
-				&s->win.width, &s->win.height));
-	else if (s->map.map[i] == 'W')
-		return (mlx_xpm_file_to_image(s->win.mlx_ptr, "assets/walls/Wall1.xpm",
-				&s->win.width, &s->win.height));
-	else if (s->map.map[i] == 'X')
-		return (mlx_xpm_file_to_image(s->win.mlx_ptr, "assets/Box.xpm", &s->win.width,
-				&s->win.height));
-	else
-		return (mlx_xpm_file_to_image(s->win.mlx_ptr, "assets/Ground.xpm",
-				&s->win.width, &s->win.height));
-}
-
-void	render_base(t_game *s)
-{
-	int	i;
-	int	x;
-	int	y;
-
-	i = 0;
-	x = 0;
-	y = 0;
-	s->win.width = 64;
-	s->win.height = 64;
-	while (s->map.map[i] != '\0')
-	{
-		s->background.img_ptr = which_sprite(s, i);
-		mlx_put_image_to_window(s->win.mlx_ptr, s->win.win_ptr, s->background.img_ptr, x, y);
-		x += 128;
-		if (s->map.map[i] == '\n')
-		{
-			y += 128;
-			x = 0;
-		}
-		i++;
-	}
-}
-
-char	pick_wall(char *map, int i)
-{
-	if (is_first_line(map, i) && random_number() % 7 == 1)
-		return ('B');
-	else if (is_first_line(map, i) && random_number() % 3 == 0)
-		return ('M');
-	else if (should_put_wall(map, i))
-		return ('W');
-	else
-		return('X');
-}
-
 char	*store_base(char *map)
 {
-	int	i;
-	int	x;
-	int	y;
-	char *str;
+	int		i;
+	int		x;
+	int		y;
+	char	*str;
 
 	i = 0;
 	x = 0;
@@ -218,40 +34,38 @@ char	*store_base(char *map)
 	return (str);
 }
 
-char *make_window(t_game *s)
+char	*make_window(t_game *s)
 {
 	s->win.width = 128 * xtile(s->map.map);
 	s->win.height = 128 * ytile(s->map.map);
 	s->win.win_ptr = mlx_new_window(s->win.mlx_ptr, s->win.width, s->win.height,
-			"TAS: Metal Gear");
+			"TAE: Metal Gear");
 	s->map.map = store_base(s->map.map);
 	return (s->map.map);
 }
 
-void init_player(t_game *s, int spawnx, int spawny)
+int handle_exit(void *param)
 {
-	s->player.sprite.img_ptr= mlx_xpm_file_to_image(s->win.mlx_ptr, "assets/Solid_Snake.xpm", &s->player.sprite.width, &s->player.sprite.height);
-	s->player.sprite.img_addr = mlx_get_data_addr(s->player.sprite.img_ptr, &s->player.sprite.bits_per_pixel, &s->player.sprite.line_len, &s->player.sprite.endian);
-	s->player.x = spawnx;
-	s->player.y = spawny;
-	render_player(s);
+	(void)param;
+	printf("exit\n");
+	exit(0);
+	return (0);
 }
 
-void init_game(t_game *game)
+int keycode(int keycode, t_game *game)
 {
-	game->win.tilex = xtile(game->map.map);
-	game->win.tiley = ytile(game->map.map);
-	game->win.width = game->win.tilex * 64;
-	game->win.height = game->win.tiley * 64;
-	game->win.frame_buffer.img_ptr = mlx_new_image(game->win.mlx_ptr, game->win.width, game->win.height);
-	game->win.frame_buffer.img_addr = mlx_get_data_addr(game->win.frame_buffer.img_ptr, &game->win.frame_buffer.bits_per_pixel, &game->win.frame_buffer.line_len, &game->win.frame_buffer.endian);
-	game->win.frame_buffer.width = game->win.width;
-	game->win.frame_buffer.height = game->win.height;
+	game->alert_cooldown = 1;
+	keycode = 0;
+	printf("hello");
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	*game;
+	int		i;
+	int		x;
+	int		y;
 
 	game = malloc(sizeof(t_game));
 	if (argc != 2)
@@ -261,9 +75,16 @@ int	main(int argc, char **argv)
 		printf("Error\n");
 	game->win.mlx_ptr = mlx_init();
 	game->map.map = make_window(game);
-	render_base(game);
-	init_player(game, 100, 100);
-	mlx_put_image_to_window(game->win.mlx_ptr, game->win.win_ptr, game->win.frame_buffer.img_ptr, 0 ,0);
+	printf("%s\n", game->map.map);
+	init_game(game);
+	init_player(game, 0, 0);
+	i = 0;
+	x = 0;
+	y = 0;
+	mlx_hook(game->win.win_ptr, 17, 0, handle_exit, &game);
+	mlx_key_hook(game->win.win_ptr, keycode, game);
+	mlx_loop(game->win.mlx_ptr);
+	printf("done");
 	sleep(500);
 	free(game);
 }

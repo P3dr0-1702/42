@@ -5,49 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 11:23:42 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/08 14:14:46 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/07/09 14:55:21 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/09 17:14:53 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	fill_tile(t_game *g, t_image *tile, unsigned int color, int *coords)
-{
-	int	ty;
-	int	tx;
-
-	ty = 0;
-	while (ty < tile->height)
-	{
-		tx = 0;
-		while (tx < tile->width)
-		{
-			color = pixel_get(tile, tx, ty);
-			ft_pixel_put(g, coords[0] + tx, coords[1] + ty, color);
-			tx++;
-		}
-		ty++;
-	}
-}
-
-void	render_player_buffer(t_game *game)
+void	render_base_into_buffer(t_game *s)
 {
 	int				x;
 	int				y;
 	unsigned int	color;
 
 	y = 0;
-	while (y < game->player.sprite.height)
+	while (y < s->win.frame_buffer.heigth)
 	{
 		x = 0;
-		while (x < game->player.sprite.width)
+		while (x < s->win.frame_buffer.width)
 		{
-			color = pixel_get(&game->player.sprite, x, y);
+			color = pixel_get(&s->win.frame_buffer, x, y);
 			if ((color >> 24) != 0xFF)
 			{
-				ft_pixel_put(game, game->player.coord.x + x + 32, game->player.coord.y + y,
-					color);
+				ft_pixel_put(&s->win.frame_buffer, x, y, color);
 			}
 			x++;
 		}
@@ -55,40 +35,36 @@ void	render_player_buffer(t_game *game)
 	}
 }
 
-void	render_base_buffer(t_game *s)
+void render_player_into_buffer(t_game *s)
 {
-	int				i;
-	int				coords[2];
-	unsigned int	color;
-	t_image			tile;
+	t_point point;
+	unsigned int color;
 
-	i = 0;
+	point.y = 0;
 	color = 0;
-	coords[0] = 0;
-	coords[1] = 0;
-	while (s->map.map[i] != '\0')
+	while(point.y < s->player.sprite.heigth)
 	{
-		if (s->map.map[i] != '\n')
+		point.x = 0;
+		while(point.x < s->player.sprite.width)
 		{
-			tile = init_tile(s, i);
-			fill_tile(s, &tile, color, coords);
+			color = pixel_get(&s->player.sprite, point.x, point.y);
+			if((color >> 24) != 0xFF)
+			{
+				ft_pixel_put(&s->win.frame_buffer, s->player.coord.x + point.x, s->player.coord.y + point.y , color);
+			}
+			point.x++;
 		}
-		coords[0] += tile.width;
-		if (s->map.map[i] == '\n')
-		{
-			coords[1] += tile.height;
-			coords[0] = 0;
-		}
-		i++;
+		point.y++;
 	}
 }
 
-void	render_frame(t_game *s, int playerx, int playery)
+
+void	render_frame(t_game *s)
 {
-	s->player.coord.x = playerx;
-	s->player.coord.y = playery;
-	render_base_buffer(s);
-	render_player_buffer(s);
-	mlx_put_image_to_window(s->win.mlx_ptr, s->win.win_ptr,
+	init_base(s);
+	init_player(s);
+	render_base_into_buffer(s);
+	render_player_into_buffer(s);
+	mlx_put_image_to_window(s->mlx_ptr, s->win.win_ptr,
 		s->win.frame_buffer.img_ptr, 0, 0);
 }

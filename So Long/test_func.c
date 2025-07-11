@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/09 12:58:40 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:19:29 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	print_player(t_player *player)
 	ft_printf("    Immune        : %s\n", y_or_n(player->immune));
 	ft_printf("    Immunity Time : %.2f s\n", player->immune_time);
 	ft_printf("    Collectibles  : %d\n", player->collectibles);
+	ft_printf("    Moves         : %d\n", player->moves);
 	ft_printf("└─────────────────────────┘\n");
 }
 
@@ -118,6 +119,9 @@ void	print_game(t_game *s)
 {
 	ft_printf("\n========== GAME STATE ==========\n");
 	ft_printf("MLX Context Pointer: %p\n", s->mlx_ptr);
+	ft_printf("┌──────── Game Base ──────┐\n");
+	print_image(&s->base);
+	ft_printf("└─────────────────────────┘\n");
 	print_window(&s->win);
 	print_map(&s->map);
 	print_player(&s->player);

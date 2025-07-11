@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/07/08 13:27:04 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/07/11 10:39:09 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,5 +46,7 @@ re: fclean all
 ra: re clean
 	@rm -f $(OBJS)
 	@make clean -C libft
+
+e: all clean
 
 .PHONY: all fclean clean re

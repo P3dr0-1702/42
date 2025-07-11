@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 10:52:37 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/09 17:15:19 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/11 12:19:16 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_snake
 	double	immune_time;
 	char *anim;
 	int collectibles;
+	int moves;
 }	t_player;
 
 typedef struct s_guard
@@ -70,6 +71,7 @@ typedef struct s_guard
 
 typedef struct s_game
 {
+	bool	debug_mode;
 	void *mlx_ptr;
 	t_window win;
 	t_map	map;
@@ -105,3 +107,11 @@ void	*which_sprite(t_game *s, int i);
 
 void	ft_pixel_put(t_image *s, int x, int y, unsigned int color);
 int	pixel_get(t_image *data, int x, int y);
+
+int	close_game(void *param);
+
+
+int move_right(t_game *s);
+int move_left(t_game *s);
+int move_up(t_game *s);
+int move_down(t_game *s);

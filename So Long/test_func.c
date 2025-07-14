@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/11 18:19:29 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:28:20 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,44 @@ void	print_guards(t_game *s)
 		ft_printf("No Guards to Show\n");
 		return ;
 	}
+	ft_printf("┌──── Guards (%d) ────────┐\n", s->guard_count);
 	while (i < s->guard_count)
 	{
-		ft_printf("┌──── Guards (%d) ────────┐\n", s->guard_count);
 		ft_printf("  Guard #%d:\n", i + 1);
 		print_guard(&s->guards[i]);
 		i++;
-		ft_printf("└─────────────────────────┘\n");
 	}
+	ft_printf("└─────────────────────────┘\n");
+}
+
+void	print_collectible(t_collect *s)
+{
+	char	*status;
+
+	status = "Inactive";
+	if (s->active)
+		status = "Active";
+	ft_printf("Active Status: %s\n", status);
+	print_point(&s->coord);
+}
+
+void	print_collectibles(t_game *s)
+{
+	int	i;
+
+	i = 0;
+	if (s->collectibles.count == 0)
+		ft_printf("No Collectibles to Show\n");
+	ft_printf("┌─── Collectibles (%d) ────────────┐\n", s->collectibles.count);
+	print_image(&s->collectibles.sprite);
+	while (i < s->collectibles.count)
+	{
+		ft_printf("┌─── Collectible #%d───┐\n", i + 1);
+		print_collectible(&s->collectibles.collectible[i]);
+		ft_printf("└──────────────────────┘\n");
+		i++;
+	}
+	ft_printf("└─────────────────────────────────┘\n");
 }
 
 void	print_game(t_game *s)
@@ -126,5 +156,6 @@ void	print_game(t_game *s)
 	print_map(&s->map);
 	print_player(&s->player);
 	print_guards(s);
+	print_collectibles(s);
 	ft_printf("========== END OF DUMP ==========\n\n");
 }

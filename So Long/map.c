@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:27:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/11 16:14:09 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:10:44 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ void	*which_sprite(t_game *s, int i)
 	else if (s->map.map[i] == 'W')
 		return (mlx_xpm_file_to_image(s->mlx_ptr, "assets/walls/Wall1.xpm", &w,
 				&h));
+	else if(s->map.map[i] == 'E')
+			return(mlx_xpm_file_to_image(s->mlx_ptr, "assets/Helipad.xpm", &w, &h));
 	else if (s->map.map[i] == 'X')
 		return (mlx_xpm_file_to_image(s->mlx_ptr, "assets/Box.xpm", &w, &h));
 	else
-		return (mlx_xpm_file_to_image(s->mlx_ptr, "assets/ground/Ground.xpm", &w, &h));
+		return (mlx_xpm_file_to_image(s->mlx_ptr, "assets/ground/Ground.xpm",
+				&w, &h));
 }
 
 char	pick_ground(char *map, int i)

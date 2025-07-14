@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:13:57 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/11 18:21:32 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:47:45 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	spawn_point(t_game *s)
 	x = 0;
 	i = 0;
 	y = 0;
-	while (s->map.map[i] != 'P')
+	while (s->map.map[i] != '\0')
 	{
+		if(s->map.map[i] == 'P')
+			break;
 		x++;
 		if (s->map.map[i] == '\n')
 		{
@@ -31,6 +33,8 @@ void	spawn_point(t_game *s)
 		}
 		i++;
 	}
+	s->player.coord.tile_x = x;
+	s->player.coord.tile_y = y;
 	s->player.coord.x = (x * 128) + 32;
 	s->player.coord.y = (y * 128) + 7;
 }
@@ -97,7 +101,7 @@ bool	debug_mode(char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_game *game;
+	t_game	*game;
 
 	if (argc > 3 || argc == 1)
 		return (-1);

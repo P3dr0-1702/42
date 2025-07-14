@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 10:52:37 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/11 12:19:16 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/14 17:27:46 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,19 @@ typedef struct s_guard
 	bool	is_stationary;
 }	t_guard;
 
+typedef struct s_ration
+{
+	t_point coord;
+	bool active;
+}	t_collect;
+
+typedef struct s_collectibles
+{
+	t_collect *collectible;
+	t_image	sprite;
+	int count;
+}	t_collectibles;
+
 typedef struct s_game
 {
 	bool	debug_mode;
@@ -78,6 +91,7 @@ typedef struct s_game
 	t_image  base;
 	t_player	player;
 	t_guard *guards;
+	t_collectibles	collectibles;
 	int guard_count;
 }	t_game;
 

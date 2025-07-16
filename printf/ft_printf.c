@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:26:25 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/04/21 15:46:05 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/08 11:35:20 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (char_nbr);
 }
-
-// int main()
-// {
-// 	char c = 'g';
-// 	char *s= NULL;
-// 	int i;
-// 	int len;
-// 	unsigned int j = INT_MIN;
-// 	i = 42;
-// 	len = ft_printf("%c %s correu ate o endereco %p, ficou \
-// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i,
-//			j, i, j) - printf("%c %s correu ate o endereco %p, ficou \
-// 		la por %d horas e %i minutos. em hex %X horas e %x %%\n", c, s, s,  i,
-//			j, i, j);
-// 	printf("%d\n", len);
-// }

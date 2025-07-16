@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:13:57 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/14 17:47:45 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:58:24 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ int	keyloop(int key, t_game *game)
 	f = 0;
 	if (key == 'r' && game->debug_mode)
 		print_game(game);
-	else if (key == 65307)
+	else if (key == 65307 || key == 113)
 		close_game(game);
-	else if (key == 119)
+	else if (key == 119 || key == 65362)
 		return (move_up(game));
-	else if (key == 115)
+	else if (key == 115 || key == 65364)
 		return (move_down(game));
-	else if (key == 97)
+	else if (key == 97 || key == 65361)
 		return (move_left(game));
-	else if (key == 100)
+	else if (key == 100 || key == 65363)
 		return (move_right(game));
 	return (0);
 }

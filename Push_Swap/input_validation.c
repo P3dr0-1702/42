@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:24:30 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/08 18:08:05 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/11 11:12:35 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool	bounds(char *str)
 	}
 	limit = limits(sign);
 	j = 0;
-	while (j < 10 && ft_strlen(str) > 10)
+	while (j < 10 && ft_strlen(str) >= 10)
 	{
 		if (str[i + j] > limit[j])
 			return (false);
@@ -111,7 +111,7 @@ bool	within_bounds(char **str)
 	i = 0;
 	while (str[i])
 	{
-		if (!bounds(str[i]) || ft_strlen(str[i]) > 10)
+		if (!bounds(str[i]) || ft_strlen(str[i]) > 11)
 			return (false);
 		i++;
 	}

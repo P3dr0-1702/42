@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:27:20 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/08 18:08:26 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:18:31 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	fill_arr(int *arr, int *tails, int *prev, int size)
 {
 	int	i;
 	int	start;
-	int	end;
-	int	meio;
 	int	lis_len;
 
 	i = -1;
@@ -56,18 +54,11 @@ int	fill_arr(int *arr, int *tails, int *prev, int size)
 	while (++i < size)
 	{
 		start = 0;
-		end = lis_len;
-		while (start < end)
-		{
-			meio = (start + end) / 2;
-			if (arr[tails[meio]] < arr[i])
-				start = meio + 1;
-			else
-				end = meio;
-		}
+		while (start < lis_len && arr[tails[start]] < arr[i])
+			start++;
 		if (start == lis_len)
 			lis_len++;
-		tails[end] = fill_prev(prev, tails, start, i);
+		tails[start] = fill_prev(prev, tails, start, i);
 	}
 	return (lis_len);
 }

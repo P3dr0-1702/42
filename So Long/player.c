@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:45:24 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/14 17:34:45 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:16:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	collected(t_game *s)
 	while (i < s->collectibles.count)
 	{
 		collectibles = s->collectibles.collectible[i].coord;
-		if (player->tile_x == collectibles.tile_x && player->tile_y == collectibles.tile_y)
+		if (player->tile_x == collectibles.tile_x
+			&& player->tile_y == collectibles.tile_y)
 		{
 			s->collectibles.collectible[i].active = false;
 			s->player.collectibles++;
@@ -31,6 +32,40 @@ void	collected(t_game *s)
 		i++;
 		if (i > 1000)
 			break ;
+	}
+}
+
+void	dir(int *dir, int *target_x, int *target_y)
+{
+	target_x = 0;
+	target_y = 0;
+	if (dir == 0)
+		target_x = -1;
+	else if (dir == 1)
+		target_y = -1;
+	else if (dir == 2)
+		target_x = 1;
+	else if (dir == 3)
+		target_y == 1;
+}
+
+int	move(t_game *s, int dir)
+{
+	int	x;
+	int	y;
+	int	x_target;
+	int	y_target;
+
+	x = s->player.coord.x / 128;
+	y = s->player.coord.y / 128;
+		if (s->map.grid[y + y_target][x + x_target] != '1')
+	{
+		s->player.coord.tile_y += y_target;
+		s->player.coord.tile_x += x_target;
+		s->player.coord.x += x_target *128;
+		s->player.coord.y += y_target * 128;
+		s->player.moves++;
+		collected(s);
 	}
 }
 

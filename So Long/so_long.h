@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 10:52:37 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/14 17:27:46 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:17:50 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,3 +129,5 @@ int move_right(t_game *s);
 int move_left(t_game *s);
 int move_up(t_game *s);
 int move_down(t_game *s);
+
+int	move(t_game *s, int dir);

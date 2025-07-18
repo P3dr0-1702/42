@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:04:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/17 17:30:14 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:42:15 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	render_collectible_into_buffer(t_game *s, t_collect *c)
 		return ;
 	while (point.y < s->collectibles.sprite.heigth)
 	{
+		point.x = 0;
 		while (point.x < s->collectibles.sprite.width)
 		{
 			color = pixel_get(&s->collectibles.sprite, point.x, point.y);
@@ -58,17 +59,19 @@ void	render_collectible_into_buffer(t_game *s, t_collect *c)
 	}
 }
 
-void render_player_into_buffer(t_game *s)
+void	render_player_into_buffer(t_game *s)
 {
-	t_point point;
-	unsigned char color;
+	t_point			point;
+	unsigned int	color;
 
 	point.y = 0;
 	while (point.y < s->player.sprite[s->player.state][s->player.frame].heigth)
 	{
-		while (point.x <  s->player.sprite[s->player.state][s->player.frame].width)
+		point.x = 0;
+		while (point.x < s->player.sprite[s->player.state][s->player.frame].width)
 		{
-			color = pixel_get(& s->player.sprite[s->player.state][s->player.frame], point.x, point.y);
+			color = pixel_get(&s->player.sprite[s->player.state][s->player.frame],
+					point.x, point.y);
 			if ((color >> 24) != 0xFF)
 			{
 				ft_pixel_put(&s->win.frame_buffer, s->player.coord.x + point.x,
@@ -106,7 +109,10 @@ void	render_frame(t_game *s)
 
 	render_base_into_buffer(s);
 	render_collectibles_into_buffer(s);
+	s->player.state = 0;
+	s->player.frame = 0;
 	render_player_into_buffer(s);
-	render_enemy_into_buffer(s);
-	mlx_put_image_to_window(s->mlx_ptr, s->win.win_ptr, s->win.frame_buffer.img_ptr, 0, 0);
+	//	render_enemy_into_buffer(s);
+	mlx_put_image_to_window(s->mlx_ptr, s->win.win_ptr,
+		s->win.frame_buffer.img_ptr, 0, 0);
 }

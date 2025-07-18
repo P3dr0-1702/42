@@ -1,0 +1,1414 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aux_func.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 11:21:39 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/09 11:41:54 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int	firstline(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i] != '\n')
+		i++;
+	return (i);
+}
+
+int	rng(void)
+{
+	struct timeval	tv;
+	struct timeval	tv2;
+	int				i;
+
+	gettimeofday(&tv, NULL);
+	i = 0;
+	while (i < tv.tv_usec)
+		i++;
+	gettimeofday(&tv2, NULL);
+	return (tv.tv_usec * tv2.tv_usec);
+}
+
+int	xtile(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i] != '\n')
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ytile(char *map)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (map[i] != '\0')
+	{
+		if (map[i] == '\n')
+			count++;
+		i++;
+	}
+	return (count);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 11:15:44 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 15:04:47 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+void	print_point(t_point *p)
+{
+	ft_printf("  Position:\n");
+	ft_printf("    X Coordinate   : %d\n", p->x);
+	ft_printf("    Y Coordinate   : %d\n", p->y);
+	ft_printf("    Tile X Index   : %d\n", p->tile_x);
+	ft_printf("    Tile Y Index   : %d\n", p->tile_y);
+}
+
+void	print_image(t_image *img)
+{
+	ft_printf("    Image Details:\n");
+	ft_printf("      Address      : %p\n", img->img_addr);
+	ft_printf("      Pointer      : %p\n", img->img_ptr);
+	ft_printf("      Width        : %d px\n", img->width);
+	ft_printf("      Height       : %d px\n", img->heigth);
+	ft_printf("      Bits/Pixel   : %d\n", img->bpp);
+	ft_printf("      Line Length  : %d\n", img->l_len);
+	ft_printf("      Endian       : %d\n", img->endian);
+}
+
+void	print_window(t_window *win)
+{
+	ft_printf("┌───────────────────────── Window ─────────────────────────┐\n");
+	ft_printf("  Window Pointer : %p\n", win->win_ptr);
+	ft_printf("  Dimensions     : %d × %d px\n", win->width, win->height);
+	ft_printf("  Tiles (X × Y)  : %d × %d\n", win->ntilesx, win->ntilesy);
+	ft_printf("┌─────── Frame Buffer ───────┐\n");
+	print_image(&win->frame_buffer);
+	ft_printf("└────────────────────────────┘\n");
+	ft_printf("└──────────────────────────────────────────────────────────┘\n");
+}
+
+char	*y_or_n(bool a)
+{
+	if (a)
+		return ("Yes");
+	return ("No");
+}
+
+void	print_player(t_player *p)
+{
+	ft_printf("┌─────────────────────── Player Data ──────────────────────┐\n");
+	ft_printf("┌────── Frame Data ───────┐\n");
+	ft_printf("Under Construction: \n");
+	ft_printf("└─────────────────────────┘\n");
+	print_point(&p->coord);
+	printf("   Immunity Frames: %f\n", p->immunity_time);
+	printf("   Collectibles Collected: %d\n", p->collectibles);
+	printf("   Moves: %d\n", p->moves);
+	ft_printf("└──────────────────────────────────────────────────────────┘\n");
+}
+
+void	print_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("┌─────────────────────────── Map ──────────────────────────┐\n");
+	ft_printf("  Raw String     :\n%s\n", map->map);
+	if (map->grid)
+	{
+		ft_printf("┌─────────── Grid ───────────┐\n");
+		while (map->grid[i])
+		{
+			ft_printf("    %s\n", map->grid[i]);
+			i++;
+		}
+		ft_printf("└────────────────────────────┘\n");
+	}
+	else
+		ft_printf("No Valid Grid to Show\n");
+	ft_printf("└──────────────────────────────────────────────────────────┘\n");
+}
+
+void	print_guard(t_guard *g)
+{
+	print_point(&g->coord);
+	ft_printf("State: %s\n", g->state);
+	ft_printf("Frame: %d\n", g->frame);
+}
+
+int	print_guards(t_game *s)
+{
+	int	i;
+
+	i = 0;
+	if (s->enemy.guard_count == 0)
+		return (ft_printf("No enemies to display\n"));
+	ft_printf("┌────Displaying %d Guards────┐\n");
+	while (i < s->enemy.guard_count)
+	{
+		ft_printf("┌───Guard #%d───┐\n", i);
+		print_guard(&s->enemy.guard[i]);
+		ft_printf("└───────────────┘\n");
+	}
+	ft_printf("└────────────────────────────┘\n");
+	return (0);
+}
+
+char	*y_o_n(bool s)
+{
+	if (s)
+		return ("is");
+	return ("is NOT");
+}
+
+void	print_collectible(t_collect *c)
+{
+	print_point(&c->coord);
+	if (c->active)
+		ft_printf("Status: Active\n");
+	else
+		ft_printf("Status: Deactive\n");
+}
+
+int	print_collectibles(t_game *s)
+{
+	int	i;
+
+	i = 0;
+	if (s->collectibles.count == 0)
+		return (ft_printf("No Colletibles to Show (Debug Mode Should be On (it %s))\n",
+				y_o_n(s->debug_mode)));
+	ft_printf("┌───Displaying %d Rations────┐\n");
+	while (i < s->collectibles.count)
+	{
+		ft_printf("┌───Ration #%d──┐\n", i);
+		print_collectible(&s->collectibles.collectible[i]);
+		ft_printf("└───────────────┘\n");
+	}
+	ft_printf("└────────────────────────────┘\n");
+	return (0);
+}
+
+void	print_game(t_game *s)
+{
+	ft_printf("\n=============================== GAME STATE ================================\n");
+	ft_printf("MLX Context Pointer: %p\n", s->mlx_ptr);
+	ft_printf("┌─────────────────────── Game Base ────────────────────────┐\n");
+	print_image(&s->base);
+	ft_printf("└──────────────────────────────────────────────────────────┘\n");
+	print_window(&s->win);
+	print_map(&s->map);
+	print_player(&s->player);
+	print_guards(s);
+	print_collectibles(s);
+	ft_printf("=============================== END OF DUMP ===============================\n");
+}
+
+bool	debug_mode(char **argv)
+{
+	if (argv[2])
+	{
+		if (ft_strcmp(argv[2], "debug_mode=y") == 0)
+			return (true);
+	}
+	return (false);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gameloop.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 13:30:00 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 13:02:03 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int	keyloop(int key, t_game *game)
+{
+	if (key == KEY_R && game->debug_mode)
+		print_game(game);
+	else if (key == KEY_A || key == KEY_LEFT)
+		move(game, MOVE_LEFT);
+	else if (key == KEY_W || key == KEY_UP)
+		move(game, MOVE_UP);
+	else if (key == KEY_D || key == KEY_LEFT)
+		move(game, MOVE_LEFT);
+	else if (key == KEY_S || key == KEY_DOWN)
+		move(game, MOVE_DOWN);
+	return (0);
+}
+
+int	gameloop(void *param)
+{
+	t_game *game;
+	game = param;
+	mlx_key_hook(game->win.win_ptr, keyloop, game);
+	render_frame(game);
+	return (0);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_base.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/18 13:38:03 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 15:32:26 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+// t_image	init_tile_base(t_game *s, int i)
+// {
+// 	t_image	tile;
+
+// 	tile.img_ptr = which_sprite(s, i);
+// 	if (!tile.img_ptr)
+// 		exit(EXIT_FAILURE);
+// 	tile.img_addr = mlx_get_data_addr(tile.img_ptr, &tile.bpp, &tile.l_len,
+// 			&tile.endian);
+// 	tile.width = 128;
+// 	tile.heigth = 128;
+// 	return (tile);
+// }
+
+// void	fill_tile(t_game *g, t_image *tile, unsigned int color, t_point point)
+// {
+// 	int	ty;
+// 	int	tx;
+
+// 	ty = 0;
+// 	while (ty < tile->heigth)
+// 	{
+// 		tx = 0;
+// 		while (tx < tile->width)
+// 		{
+// 			color = pixel_get(tile, tx, ty);
+// 			if ((color >> 24) != 0xFF)
+// 				ft_pixel_put(&g->base, point.x + tx, point.y + ty, color);
+// 			tx++;
+// 		}
+// 		ty++;
+// 	}
+// }
+
+// void	init_base_buffer(t_game *s)
+// {
+// 	int				i;
+// 	t_image			tile;
+// 	t_point			point;
+// 	unsigned int	color;
+
+// 	i = 0;
+// 	point.y = 0;
+// 	point.x = 0;
+// 	color = 0;
+// 	while (s->map.map[i] != '\0')
+// 	{
+// 		if (s->map.map[i] != '\n')
+// 		{
+// 			tile = init_tile_base(s, i);
+// 			fill_tile(s, &tile, color, point);
+// 		}
+// 		else
+// 		{
+// 			point.y += tile.heigth;
+// 			point.x = 0;
+// 		}
+// 		i++;
+// 	}
+// }
+
+// void init_base(t_game *s)
+// {
+// 	s->base.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width, s->win.height);
+// 	s->base.img_addr = mlx_get_data_addr(s->base.img_ptr, &s->base.bpp,
+// 			&s->base.l_len, &s->base.endian);
+// 	s->base.width = s->win.width;
+// 	s->base.heigth = s->win.height;
+// 	init_base_buffer(s);
+// }
+
+
+t_image	init_tile_base(t_game *s, int i)
+{
+	t_image	tile;
+
+	tile.img_ptr = which_sprite(s, i);
+	if(!tile.img_ptr)
+		exit(ft_printf("Failed to Load assets. Panicking\n"));
+	tile.img_addr = mlx_get_data_addr(tile.img_ptr, &tile.bpp, &tile.l_len,
+			&tile.endian);
+	tile.width = 128;
+	tile.heigth = 128;
+	return (tile);
+}
+
+void	fill_tile(t_game *g, t_image *tile, unsigned int color, t_point point)
+{
+	int	ty;
+	int	tx;
+
+	ty = 0;
+	while (ty < tile->heigth)
+	{
+		tx = 0;
+		while (tx < tile->width)
+		{
+			color = pixel_get(tile, tx, ty);
+			if ((color >> 24) != 0xFF)
+				ft_pixel_put(&g->base, point.x + tx, point.y + ty, color);
+			tx++;
+		}
+		ty++;
+	}
+}
+
+void	init_base(t_game *s)
+{
+	int				i;
+	t_image			tile;
+	t_point			point;
+	unsigned int	color;
+
+	i = 0;
+	color = 0;
+	point.x = 0;
+	point.y = 0;
+	while (s->map.map[i] != '\0')
+	{
+		if (s->map.map[i] != '\n')
+		{
+			tile = init_tile_base(s, i);
+			fill_tile(s, &tile, color, point);
+			point.x += tile.width;
+		}
+		else
+		{
+			point.y += tile.heigth;
+			point.x = 0;
+		}
+		i++;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_collect.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/18 13:43:40 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 15:30:17 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int	char_count(char *s, char c)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			count++;
+		i++;
+	}
+	if (c == '\0')
+		return (1);
+	return (count);
+}
+
+void	init_collectible(t_collect *s, int x, int y)
+{
+	s->coord.x = x * 128;
+	s->coord.y = y * 128;
+	s->active = true;
+	s->coord.tile_x = x;
+	s->coord.tile_y = y;
+}
+
+void	init_collectibles(t_game *s)
+{
+	int x;
+	int y;
+	int i;
+	int k;
+
+	s->collectibles.collectible = malloc(sizeof(t_collect)
+			* s->collectibles.count);
+	if(!s->collectibles.collectible)
+		exit(ft_printf("NO MEMORY, FREAKING OUT."));
+	x = 0;
+	y = 0;
+	i = -1;
+	k = 0;
+	while (s->map.map[++i] != '\0')
+	{
+		if (s->map.map[i] == 'C')
+		{
+			init_collectible(&s->collectibles.collectible[k], x, y);
+			k++;
+		}
+		x++;
+		if (s->map.map[i] == '\n')
+		{
+			x = 0;
+			y++;
+		}
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inititalizer.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 17:40:03 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 15:49:29 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+void	spawn_point(t_game *s)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	x = 0;
+	i = 0;
+	y = 0;
+	while (s->map.map[i] != '\0')
+	{
+		if (s->map.map[i] == 'P')
+			break ;
+		x++;
+		if (s->map.map[i] == '\n')
+		{
+			x = 0;
+			y++;
+		}
+		i++;
+	}
+	s->player.coord.tile_x = x;
+	s->player.coord.tile_y = y;
+	s->player.coord.x = (x * 128) + 32;
+	s->player.coord.y = (y * 128) + 7;
+}
+
+void	init_player_imgptr(t_game *s)
+{
+	s->player.sprite[0][0].img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,
+			ENT_PATH "Boxed_SS1.xpm", &s->player.sprite[0][0].width,
+			&s->player.sprite[0][0].heigth);
+	s->player.sprite[0][1].img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,
+			ENT_PATH "Boxed_SS2.xpm", &s->player.sprite[0][1].width,
+			&s->player.sprite[0][1].heigth);
+	s->player.sprite[1][0].img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,
+			ENT_PATH "SS_Frame1.xpm", &s->player.sprite[1][0].width,
+			&s->player.sprite[1][0].heigth);
+	s->player.sprite[1][1].img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,
+			ENT_PATH "SS_Frame2.xpm", &s->player.sprite[1][1].width,
+			&s->player.sprite[1][1].heigth);
+}
+
+void	init_player_imgaddr(t_game *s)
+{
+	s->player.sprite[0][0].img_addr = mlx_get_data_addr(s->player.sprite[0][0].img_ptr,
+			&s->player.sprite[0][0].bpp, &s->player.sprite[0][0].l_len,
+			&s->player.sprite[0][0].endian);
+	s->player.sprite[0][1].img_addr = mlx_get_data_addr(s->player.sprite[0][1].img_ptr,
+			&s->player.sprite[0][1].bpp, &s->player.sprite[0][1].l_len,
+			&s->player.sprite[0][1].endian);
+	s->player.sprite[1][0].img_addr = mlx_get_data_addr(s->player.sprite[1][0].img_ptr,
+			&s->player.sprite[1][0].bpp, &s->player.sprite[1][0].l_len,
+			&s->player.sprite[1][0].endian);
+	s->player.sprite[1][1].img_addr = mlx_get_data_addr(s->player.sprite[1][1].img_ptr,
+			&s->player.sprite[1][1].bpp, &s->player.sprite[1][1].l_len,
+			&s->player.sprite[1][1].endian);
+}
+
+void	init_player(t_game *s)
+{
+	spawn_point(s);
+	init_player_imgptr(s);
+	if (!s->player.sprite[0][0].img_ptr || !s->player.sprite[0][1].img_ptr
+		|| !s->player.sprite[1][0].img_ptr || !s->player.sprite[1][1].img_ptr)
+		exit(EXIT_FAILURE);
+	init_player_imgaddr(s);
+	s->player.collectibles = 0;
+	s->player.state = 0;
+	s->player.moves = 0;
+	s->player.frame = 0;
+}
+
+void	init_window(t_game *s)
+{
+	s->win.ntilesx = xtile(s->map.map);
+	s->win.ntilesy = ytile(s->map.map);
+	s->win.width = 128 * xtile(s->map.map);
+	s->win.height = 128 * ytile(s->map.map);
+	s->win.win_ptr = mlx_new_window(s->mlx_ptr, s->win.width, s->win.height,
+			"TAE: Metal Gear");
+	s->win.frame_buffer.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width,
+			s->win.height);
+	s->win.frame_buffer.img_addr = mlx_get_data_addr(s->win.frame_buffer.img_ptr,
+			&s->win.frame_buffer.bpp, &s->win.frame_buffer.l_len,
+			&s->win.frame_buffer.endian);
+	s->win.frame_buffer.width = s->win.width;
+	s->win.frame_buffer.heigth = s->win.height;
+}
+
+void	init_map(t_game *s)
+{
+	s->map.grid = ft_split(s->map.map, '\n');
+	s->map.map = store_map(s->map.map);
+}
+
+void	init_game(t_game *s)
+{
+	init_map(s);
+	init_window(s);
+	s->base.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width, s->win.height);
+	s->base.img_addr = mlx_get_data_addr(s->base.img_ptr, &s->base.bpp,
+			&s->base.l_len, &s->base.endian);
+	s->base.width = s->win.width;
+	s->base.heigth = s->win.height;
+	init_base(s);
+	init_collectibles(s);
+	s->collectibles.sprite.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,
+			ASSETS_PATH "Ration.xpm", &s->collectibles.sprite.width,
+			&s->collectibles.sprite.heigth);
+	init_player(s);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 11:15:12 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 14:30:56 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int main(int argc, char **argv)
+{
+	t_game *game;
+	if(argc > 3 || argc ==1)
+		return(-1);
+	game = malloc(sizeof(t_game));
+	game->map.map = map_parser(argv);
+	print_game(game);
+	if (!is_valid(game->map.map) || (argc == 3 && !debug_mode(argv)))
+		return -1;
+	game->mlx_ptr = mlx_init();
+	init_game(game);
+	mlx_loop_hook(game->mlx_ptr, gameloop, game);
+	mlx_loop(game->mlx_ptr);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 11:27:22 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 15:40:29 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int	is_top(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i] != '\n')
+		i++;
+	return (i);
+}
+
+bool	is_first_line(char *map, int i)
+{
+	if ((map[i + 1] == '1' && map[i - 1] == '1') && i < is_top(map))
+		return (true);
+	return (false);
+}
+
+bool	should_put_wall(char *map, int i)
+{
+	if ((map[i - 1] == '\n' || map[i + 1] == '\n' || map[i + 1] == '\0'
+			|| i == 0) || (map[i + 1] == '1' && map[i - 1] == '1'))
+		return (true);
+	return (false);
+}
+
+char	pick_obstacle(void)
+{
+	int	temp_rn;
+
+	temp_rn = rng() % 10;
+	if (temp_rn == 1)
+		return (OCTUPUSS);
+	else if (temp_rn > 5)
+		return (DESTROYED_GROUND);
+	else
+		return (BOX);
+}
+
+char	pick_wall(char *map, int i)
+{
+	if (is_first_line(map, i) && rng() % 7 == 1)
+		return (WALL_POSTER);
+	else if (is_first_line(map, i) && rng() % 3 == 0)
+		return (WALL_PANEL);
+	else if (should_put_wall(map, i) && rng() % 100 == 5)
+		return (KOJIMA_WALL);
+	else if (should_put_wall(map, i) && rng() % 3 == 1)
+		return (WALL_SIGN);
+	else if (should_put_wall(map, i))
+		return (WALL);
+	else
+		return (pick_obstacle());
+}
+
+char	pick_ground(char *map, int i)
+{
+	int	temp_rn;
+
+	if (map[i] != '0')
+		return (0);
+	if (rng() % 100 == 1)
+		return (GROUND2);
+	else if (rng() % 100 < 66)
+	{
+		temp_rn = rng() % 3;
+		if ((temp_rn == 0) && (rng() % 3 == 0))
+			return (GROUND4);
+		else if (temp_rn == 1)
+			return (GROUND3);
+	}
+	return (GROUND1);
+}
+
+void	*which_ground(t_game *s, int i)
+{
+	int h, w;
+	if (s->map.map[i] == GROUND2)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, GROUND_PATH "Ground2.xpm", &w,
+				&h));
+	else if (s->map.map[i] == GROUND3)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, GROUND_PATH "Ground3.xpm", &w,
+				&h));
+	else if (s->map.map[i] == GROUND4)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, GROUND_PATH "Ground4.xpm", &w,
+				&h));
+	else if (s->map.map[i] == OCTUPUSS)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, OBSTACLES_PATH "Octopuss.xpm",
+				&w, &h));
+	else if (s->map.map[i] == BOX)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, OBSTACLES_PATH "Box.xpm", &w,
+				&h));
+	else
+		return (mlx_xpm_file_to_image(s->mlx_ptr,
+				OBSTACLES_PATH "Destroyed_Ground.xpm", &w, &h));
+}
+
+void	*which_sprite(t_game *s, int i)
+{
+	int h, w;
+	if (s->map.map[i] == KOJIMA_WALL)
+		return (mlx_xpm_file_to_image(s->mlx_ptr,
+				WALL_PATH "Absolute_Gameplay.xpm", &w, &h));
+	else if (s->map.map[i] == WALL_SIGN)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, WALL_PATH "Wall4.xpm", &w,
+				&h));
+	else if (s->map.map[i] == WALL_POSTER)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, WALL_PATH "Wall3.xpm", &w,
+				&h));
+	else if (s->map.map[i] == WALL_PANEL)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, WALL_PATH "Wall2.xpm", &w,
+				&h));
+	else if (s->map.map[i] == WALL)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, WALL_PATH "Wall1.xpm", &w,
+				&h));
+	else if (s->map.map[i] == 'E')
+		return (mlx_xpm_file_to_image(s->mlx_ptr, ASSETS_PATH "Helipad.xpm", &w,
+				&h));
+	else if (s->map.map[i] == GROUND1)
+		return (mlx_xpm_file_to_image(s->mlx_ptr, GROUND_PATH "Ground.xpm", &w,
+				&h));
+	else
+		return (which_ground(s, i));
+}
+
+char	*store_map(char *map)
+{
+	int i;
+	int x;
+	int y;
+	char *str;
+	i = 0;
+	x = 0;
+	y = 0;
+	str = malloc(sizeof(char) * (ft_strlen(map) + 1));
+	while (map[i] != '\0')
+	{
+		if (map[i] == '1')
+			str[i] = pick_wall(map, i);
+		else if (map[i] == '0')
+			str[i] = pick_ground(map, i);
+		else
+			str[i] = map[i];
+		i++;
+	}
+	str[i] = '\0';
+	free(map);
+	return (str);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parsing_and_validation.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 11:13:00 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 13:56:59 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+static bool	is_rectangle(char **map)
+{
+	size_t	i;
+	int		j;
+
+	i = ft_strlen(map[0]);
+	j = 1;
+	while (map[j] != NULL)
+	{
+		if (i != ft_strlen(map[j]))
+			return (false);
+		j++;
+	}
+	return (true);
+}
+
+static bool	one_word_one(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (str[0] == '1' && str[i - 1] == '1');
+}
+
+static bool	only_ones(char *str)
+{
+	int	i;
+	int	size;
+
+	i = 0;
+	size = ft_strlen(str);
+	while (i < size)
+	{
+		if (str[i] != '1' && str[i] != '\n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static bool	is_closed(char *map)
+{
+	int		i;
+	char	**maparr;
+	bool	rectangular;
+
+	i = 0;
+	maparr = ft_split(map, '\n');
+	if (!only_ones(maparr[0]))
+		return (false);
+	while (maparr[i] != NULL)
+	{
+		if (!(one_word_one(maparr[i])))
+			return (false);
+		i++;
+	}
+	if (!only_ones(maparr[i]))
+		return (false);
+	rectangular = is_rectangle(maparr);
+	return (true && rectangular);
+}
+
+static bool	at_least_one_collectible(char *map)
+{
+	int		i;
+	bool	flag;
+
+	i = 0;
+	flag = false;
+	while (map[i] != '\0')
+	{
+		if (map[i] == 'C')
+			flag = true;
+		i++;
+	}
+	return (flag);
+}
+
+static bool	only_one_player(char *map)
+{
+	int		i;
+	bool	flag;
+
+	i = 0;
+	flag = false;
+	while (map[i] != '\0')
+	{
+		if (map[i] == 'P')
+		{
+			if (flag)
+				return (false);
+			flag = true;
+		}
+		i++;
+	}
+	return (flag);
+}
+
+static bool	only_one_exit(char *map)
+{
+	int		i;
+	bool	flag;
+
+	i = 0;
+	flag = false;
+	while (map[i] != '\0')
+	{
+		if (map[i] == 'E')
+		{
+			if (flag)
+				return (false);
+			flag = true;
+		}
+		i++;
+	}
+	return (flag);
+}
+
+static bool	enough_objects(char *map)
+{
+	return (only_one_exit(map) && only_one_player(map)
+		&& at_least_one_collectible(map));
+}
+
+static bool	good_char(char c)
+{
+	if (c == 'P' || c == '0' || c == '1' || c == 'E' || c == 'C' || c == 'G'
+		|| c == '\n')
+		return (true);
+	return (false);
+}
+
+static bool	no_forbidden_chars(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i] != '\0')
+	{
+		if (!good_char(map[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	is_valid(char *map)
+{
+	return (no_forbidden_chars(map) && enough_objects(map) && is_closed(map));
+}
+
+static bool	is_ber(char *str)
+{
+	int		i;
+	char	*ber;
+	int		k;
+
+	ber = "ber";
+	i = 0;
+	while (str[i] != '.')
+		i++;
+	i++;
+	k = 0;
+	while (str[i + k] != '\0')
+	{
+		if (str[i] != ber[k])
+			return (false);
+		k++;
+	}
+	return (true);
+}
+
+char	*map_parser(char **argv)
+{
+	int		fd;
+	char	*temp;
+	char	*line;
+	char	*map;
+
+	fd = open(argv[1], O_RDONLY);
+	if (!debug_mode(argv) && !is_ber(argv[1]))
+		exit(EXIT_FAILURE);
+	if (fd < 0)
+		return (NULL);
+	map = ft_strdup("");
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		temp = ft_strjoin(map, line);
+		free(map);
+		map = temp;
+		free(line);
+	}
+	close(fd);
+	return (map);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 13:35:26 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 13:13:32 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+void	collected(t_game *s)
+{
+	t_point	*player_pos;
+	t_point	collectibles;
+	int		i;
+
+	i = 0;
+	player_pos = &s->player.coord;
+	while (i < s->collectibles.count)
+	{
+		collectibles = s->collectibles.collectible[i].coord;
+		if (s->collectibles.collectible[i].active
+			&& (player_pos->tile_x == collectibles.tile_x
+				&& player_pos->tile_y == collectibles.tile_y))
+		{
+			s->collectibles.collectible[i].active = false;
+			s->player.collectibles++;
+		}
+		i++;
+	}
+}
+void	direction(int dir, int *target_x, int *target_y)
+{
+	if (dir == 0)
+		*target_x = -1;
+	else if (dir == 1)
+		*target_y = -1;
+	else if (dir == 2)
+		*target_x = 1;
+	else if (dir == 3)
+		*target_y = 1;
+}
+
+int	move(t_game *s, int dir)
+{
+	int	x;
+	int	y;
+	int	x_target;
+	int	y_target;
+
+	x = s->player.coord.x / 128;
+	y = s->player.coord.y / 128;
+	direction(dir, &x_target, &y_target);
+	if (s->map.grid[y + y_target][x + x_target] != '1')
+	{
+		s->player.coord.tile_y += y_target;
+		s->player.coord.tile_x += x_target;
+		s->player.moves++;
+		collected(s);
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rendering.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 17:04:09 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 15:49:48 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+void	render_base_into_buffer(t_game *s)
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+
+	y = 0;
+	while (y < s->base.heigth)
+	{
+		x = 0;
+		while (x < s->base.width)
+		{
+			color = pixel_get(&s->base, x, y);
+			if ((color >> 24) != 0xFF)
+				ft_pixel_put(&s->win.frame_buffer, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	render_collectible_into_buffer(t_game *s, t_collect *c)
+{
+	t_point			point;
+	unsigned int	color;
+
+	point.y = 0;
+	color = 0;
+	if (!c->active)
+		return ;
+	while (point.y < s->collectibles.sprite.heigth)
+	{
+		while (point.x < s->collectibles.sprite.width)
+		{
+			color = pixel_get(&s->collectibles.sprite, point.x, point.y);
+			if ((color >> 24) != 0xFF)
+			{
+				ft_pixel_put(&s->win.frame_buffer, c->coord.x + point.x,
+					c->coord.y + point.y, color);
+			}
+			point.x++;
+		}
+		point.y++;
+	}
+}
+
+void	render_player_into_buffer(t_game *s)
+{
+	t_point			point;
+	unsigned char	color;
+
+	point.y = 0;
+	while (point.y < s->player.sprite[s->player.state][s->player.frame].heigth)
+	{
+		while (point.x < s->player.sprite[s->player.state][s->player.frame].width)
+		{
+			color = pixel_get(&s->player.sprite[s->player.state][s->player.frame],
+					point.x, point.y);
+			if ((color >> 24) != 0xFF)
+			{
+				ft_pixel_put(&s->win.frame_buffer, s->player.coord.x + point.x,
+					s->player.coord.y + point.y, color);
+			}
+			point.x++;
+		}
+		point.y++;
+	}
+}
+
+void	render_collectibles_into_buffer(t_game *s)
+{
+	int	i;
+
+	i = 0;
+	while (i < s->collectibles.count)
+	{
+		render_collectible_into_buffer(s, &s->collectibles.collectible[i]);
+		i++;
+	}
+}
+
+void	clear_frame(t_game *s)
+{
+	size_t	bytes;
+
+	bytes = (size_t)(s->win.frame_buffer.l_len * s->win.frame_buffer.heigth);
+	ft_bzero(s->win.frame_buffer.img_addr, bytes);
+}
+
+void	render_frame(t_game *s)
+{
+	clear_frame(s);
+
+	render_base_into_buffer(s);
+	render_collectibles_into_buffer(s);
+	s->player.state = 0;
+	s->player.frame = 0;
+	render_player_into_buffer(s);
+	//	render_enemy_into_buffer(s);
+	mlx_put_image_to_window(s->mlx_ptr, s->win.win_ptr,
+		s->win.frame_buffer.img_ptr, 0, 0);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/09 16:33:10 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/09 16:33:19 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+void	ft_pixel_put(t_image *s, int x, int y, unsigned int color)
+{
+	char	*dest;
+
+	dest = s->img_addr + (y * s->l_len + x * (s->bpp / 8));
+	*(unsigned int *)dest = color;
+}
+
+int	pixel_get(t_image *data, int x, int y)
+{
+	char	*dest;
+
+	dest = data->img_addr + (y * data->l_len + x * (data->bpp / 8));
+	return (*(unsigned int *)dest);
+}/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 10:50:09 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/07/18 13:45:53 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft/libft.h"
+#include "minilibx/mlx.h"
+#include "minilibx/mlx_int.h"
+#include <sys/time.h>
+#include <unistd.h>
+
+#define MOVE_LEFT 0
+#define MOVE_UP 1
+#define MOVE_RIGHT 2
+#define MOVE_DOWN 3
+#define KEY_LEFT 65361
+#define KEY_UP 65362
+#define KEY_RIGHT 65363
+#define KEY_DOWN 65364
+#define KEY_A 97
+#define KEY_W 119
+#define KEY_D 100
+#define KEY_S 115
+#define KEY_R 114
+#define KEY_Q 113
+//Sprite Paths
+#define ASSETS_PATH "assets/"
+#define GROUND_PATH ASSETS_PATH "ground/"
+#define WALL_PATH ASSETS_PATH "walls/"
+#define ENT_PATH ASSETS_PATH "ent/"
+#define OBSTACLES_PATH ASSETS_PATH "obstacles/"
+//Floor
+#define GROUND1 '0'
+#define GROUND2 'O'
+#define GROUND3 'V'
+#define	GROUND4 'W'
+//Walls
+#define KOJIMA_WALL 'K'
+#define WALL '1'
+#define WALL_PANEL 'T'
+#define WALL_POSTER 'B'
+#define WALL_SIGN 'S'
+//Obstacles
+#define BOX 'X'
+#define DESTROYED_GROUND 'G'
+#define OCTUPUSS '8'
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int tile_x;
+	int tile_y;
+}	t_point;
+
+typedef struct s_image
+{
+	char *img_addr;
+	int width;
+	int heigth;
+	int bpp;
+	int l_len;
+	int endian;
+	int *img_ptr;
+}	t_image;
+
+typedef struct s_window
+{
+	void *win_ptr;
+	int	width;
+	int	height;
+	int ntilesx;
+	int ntilesy;
+	t_image frame_buffer;
+}	t_window;
+
+typedef struct s_map
+{
+	char *map;
+	char **grid;
+}	t_map;
+
+typedef enum e_enemy_state
+{
+	PATROL,
+	SUSPICIOUS,
+	ALERT
+}	t_enemy_state;
+
+typedef struct s_snake
+{
+	t_image sprite[2][2];
+	t_point coord;
+	int state;
+	double immunity_time;
+	int collectibles;
+	int moves;
+	int frame;
+}	t_player;
+
+typedef struct s_guard
+{
+	t_point coord;
+	t_enemy_state state;
+	int frame;
+}	t_guard;
+
+typedef struct s_guards
+{
+	int guard_count;
+	t_image anim[2];
+	t_guard *guard;
+}	t_guards;
+
+typedef struct s_ration
+{
+	t_point coord;
+	bool active;
+}	t_collect;
+
+typedef struct s_collectibles
+{
+	t_collect *collectible;
+	t_image sprite;
+	int count;
+}	t_collectibles;
+
+typedef struct s_game
+{
+	bool debug_mode;
+	void *mlx_ptr;
+	t_window win;
+	t_map	map;
+	t_image	base;
+	t_player player;
+	t_guards enemy;
+	t_collectibles collectibles;
+}	t_game;
+
+
+//Debugging
+void	print_game(t_game *s);
+bool	debug_mode(char **argv);
+
+//Aux Func
+int	firstline(char *map);
+int	rng(void);
+int	xtile(char *map);
+int	ytile(char *map);
+
+//Map Parsing
+char	*map_parser(char **argv);
+bool	is_valid(char *map);
+
+//Gameloop
+int	gameloop(void *param);
+
+//Init Base
+void init_base(t_game *s);
+
+//Init Colletibles
+void	init_collectibles(t_game *s);
+
+//Inititalizer
+void	init_game(t_game *s);
+
+//Map
+char	*store_map(char *map);
+char	pick_ground(char *map, int i);
+void	*which_sprite(t_game *s, int i);
+char	pick_wall(char *map, int i);
+
+//Player
+int	move(t_game *s, int dir);
+
+//Rendering
+void	render_frame(t_game *s);
+
+//Utils
+void	ft_pixel_put(t_image *s, int x, int y, unsigned int color);
+int	pixel_get(t_image *data, int x, int y);

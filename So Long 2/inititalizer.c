@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:40:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/17 18:09:28 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/18 15:52:42 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ void	init_player(t_game *s)
 	init_player_imgptr(s);
 	if (!s->player.sprite[0][0].img_ptr || !s->player.sprite[0][1].img_ptr
 		|| !s->player.sprite[1][0].img_ptr || !s->player.sprite[1][1].img_ptr)
-		exit;
+		exit(EXIT_FAILURE);
 	init_player_imgaddr(s);
-	??
-	//continue here
+	s->player.collectibles = 0;
+	s->player.state = 0;
+	s->player.moves = 0;
+	s->player.frame = 0;
 }
 
 void	init_window(t_game *s)
@@ -100,11 +102,28 @@ void	init_window(t_game *s)
 	s->win.frame_buffer.heigth = s->win.height;
 }
 
-void	init_tile_base(t_game *s, int i)
+void	init_map(t_game *s)
 {
+	s->map.grid = ft_split(s->map.map, '\n');
+	s->map.map = store_map(s->map.map);
 }
 
 void	init_game(t_game *s)
 {
+	init_map(s);
 	init_window(s);
+	s->base.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width, s->win.height);
+	s->base.img_addr = mlx_get_data_addr(s->base.img_ptr, &s->base.bpp,
+			&s->base.l_len, &s->base.endian);
+	s->base.width = s->win.width;
+	s->base.heigth = s->win.height;
+	init_base(s);
+	init_collectibles(s);
+	s->collectibles.sprite.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,
+			ASSETS_PATH "Ration.xpm", &s->collectibles.sprite.width,
+			&s->collectibles.sprite.heigth);
+	s->collectibles.sprite.img_addr = mlx_get_data_addr(s->collectibles.sprite.img_ptr,
+			&s->collectibles.sprite.bpp, &s->collectibles.sprite.l_len,
+			&s->collectibles.sprite.endian);
+	init_player(s);
 }

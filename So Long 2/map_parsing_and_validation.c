@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:13:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/17 13:27:02 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:56:46 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,8 @@ char	*map_parser(char **argv)
 	char	*map;
 
 	fd = open(argv[1], O_RDONLY);
-	if (!debug_mode(argv) && !is_ber(argv[1]))
-		return (NULL);
+	if (!debug_mode(NULL, argv) && !is_ber(argv[1]))
+		exit(EXIT_FAILURE);
 	if (fd < 0)
 		return (NULL);
 	map = ft_strdup("");

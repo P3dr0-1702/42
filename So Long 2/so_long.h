@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/17 17:27:46 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/07/18 17:16:00 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,27 @@
 #define KEY_S 115
 #define KEY_R 114
 #define KEY_Q 113
+//Sprite Paths
 #define ASSETS_PATH "assets/"
 #define GROUND_PATH ASSETS_PATH "ground/"
 #define WALL_PATH ASSETS_PATH "walls/"
 #define ENT_PATH ASSETS_PATH "ent/"
+#define OBSTACLES_PATH ASSETS_PATH "obstacles/"
+//Floor
+#define GROUND1 '0'
+#define GROUND2 'O'
+#define GROUND3 'V'
+#define	GROUND4 'W'
+//Walls
+#define KOJIMA_WALL 'K'
+#define WALL '1'
+#define WALL_PANEL 'T'
+#define WALL_POSTER 'B'
+#define WALL_SIGN 'S'
+//Obstacles
+#define BOX 'X'
+#define DESTROYED_GROUND 'G'
+#define OCTUPUSS '8'
 
 typedef struct s_point
 {
@@ -90,7 +107,7 @@ typedef struct s_snake
 
 typedef struct s_guard
 {
-	t_point cord;
+	t_point coord;
 	t_enemy_state state;
 	int frame;
 }	t_guard;
@@ -130,7 +147,7 @@ typedef struct s_game
 
 //Debugging
 void	print_game(t_game *s);
-bool	debug_mode(char **argv);
+bool	debug_mode(t_game *s, char **argv);
 
 //Aux Func
 int	firstline(char *map);
@@ -142,15 +159,40 @@ int	ytile(char *map);
 char	*map_parser(char **argv);
 bool	is_valid(char *map);
 
+//Gameloop
+int	gameloop(void *param);
+int	keyloop(int key, t_game *game);
+
+//Init Base
+void init_base(t_game *s);
+
+//Init Colletibles
+void	init_collectibles(t_game *s);
+
+//Inititalizer
+void	init_game(t_game *s);
+
 //Map
 char	*store_map(char *map);
 char	pick_ground(char *map, int i);
 void	*which_sprite(t_game *s, int i);
 char	pick_wall(char *map, int i);
 
+//Move
+int	move_up(t_game *s);
+int	move_down(t_game *s);
+int	move_left(t_game *s);
+int	move_right(t_game *s);
+bool	game_win(t_game *s);
 //Player
 int	move(t_game *s, int dir);
+void	collected(t_game *s);
+//Rendering
+void	render_frame(t_game *s);
 
 //Utils
 void	ft_pixel_put(t_image *s, int x, int y, unsigned int color);
 int	pixel_get(t_image *data, int x, int y);
+
+
+int close_game(void *param);

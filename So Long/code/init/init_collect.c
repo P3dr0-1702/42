@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:43:40 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/23 17:04:08 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:06:37 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "init.h"
 
 int	char_count(char *s, char c)
 {
@@ -39,21 +39,13 @@ void	init_collectible(t_collect *s, int x, int y)
 	s->coord.tile_y = y;
 }
 
-void	init_collectibles(t_game *s)
+void	init_collect(t_game *s)
 {
-	int x;
-	int y;
-	int i;
-	int k;
+	int	x;
+	int	y;
+	int	i;
+	int	k;
 
-	s->collectibles.count = char_count(s->map.map, 'C');
-	if(s->collectibles.count == 0)
-		exit(EXIT_FAILURE);
-	printf("%d", s->collectibles.count);
-	s->collectibles.collectible = malloc(sizeof(t_collect)
-			* s->collectibles.count);
-	if(!s->collectibles.collectible)
-		exit(ft_printf("NO MEMORY, FREAKING OUT."));
 	x = 0;
 	y = 0;
 	i = -1;
@@ -72,4 +64,14 @@ void	init_collectibles(t_game *s)
 			y++;
 		}
 	}
+}
+
+void	init_collectibles(t_game *s)
+{
+	s->collectibles.count = char_count(s->map.map, 'C');
+	s->collectibles.collectible = malloc(sizeof(t_collect)
+			* s->collectibles.count);
+	if (!s->collectibles.collectible)
+		exit(close_game(s));
+	init_collect(s);
 }

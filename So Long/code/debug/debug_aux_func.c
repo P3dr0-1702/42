@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   debug_aux_func.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 11:15:44 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/23 16:48:07 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/08/06 16:41:22 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/08/06 17:06:05 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "debug.h"
 
 void	print_point(t_point *p)
 {
@@ -45,13 +45,6 @@ void	print_window(t_window *win)
 	ft_printf("└──────────────────────────────────────────────────────────┘\n");
 }
 
-char	*y_or_n(bool a)
-{
-	if (a)
-		return ("Yes");
-	return ("No");
-}
-
 void	print_player(t_player *p)
 {
 	ft_printf("┌─────────────────────── Player Data ──────────────────────┐\n");
@@ -84,71 +77,4 @@ void	print_map(t_map *map)
 	else
 		ft_printf("No Valid Grid to Show\n");
 	ft_printf("└──────────────────────────────────────────────────────────┘\n");
-}
-
-
-char	*y_o_n(bool s)
-{
-	if (s)
-		return ("is");
-	return ("is NOT");
-}
-
-void	print_collectible(t_collect *c)
-{
-	print_point(&c->coord);
-	if (c->active)
-		ft_printf("Status: Active\n");
-	else
-		ft_printf("Status: Deactive\n");
-}
-
-int	print_collectibles(t_game *s)
-{
-	int	i;
-
-	i = 0;
-	if (s->collectibles.count == 0)
-		return (ft_printf("No Colletibles to Show (Debug Mode Should be On (it%s))\n",
-				y_o_n(s->debug_mode)));
-	ft_printf("┌───Displaying %d Rations────┐\n", s->collectibles.count);
-	while (i < s->collectibles.count)
-	{
-		ft_printf("┌───Ration #%d──┐\n", i);
-		print_collectible(&s->collectibles.collectible[i]);
-		ft_printf("└───────────────┘\n");
-		i++;
-	}
-	ft_printf("└────────────────────────────┘\n");
-	return (0);
-}
-
-void	print_game(t_game *s)
-{
-	ft_printf("\n=============================== GAME STATE ================================\n");
-	ft_printf("MLX Context Pointer: %p\n", s->mlx_ptr);
-	ft_printf("┌─────────────────────── Game Base ────────────────────────┐\n");
-	print_image(&s->base);
-	ft_printf("└──────────────────────────────────────────────────────────┘\n");
-	print_window(&s->win);
-	print_map(&s->map);
-	print_player(&s->player);
-	print_collectibles(s);
-	ft_printf("=============================== END OF DUMP ===============================\n");
-}
-
-bool	debug_mode(t_game *s, char **argv)
-{
-	if (argv[2])
-	{
-		if (ft_strcmp(argv[2], "debug_mode=y") == 0)
-		{
-			if(s)
-				s->debug_mode = true;
-			return (true);
-		}
-	}
-	if(s)
-		s->debug_mode = false;
-	return (false);
 }

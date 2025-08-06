@@ -1,362 +1,73 @@
-==138183== Memcheck, a memory error detector
-==138183== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==138183== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==138183== Command: ./so_long maps/valid_7x6 debug_mode=y
-==138183== 
-Forbidden Chars==138183== Invalid read of size 1
-==138183==    at 0x403B06: is_first_line (map.c:40)
-==138183==    by 0x403CAA: pick_wall (map.c:69)
-==138183==    by 0x404283: store_map (map.c:166)
-==138183==    by 0x403635: init_map (inititalizer.c:87)
-==138183==    by 0x403664: init_game (inititalizer.c:92)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183==  Address 0x4c5149f is 1 bytes before a block of size 49 alloc'd
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405F69: ft_strjoin (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404A31: map_parser (map_parsing_and_validation.c:310)
-==138183==    by 0x403931: main (main.c:54)
-==138183== 
-==138183== Invalid read of size 1
-==138183==    at 0x403B06: is_first_line (map.c:40)
-==138183==    by 0x403CE2: pick_wall (map.c:71)
-==138183==    by 0x404283: store_map (map.c:166)
-==138183==    by 0x403635: init_map (inititalizer.c:87)
-==138183==    by 0x403664: init_game (inititalizer.c:92)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183==  Address 0x4c5149f is 1 bytes before a block of size 49 alloc'd
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405F69: ft_strjoin (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404A31: map_parser (map_parsing_and_validation.c:310)
-==138183==    by 0x403931: main (main.c:54)
-==138183== 
-==138183== Invalid read of size 1
-==138183==    at 0x403B6C: should_put_wall (map.c:47)
-==138183==    by 0x403D1A: pick_wall (map.c:73)
-==138183==    by 0x404283: store_map (map.c:166)
-==138183==    by 0x403635: init_map (inititalizer.c:87)
-==138183==    by 0x403664: init_game (inititalizer.c:92)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183==  Address 0x4c5149f is 1 bytes before a block of size 49 alloc'd
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405F69: ft_strjoin (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404A31: map_parser (map_parsing_and_validation.c:310)
-==138183==    by 0x403931: main (main.c:54)
-==138183== 
-==138183== Invalid read of size 1
-==138183==    at 0x403B6C: should_put_wall (map.c:47)
-==138183==    by 0x403D52: pick_wall (map.c:75)
-==138183==    by 0x404283: store_map (map.c:166)
-==138183==    by 0x403635: init_map (inititalizer.c:87)
-==138183==    by 0x403664: init_game (inititalizer.c:92)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183==  Address 0x4c5149f is 1 bytes before a block of size 49 alloc'd
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405F69: ft_strjoin (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404A31: map_parser (map_parsing_and_validation.c:310)
-==138183==    by 0x403931: main (main.c:54)
-==138183== 
-==138183== Invalid read of size 1
-==138183==    at 0x403B6C: should_put_wall (map.c:47)
-==138183==    by 0x403D8A: pick_wall (map.c:77)
-==138183==    by 0x404283: store_map (map.c:166)
-==138183==    by 0x403635: init_map (inititalizer.c:87)
-==138183==    by 0x403664: init_game (inititalizer.c:92)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183==  Address 0x4c5149f is 1 bytes before a block of size 49 alloc'd
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405F69: ft_strjoin (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404A31: map_parser (map_parsing_and_validation.c:310)
-==138183==    by 0x403931: main (main.c:54)
-==138183== 
-2==138183== 
-==138183== HEAP SUMMARY:
-==138183==     in use at exit: 9,968 bytes in 101 blocks
-==138183==   total heap usage: 1,429 allocs, 1,328 frees, 213,801 bytes allocated
-==138183== 
-==138183== 40 bytes in 1 blocks are still reachable in loss record 1 of 25
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4031C3: init_collectibles (init_collect.c:53)
-==138183==    by 0x403703: init_game (inititalizer.c:100)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 48 bytes in 6 blocks are indirectly lost in loss record 2 of 25
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x40677A: ft_wordcpy (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x405DF6: ft_split (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4048D0: is_closed (map_parsing_and_validation.c:64)
-==138183==    by 0x404718: is_valid (map_parsing_and_validation.c:263)
-==138183==    by 0x403949: main (main.c:55)
-==138183== 
-==138183== 48 bytes in 6 blocks are indirectly lost in loss record 3 of 25
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x40677A: ft_wordcpy (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x405DF6: ft_split (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404639: pre_flood_fill (map_parsing_and_validation.c:247)
-==138183==    by 0x40473A: is_valid (map_parsing_and_validation.c:265)
-==138183==    by 0x403949: main (main.c:55)
-==138183== 
-==138183== 56 bytes in 1 blocks are still reachable in loss record 4 of 25
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405DBA: ft_split (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x40361D: init_map (inititalizer.c:86)
-==138183==    by 0x403664: init_game (inititalizer.c:92)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 104 (56 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 5 of 25
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405DBA: ft_split (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4048D0: is_closed (map_parsing_and_validation.c:64)
-==138183==    by 0x404718: is_valid (map_parsing_and_validation.c:263)
-==138183==    by 0x403949: main (main.c:55)
-==138183== 
-==138183== 104 (56 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 6 of 25
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x405DBA: ft_split (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404639: pre_flood_fill (map_parsing_and_validation.c:247)
-==138183==    by 0x40473A: is_valid (map_parsing_and_validation.c:265)
-==138183==    by 0x403949: main (main.c:55)
-==138183== 
-==138183== 136 bytes in 1 blocks are indirectly lost in loss record 7 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404129: which_sprite (map.c:138)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 136 bytes in 1 blocks are indirectly lost in loss record 8 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404066: which_sprite (map.c:129)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 136 bytes in 1 blocks are indirectly lost in loss record 9 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4041EC: which_sprite (map.c:147)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 136 bytes in 1 blocks are indirectly lost in loss record 10 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4041AB: which_sprite (map.c:144)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 224 (88 direct, 136 indirect) bytes in 1 blocks are definitely lost in loss record 11 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404129: which_sprite (map.c:138)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 224 (88 direct, 136 indirect) bytes in 1 blocks are definitely lost in loss record 12 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404066: which_sprite (map.c:129)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 224 (88 direct, 136 indirect) bytes in 1 blocks are definitely lost in loss record 13 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4041EC: which_sprite (map.c:147)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 224 (88 direct, 136 indirect) bytes in 1 blocks are definitely lost in loss record 14 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4041AB: which_sprite (map.c:144)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 256 bytes in 1 blocks are still reachable in loss record 15 of 25
-==138183==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x40390F: main (main.c:51)
-==138183== 
-==138183== 408 bytes in 3 blocks are indirectly lost in loss record 16 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x403F58: which_ground (map.c:112)
-==138183==    by 0x404201: which_sprite (map.c:150)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 408 bytes in 3 blocks are indirectly lost in loss record 17 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x403FDA: which_ground (map.c:118)
-==138183==    by 0x404201: which_sprite (map.c:150)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 672 (264 direct, 408 indirect) bytes in 3 blocks are definitely lost in loss record 18 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x403F58: which_ground (map.c:112)
-==138183==    by 0x404201: which_sprite (map.c:150)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 672 (264 direct, 408 indirect) bytes in 3 blocks are definitely lost in loss record 19 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x403FDA: which_ground (map.c:118)
-==138183==    by 0x404201: which_sprite (map.c:150)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 1,088 bytes in 8 blocks are indirectly lost in loss record 20 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4040A7: which_sprite (map.c:132)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 1,496 bytes in 11 blocks are indirectly lost in loss record 21 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404002: which_ground (map.c:121)
-==138183==    by 0x404201: which_sprite (map.c:150)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 1,768 bytes in 13 blocks are indirectly lost in loss record 22 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x48760C3: XShmCreateImage (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
-==138183==    by 0x4076D6: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x40416A: which_sprite (map.c:141)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 1,792 (704 direct, 1,088 indirect) bytes in 8 blocks are definitely lost in loss record 23 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4040A7: which_sprite (map.c:132)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 2,464 (968 direct, 1,496 indirect) bytes in 11 blocks are definitely lost in loss record 24 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x404002: which_ground (map.c:121)
-==138183==    by 0x404201: which_sprite (map.c:150)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== 2,912 (1,144 direct, 1,768 indirect) bytes in 13 blocks are definitely lost in loss record 25 of 25
-==138183==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==138183==    by 0x4076AB: mlx_int_new_xshm_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4079D2: mlx_new_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4082A7: mlx_int_parse_xpm (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x4086E1: mlx_xpm_file_to_image (in /home/pfreire-/Work/42/So Long 3/so_long)
-==138183==    by 0x40416A: which_sprite (map.c:141)
-==138183==    by 0x402E82: init_tile_base (init_base.c:91)
-==138183==    by 0x40300C: init_base (init_base.c:136)
-==138183==    by 0x4036FA: init_game (inititalizer.c:99)
-==138183==    by 0x4039B1: main (main.c:59)
-==138183== 
-==138183== LEAK SUMMARY:
-==138183==    definitely lost: 3,808 bytes in 44 blocks
-==138183==    indirectly lost: 5,808 bytes in 54 blocks
-==138183==      possibly lost: 0 bytes in 0 blocks
-==138183==    still reachable: 352 bytes in 3 blocks
-==138183==         suppressed: 0 bytes in 0 blocks
-==138183== 
-==138183== For lists of detected and suppressed errors, rerun with: -s
-==138183== ERROR SUMMARY: 16 errors from 16 contexts (suppressed: 1 from 1)
+==167639== Memcheck, a memory error detector
+==167639== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==167639== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==167639== Command: ./so_long maps/valid_5x5.ber
+==167639== 
+==167639== Use of uninitialised value of size 8
+==167639==    at 0x407493: mlx_new_window (in /home/pfreire-/Work/42/So Long/so_long)
+==167639==    by 0x4035CE: init_window (inititalizer.c:73)
+==167639==    by 0x4036DD: init_game (inititalizer.c:93)
+==167639==    by 0x403A7C: main (main.c:67)
+==167639==  Uninitialised value was created by a heap allocation
+==167639==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==167639==    by 0x403A46: main (main.c:63)
+==167639== 
+==167639== Invalid read of size 8
+==167639==    at 0x407493: mlx_new_window (in /home/pfreire-/Work/42/So Long/so_long)
+==167639==    by 0x4035CE: init_window (inititalizer.c:73)
+==167639==    by 0x4036DD: init_game (inititalizer.c:93)
+==167639==    by 0x403A7C: main (main.c:67)
+==167639==  Address 0x20 is not stack'd, malloc'd or (recently) free'd
+==167639== 
+==167639== 
+==167639== Process terminating with default action of signal 11 (SIGSEGV)
+==167639==  Access not within mapped region at address 0x20
+==167639==    at 0x407493: mlx_new_window (in /home/pfreire-/Work/42/So Long/so_long)
+==167639==    by 0x4035CE: init_window (inititalizer.c:73)
+==167639==    by 0x4036DD: init_game (inititalizer.c:93)
+==167639==    by 0x403A7C: main (main.c:67)
+==167639==  If you believe this happened as a result of a stack
+==167639==  overflow in your program's main thread (unlikely but
+==167639==  possible), you can try to increase the size of the
+==167639==  main thread stack using the --main-stacksize= flag.
+==167639==  The main thread stack size used in this run was 8388608.
+==167639== 
+==167639== HEAP SUMMARY:
+==167639==     in use at exit: 365 bytes in 8 blocks
+==167639==   total heap usage: 49 allocs, 41 frees, 606 bytes allocated
+==167639== 
+==167639== 30 bytes in 5 blocks are still reachable in loss record 1 of 4
+==167639==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==167639==    by 0x406ABA: ft_wordcpy (in /home/pfreire-/Work/42/So Long/so_long)
+==167639==    by 0x406136: ft_split (in /home/pfreire-/Work/42/So Long/so_long)
+==167639==    by 0x40368D: init_map (inititalizer.c:86)
+==167639==    by 0x4036D4: init_game (inititalizer.c:92)
+==167639==    by 0x403A7C: main (main.c:67)
+==167639== 
+==167639== 31 bytes in 1 blocks are still reachable in loss record 2 of 4
+==167639==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==167639==    by 0x404559: store_map (map.c:181)
+==167639==    by 0x4036A5: init_map (inititalizer.c:87)
+==167639==    by 0x4036D4: init_game (inititalizer.c:92)
+==167639==    by 0x403A7C: main (main.c:67)
+==167639== 
+==167639== 48 bytes in 1 blocks are still reachable in loss record 3 of 4
+==167639==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==167639==    by 0x4060FA: ft_split (in /home/pfreire-/Work/42/So Long/so_long)
+==167639==    by 0x40368D: init_map (inititalizer.c:86)
+==167639==    by 0x4036D4: init_game (inititalizer.c:92)
+==167639==    by 0x403A7C: main (main.c:67)
+==167639== 
+==167639== 256 bytes in 1 blocks are still reachable in loss record 4 of 4
+==167639==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==167639==    by 0x403A46: main (main.c:63)
+==167639== 
+==167639== LEAK SUMMARY:
+==167639==    definitely lost: 0 bytes in 0 blocks
+==167639==    indirectly lost: 0 bytes in 0 blocks
+==167639==      possibly lost: 0 bytes in 0 blocks
+==167639==    still reachable: 365 bytes in 8 blocks
+==167639==         suppressed: 0 bytes in 0 blocks
+==167639== 
+==167639== For lists of detected and suppressed errors, rerun with: -s
+==167639== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

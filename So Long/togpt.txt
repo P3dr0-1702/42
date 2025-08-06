@@ -223,7 +223,7 @@ bool	debug_mode(t_game *s, char **argv)
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:30:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/23 16:49:42 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:42:38 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,22 +234,32 @@ int	keyloop(int key, t_game *game)
 	if (key == KEY_R && game->debug_mode)
 		print_game(game);
 	else if (key == KEY_A || key == KEY_LEFT)
+	{
 		move_left(game);
+		ft_printf("Total moves: %d\n", game->player.moves);
+	}
 	else if (key == KEY_W || key == KEY_UP)
+	{
 		move_up(game);
+		ft_printf("Total moves: %d\n", game->player.moves);
+	}
 	else if (key == KEY_D || key == KEY_RIGHT)
+	{
 		move_right(game);
+		ft_printf("Total moves: %d\n", game->player.moves);
+	}
 	else if (key == KEY_S || key == KEY_DOWN)
+	{
 		move_down(game);
+		ft_printf("Total moves: %d\n", game->player.moves);
+	}
 	return (0);
 }
 
-int	gameloop(void *param)
+int	gameloop(t_game *game)
 {
-	t_game *game;
-	game = param;
 	render_frame(game);
-	if(game_win(game))
+	if (game_win(game))
 		close_game(game);
 	return (0);
 }/* ************************************************************************** */
@@ -260,83 +270,11 @@ int	gameloop(void *param)
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:38:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/18 15:32:26 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:02:12 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// t_image	init_tile_base(t_game *s, int i)
-// {
-// 	t_image	tile;
-
-// 	tile.img_ptr = which_sprite(s, i);
-// 	if (!tile.img_ptr)
-// 		exit(EXIT_FAILURE);
-// 	tile.img_addr = mlx_get_data_addr(tile.img_ptr, &tile.bpp, &tile.l_len,
-// 			&tile.endian);
-// 	tile.width = 128;
-// 	tile.heigth = 128;
-// 	return (tile);
-// }
-
-// void	fill_tile(t_game *g, t_image *tile, unsigned int color, t_point point)
-// {
-// 	int	ty;
-// 	int	tx;
-
-// 	ty = 0;
-// 	while (ty < tile->heigth)
-// 	{
-// 		tx = 0;
-// 		while (tx < tile->width)
-// 		{
-// 			color = pixel_get(tile, tx, ty);
-// 			if ((color >> 24) != 0xFF)
-// 				ft_pixel_put(&g->base, point.x + tx, point.y + ty, color);
-// 			tx++;
-// 		}
-// 		ty++;
-// 	}
-// }
-
-// void	init_base_buffer(t_game *s)
-// {
-// 	int				i;
-// 	t_image			tile;
-// 	t_point			point;
-// 	unsigned int	color;
-
-// 	i = 0;
-// 	point.y = 0;
-// 	point.x = 0;
-// 	color = 0;
-// 	while (s->map.map[i] != '\0')
-// 	{
-// 		if (s->map.map[i] != '\n')
-// 		{
-// 			tile = init_tile_base(s, i);
-// 			fill_tile(s, &tile, color, point);
-// 		}
-// 		else
-// 		{
-// 			point.y += tile.heigth;
-// 			point.x = 0;
-// 		}
-// 		i++;
-// 	}
-// }
-
-// void init_base(t_game *s)
-// {
-// 	s->base.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width, s->win.height);
-// 	s->base.img_addr = mlx_get_data_addr(s->base.img_ptr, &s->base.bpp,
-// 			&s->base.l_len, &s->base.endian);
-// 	s->base.width = s->win.width;
-// 	s->base.heigth = s->win.height;
-// 	init_base_buffer(s);
-// }
-
 
 t_image	init_tile_base(t_game *s, int i)
 {
@@ -389,6 +327,7 @@ void	init_base(t_game *s)
 		{
 			tile = init_tile_base(s, i);
 			fill_tile(s, &tile, color, point);
+			mlx_destroy_image(s->mlx_ptr, tile.img_ptr);
 			point.x += tile.width;
 		}
 		else
@@ -482,7 +421,7 @@ void	init_collectibles(t_game *s)
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:40:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/23 17:06:57 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:03:25 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -590,7 +529,7 @@ void	init_game(t_game *s)
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 11:15:12 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/05 15:22:01 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:59:46 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -606,34 +545,60 @@ void	free_grid(char **str)
 		free(str[i]);
 		i++;
 	}
+	free(str);
+}
+
+void	free_collectibles(t_game *s)
+{
+	int	i;
+
+	i = 0;
+	while (i < s->collectibles.count)
+	{
+		if (&s->collectibles.collectible[i] != NULL)
+			free(&s->collectibles.collectible[i]);
+		i++;
+	}
 }
 
 int	close_game(t_game *param)
 {
+	ft_printf("CLOSING GAME\n");
 	mlx_destroy_image(param->mlx_ptr, param->collectibles.sprite.img_ptr);
 	mlx_destroy_image(param->mlx_ptr, param->player.sprite.img_ptr);
 	mlx_destroy_image(param->mlx_ptr, param->base.img_ptr);
+	mlx_destroy_image(param->mlx_ptr, param->win.frame_buffer.img_ptr);
 	mlx_destroy_window(param->mlx_ptr, param->win.win_ptr);
 	mlx_destroy_display(param->mlx_ptr);
 	free_grid(param->map.grid);
+	free_collectibles(param);
 	free(param->map.map);
 	free(param->mlx_ptr);
-	exit(0);
+	free(param);
 	return (0);
+}
+
+int invalid_map(t_game *s)
+{
+	free(s->map.map);
+	free(s);
+	return(-1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	*game;
 
-	if (argc > 3 || argc == 1)
-		return (-1);
+	if ((argc > 3 || argc == 1) || ((argc == 3) && ft_strcmp(argv[2],
+				"debug_mode=y") != 0))
+		return (ft_printf("Wrong args\n"));
 	game = malloc(sizeof(t_game));
-	if(!game)
+	if (!game)
 		exit(EXIT_FAILURE);
 	game->map.map = map_parser(argv);
-	if ((!is_valid(game->map.map) && !debug_mode(game, argv)) || (argc == 3 && !debug_mode(game, argv)))
-		return (-1);
+	if ((!is_valid(game->map.map) && !debug_mode(game, argv)) || (argc == 3
+			&& !debug_mode(game, argv)))
+		return (invalid_map(game));
 	game->mlx_ptr = mlx_init();
 	init_game(game);
 	mlx_hook(game->win.win_ptr, 17, 0, close_game, game);
@@ -649,7 +614,7 @@ int	main(int argc, char **argv)
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:27:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/07/18 16:04:56 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:25:33 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -680,6 +645,13 @@ int	is_bottom(char *map)
 
 bool	is_first_line(char *map, int i)
 {
+	if (i == my_strlen(map))
+		return (false);
+	if (i == 0)
+	{
+		if ((map[i + 1] == '1') && i < is_top(map))
+			return (true);
+	}
 	if ((map[i + 1] == '1' && map[i - 1] == '1') && i < is_top(map))
 		return (true);
 	return (false);
@@ -687,6 +659,18 @@ bool	is_first_line(char *map, int i)
 
 bool	should_put_wall(char *map, int i)
 {
+	if (i == 0)
+	{
+		if ((map[i + 1] == '\n' || map[i + 1] == '\0' || i == 0) || (map[i
+				+ 1] == '1' && (i < is_top(map) || i > is_bottom(map))))
+			return (true);
+	}
+	if (i == my_strlen(map))
+	{
+		if (map[i - 1] == '\n' || i == 0 || ((map[i + 1] == '1' && map[i
+					- 1] == '1') && (i < is_top(map) || i > is_bottom(map))))
+			return (true);
+	}
 	if ((map[i - 1] == '\n' || map[i + 1] == '\n' || map[i + 1] == '\0'
 			|| i == 0) || ((map[i + 1] == '1' && map[i - 1] == '1')
 			&& (i < is_top(map) || i > is_bottom(map))))
@@ -803,6 +787,8 @@ char	*store_map(char *map)
 	x = 0;
 	y = 0;
 	str = malloc(sizeof(char) * (ft_strlen(map) + 1));
+	if(!str)
+		exit(EXIT_FAILURE);
 	while (map[i] != '\0')
 	{
 		if (map[i] == '1')
@@ -816,7 +802,8 @@ char	*store_map(char *map)
 	str[i] = '\0';
 	free(map);
 	return (str);
-}/* ************************************************************************** */
+}
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   map_parsing_and_validation.c                       :+:      :+:    :+:   */
@@ -824,7 +811,7 @@ char	*store_map(char *map)
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:13:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/05 15:34:22 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:34:17 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -880,17 +867,20 @@ static bool	is_closed(char *map)
 
 	i = 0;
 	maparr = ft_split(map, '\n');
+	if(!maparr)
+		exit(EXIT_FAILURE);
 	if (!only_ones(maparr[0]))
 		return (false);
 	while (maparr[i] != NULL)
 	{
 		if (!(one_word_one(maparr[i])))
-			return (false);
+			return (free_grid(maparr), false);
 		i++;
 	}
 	if (!only_ones(maparr[i]))
 		return (false);
 	rectangular = is_rectangle(maparr);
+	free_grid(maparr);
 	return (true && rectangular);
 }
 
@@ -1028,26 +1018,31 @@ int	my_strlen(char *s)
 	return (i);
 }
 
-void	flood_fill(char **map, int *n, int x, int y)
+void	flood_fill(char **map, int *n, t_point point, bool *exit)
 {
-	if (x < 0 || x > my_strlen(map[0]) || y < 0 || y > arr_len(map)
-		|| map[y][x] == 'F' || map[y][x] == '1')
+	t_point	p2;
+
+	if (point.x < 0 || point.x >= my_strlen(map[0]) || point.y < 0
+		|| point.y >= arr_len(map) || map[point.y][point.x] == 'F'
+		|| map[point.y][point.x] == '1')
 		return ;
-	if (map[y][x] == 'C')
-	{
-		if (*n >= 0)
-			(*n)++;
-		else
-			(*n)--;
-	}
-	if (map[y][x] == 'E')
-		(*n) *= -1;
-	map[y][x] = 'F';
-	flood_fill(map, n, x, y + 1);
-	flood_fill(map, n, x, y - 1);
-	flood_fill(map, n, x + 1, y);
-	flood_fill(map, n, x - 1, y);
+	if (map[point.y][point.x] == 'C')
+		(*n)++;
+	if (map[point.y][point.x] == 'E')
+		*exit = true;
+	map[point.y][point.x] = 'F';
+	p2 = point;
+	p2.y++;
+	flood_fill(map, n, p2, exit);
+	p2.y -= 2;
+	flood_fill(map, n, p2, exit);
+	p2 = point;
+	p2.x++;
+	flood_fill(map, n, p2, exit);
+	p2.x -= 2;
+	flood_fill(map, n, p2, exit);
 }
+
 
 bool	pre_flood_fill(char *map)
 {
@@ -1055,22 +1050,29 @@ bool	pre_flood_fill(char *map)
 	int		collectibles;
 	int		count;
 	t_point	p_coords;
+	bool exit;
 
 	temp = ft_split(map, '\n');
 	count = 0;
 	p_coords = p_coord(temp);
 	collectibles = char_count(map, 'C');
-	flood_fill(temp, &count, p_coords.x, p_coords.y);
-	if (count > 0)
-		return (false);
-	count *= -1;
-	if (collectibles != count)
+	flood_fill(temp, &count, p_coords, &exit);
+	free_grid(temp);
+	if (collectibles > count)
 		return (false);
 	return (true);
 }
 
 bool	is_valid(char *map)
 {
+	if (!no_forbidden_chars(map))
+		ft_printf("Forbidden Chars\n");
+	if (!enough_objects(map))
+		ft_printf("Missing Player, Exit or Collectibles\n");
+	if (!is_closed(map))
+		ft_printf("Map is not closed\n");
+	if (!pre_flood_fill(map))
+		ft_printf("Map is Unwinable\n");
 	return (no_forbidden_chars(map) && enough_objects(map) && is_closed(map)
 		&& pre_flood_fill(map));
 }
@@ -1427,7 +1429,7 @@ int	pixel_get(t_image *data, int x, int y)
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/05 12:10:43 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:08:57 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1556,7 +1558,7 @@ char	*map_parser(char **argv);
 bool	is_valid(char *map);
 
 //Gameloop
-int	gameloop(void *param);
+int	gameloop(t_game *param);
 int	keyloop(int key, t_game *game);
 
 //Init Base
@@ -1593,3 +1595,6 @@ int	pixel_get(t_image *data, int x, int y);
 
 
 int close_game(t_game *param);
+
+int	my_strlen(char *s);
+void	free_grid(char **str);

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:21:39 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 11:42:02 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:33:23 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	xtile(char *map)
 	int	i;
 
 	i = 0;
-	while (map[i] != '\n')
+	while (map[i] != '\n' && map[i] != '\0')
 	{
 		i++;
 	}
@@ -61,5 +61,7 @@ int	ytile(char *map)
 			count++;
 		i++;
 	}
+	if(map[i - 1] != '\n')
+		count++;
 	return (count);
 }

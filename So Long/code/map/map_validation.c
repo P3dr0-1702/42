@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:18:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 13:28:36 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:35:01 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ bool	is_closed(char *map)
 	if (!maparr)
 		exit(EXIT_FAILURE);
 	if (!only_ones(maparr[0]))
-		return (false);
+		return (free_grid(maparr), false);
 	while (maparr[i] != NULL)
 	{
 		if (!(one_word_one(maparr[i])))
 			return (free_grid(maparr), false);
 		i++;
 	}
+	i--;
 	if (!only_ones(maparr[i]))
-		return (false);
+		return (free_grid(maparr), false);
 	rectangular = is_rectangle(maparr);
 	free_grid(maparr);
 	return (rectangular);
@@ -89,20 +90,20 @@ t_point	p_coord(char **s)
 	y = 0;
 	point.x = -1;
 	point.y = -1;
-	while (s[x])
+	while (s[y])
 	{
-		y = 0;
-		while (s[x][y])
+		x = 0;
+		while (s[y][x])
 		{
-			if (s[x][y] == 'P')
+			if (s[y][x] == 'P')
 			{
 				point.x = x;
 				point.y = y;
 				return (point);
 			}
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 	return (point);
 }

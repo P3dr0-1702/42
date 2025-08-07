@@ -6,16 +6,26 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:38:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:08:53 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:22:42 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 
+static void	print_point(t_point *p)
+{
+	ft_printf("  Position:\n");
+	ft_printf("    X Coordinate   : %d\n", p->x);
+	ft_printf("    Y Coordinate   : %d\n", p->y);
+	ft_printf("    Tile X Index   : %d\n", p->tile_x);
+	ft_printf("    Tile Y Index   : %d\n", p->tile_y);
+}
+
 t_image	init_tile_base(t_game *s, int i)
 {
 	t_image	tile;
 
+	ft_printf("------------------------ffffffffffffffffffffffffffffffffffffff-------------------------\n");
 	tile.img_ptr = which_sprite(s, i);
 	if (!tile.img_ptr)
 		exit(ft_printf("Failed to Load assets. Panicking\n"));
@@ -57,18 +67,24 @@ void	init_base(t_game *s)
 	color = 0;
 	point.x = 0;
 	point.y = 0;
+	point.tile_x = 0;
+	point.tile_y = 0;
+	ft_printf("%s\n", s->map.map);
 	while (s->map.map[i] != '\0')
 	{
+		ft_printf("|%c|\n", s->map.map[i]);
 		if (s->map.map[i] != '\n')
 		{
+			print_point(&point);
 			tile = init_tile_base(s, i);
 			fill_tile(s, &tile, color, point);
 			mlx_destroy_image(s->mlx_ptr, tile.img_ptr);
-			point.x += tile.width;
+			point.x += 128;
 		}
 		else
 		{
-			point.y += tile.heigth;
+			printf("back to the line------------------------------------------------------------\n");
+			point.y += 128;
 			point.x = 0;
 		}
 		i++;

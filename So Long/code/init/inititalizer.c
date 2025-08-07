@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:40:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:13:42 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:31:53 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_window(t_game *s)
 	s->win.height = 128 * ytile(s->map.map);
 	s->win.win_ptr = mlx_new_window(s->mlx_ptr, s->win.width, s->win.height,
 			"TAE: Metal Gear");
+		ft_printf("----------------------------------------------------------------------size x: %d\n size y: %d\n", s->win.width, s->win.height);
 	s->win.frame_buffer.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width,
 			s->win.height);
 	s->win.frame_buffer.img_addr = mlx_get_data_addr(\

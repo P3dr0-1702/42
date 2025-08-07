@@ -1,0 +1,151 @@
+  Position:
+    X Coordinate   : 0
+    Y Coordinate   : 0
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 128
+    Y Coordinate   : 0
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 256
+    Y Coordinate   : 0
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 384
+    Y Coordinate   : 0
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 512
+    Y Coordinate   : 0
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 640
+    Y Coordinate   : 0
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 0
+    Y Coordinate   : 128
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 128
+    Y Coordinate   : 128
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 256
+    Y Coordinate   : 128
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 384
+    Y Coordinate   : 128
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 512
+    Y Coordinate   : 128
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 640
+    Y Coordinate   : 128
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 0
+    Y Coordinate   : 256
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 128
+    Y Coordinate   : 256
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 256
+    Y Coordinate   : 256
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 384
+    Y Coordinate   : 256
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 512
+    Y Coordinate   : 256
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 640
+    Y Coordinate   : 256
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 0
+    Y Coordinate   : 384
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 128
+    Y Coordinate   : 384
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 256
+    Y Coordinate   : 384
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 384
+    Y Coordinate   : 384
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 512
+    Y Coordinate   : 384
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 640
+    Y Coordinate   : 384
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 0
+    Y Coordinate   : 512
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 128
+    Y Coordinate   : 512
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 256
+    Y Coordinate   : 512
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 384
+    Y Coordinate   : 512
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 512
+    Y Coordinate   : 512
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+  Position:
+    X Coordinate   : 640
+    Y Coordinate   : 512
+    Tile X Index   : 771904752
+    Tile Y Index   : 0
+CLOSING GAME

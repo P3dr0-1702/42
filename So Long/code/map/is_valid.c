@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:13:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 14:01:49 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:31:56 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ bool	pre_flood_fill(char *map)
 	flood_fill(temp, &count, p_coords, &exit);
 	free_grid(temp);
 	if (collectibles > count)
+	{
+		ft_printf("c counted: %d\n", count);
 		return (false);
-	return (true);
+
+	}
+		return (true);
 }
 
 bool	no_consecutive_newline(char *s)

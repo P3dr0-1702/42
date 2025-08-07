@@ -6,13 +6,13 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:04:28 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:10:21 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:53:30 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_H
 # define INIT_H
-# include "../so_long.h"
+# include "../../so_long.h"
 
 t_image	init_tile_base(t_game *s, int i);
 void	fill_tile(t_game *g, t_image *tile, unsigned int color, t_point point);

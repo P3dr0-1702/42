@@ -6,13 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:27:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:36:05 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:54:22 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
-
-
 
 bool	should_put_wall(char *map, int i)
 {

@@ -6,14 +6,20 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:17:42 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:34:04 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 10:14:03 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 
-# include "../so_long.h"
+# include "../../so_long.h"
+
+int	is_top(char *map);
+int	is_bottom(char *map);
+bool	is_first_line(char *map, int i);
+void	*which_ground(t_game *s, int i);
+void	*which_sprite(t_game *s, int i);
 
 bool	at_least_one_collectible(char *map);
 bool	only_one_player(char *map);

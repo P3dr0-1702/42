@@ -6,13 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:22:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:25:20 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 10:02:47 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init.h"
-
-
+#include "map.h"
 
 int	arr_len(char **s)
 {

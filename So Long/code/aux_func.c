@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:21:39 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 16:26:33 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:54:43 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 int	firstline(char *map)
 {

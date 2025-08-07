@@ -6,11 +6,11 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:30:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 16:54:56 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:57:33 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 int	keyloop(int key, t_game *game)
 {
@@ -45,4 +45,14 @@ int	gameloop(t_game *game)
 	if (game_win(game))
 		close_game(game);
 	return (0);
+}
+
+void	render_frame(t_game *s)
+{
+	clear_frame(s);
+	render_base_into_buffer(s);
+	render_collectibles_into_buffer(s);
+	render_player_into_buffer(s);
+	mlx_put_image_to_window(s->mlx_ptr, s->win.win_ptr,
+		s->win.frame_buffer.img_ptr, 0, 0);
 }

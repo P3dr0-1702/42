@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:22:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 10:02:47 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:23:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ bool	bounds(char *map)
 	return (true);
 }
 
-
 int	my_strlen(char *s)
 {
 	int	i;
@@ -50,8 +49,7 @@ bool	enough_objects(char *map)
 
 bool	good_char(char c)
 {
-	if (c == 'P' || c == '0' || c == '1' || c == 'E' || c == 'C' || c == 'G'
-		|| c == '\n')
+	if (c == 'P' || c == '0' || c == '1' || c == 'E' || c == 'C' || c == '\n')
 		return (true);
 	return (false);
 }

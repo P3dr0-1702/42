@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:30:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 09:57:33 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:32:13 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	keyloop(int key, t_game *game)
 {
 	if (key == KEY_R && game->debug_mode)
 		print_game(game);
+	if(key == 'q' || key == 65307)
+		close_game(game);
 	else if (key == KEY_A || key == KEY_LEFT)
 	{
 		move_left(game);

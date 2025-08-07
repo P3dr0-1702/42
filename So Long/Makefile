@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/08/07 10:37:18 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/08/07 11:21:47 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = so_long
 
 CC = cc
 FLAGS = -Wall -Werror -Wextra -g
-MLX =  minilibx-linux/
+MLX_PATH =  minilibx-linux/
+MLX = $(MLX_PATH)/libmlx.a
 
 SRC_FILES =	\
   ./code/debug/debug.c \
@@ -42,7 +43,7 @@ REPO = https://github.com/42paris/minilibx-linux.git
 
 all: $(NAME) 
 
-$(NAME):$(OBJS) $(LIBFT) $(MLX)/libmlx.a
+$(NAME):$(OBJS) $(LIBFT) $(MLX)
 	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX) -lXext -lX11 -g -o $(NAME)
 
 %.o: %.c
@@ -52,7 +53,7 @@ $(LIBFT):
 	@$(MAKE) -C libft
 	
 $(MLX):
-	@make -C $(MLX)
+	@make -C $(MLX_PATH)
 
 mlx:
 	git clone $(REPO)

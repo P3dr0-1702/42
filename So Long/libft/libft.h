@@ -6,20 +6,24 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:53:07 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/05/15 13:55:02 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:52:21 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-#define LIBFT_H
+# define LIBFT_H
 
-#include "limits.h"
-#include "stdarg.h"
-#include "stdbool.h"
-#include "stdint.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "unistd.h"
+# include "limits.h"
+# include "stdarg.h"
+# include "stdbool.h"
+# include "stdint.h"
+# include "stdio.h"
+# include "stdlib.h"
+# include "unistd.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 // libft functions
 typedef struct s_list
@@ -75,8 +79,7 @@ t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 // libft functions end
 
-
-int	ft_printf(const char *format, ...);
+int					ft_printf(const char *format, ...);
 // use these to kick a int adress around to tally up the amout of printed chars
 // these are necessary for printf
 void				ft_printlhex(void *ptr, int *n);
@@ -99,18 +102,13 @@ void				i_wanna_break_free(char **array);
 char				*ft_wordcpy(const char **s, char c);
 void				ft_putstr(char *str);
 
-int	randomizer(void);
+int					randomizer(void);
 
-//get next line
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-char	*ft_strchr(const char *s, int b);
-char	*gnl_strjoin(char *s1, char *s2);
-char	*isolate_line(char *line, char *buffer);
-size_t	ft_strlen(const char *str);
-char	*get_next_line(int fd);
+// get next line
+char				*ft_strchr(const char *s, int b);
+char				*gnl_strjoin(char *s1, char *s2);
+char				*isolate_line(char *line, char *buffer);
+size_t				ft_strlen(const char *str);
+char				*get_next_line(int fd);
 
 #endif

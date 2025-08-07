@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:27:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 09:54:22 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:54:15 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ bool	should_put_wall(char *map, int i)
 	if (i == 0)
 	{
 		if ((map[i + 1] == '\n' || map[i + 1] == '\0' || i == 0) || (map[i
-				+ 1] == '1' && (i < is_top(map) || i > is_bottom(map))))
+					+ 1] == '1' && (i < is_top(map) || i > is_bottom(map))))
 			return (true);
 	}
 	if (i == my_strlen(map))
 	{
 		if (map[i - 1] == '\n' || i == 0 || ((map[i + 1] == '1' && map[i
-					- 1] == '1') && (i < is_top(map) || i > is_bottom(map))))
+						- 1] == '1') && (i < is_top(map)
+					|| i > is_bottom(map))))
 			return (true);
 	}
 	if ((map[i - 1] == '\n' || map[i + 1] == '\n' || map[i + 1] == '\0'
@@ -80,8 +81,6 @@ char	pick_ground(char *map, int i)
 	}
 	return (GROUND1);
 }
-
-
 
 char	*store_map(char *map)
 {

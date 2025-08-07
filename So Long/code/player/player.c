@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:35:26 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 09:54:31 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 14:03:34 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	collected(t_game *s)
 		i++;
 	}
 }
+
 void	direction(int dir, int *target_x, int *target_y)
 {
 	if (dir == 0)

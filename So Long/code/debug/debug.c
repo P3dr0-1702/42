@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 11:15:44 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:06:07 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:37:23 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	print_collectibles(t_game *s)
 void	print_game(t_game *s)
 {
 	ft_printf("\n=============================== GAME \
-		STATE ================================\n");
+STATE ================================\n");
 	ft_printf("MLX Context Pointer: %p\n", s->mlx_ptr);
 	ft_printf("┌─────────────────────── Game Base ────────────────────────┐\n");
 	print_image(&s->base);
@@ -62,7 +62,7 @@ void	print_game(t_game *s)
 	print_player(&s->player);
 	print_collectibles(s);
 	ft_printf("=============================== END O\
-		F DUMP ===============================\n");
+F DUMP ===============================\n");
 }
 
 bool	debug_mode(t_game *s, char **argv)

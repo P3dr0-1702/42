@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:04:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 09:54:56 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:52:54 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,3 @@ void	clear_frame(t_game *s)
 	bytes = (size_t)(s->win.frame_buffer.l_len * s->win.frame_buffer.heigth);
 	ft_bzero(s->win.frame_buffer.img_addr, bytes);
 }
-

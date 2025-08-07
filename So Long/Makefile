@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/08/07 11:21:47 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/08/07 13:59:46 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ SRC_FILES =	\
   ./code/init/inititalizer.c \
   ./code/init/initializer_aux.c \
   ./code/gameloop.c \
+  ./code/map/is_valid.c \
   ./code/map/map.c \
   ./code/map/map_validation.c \
   ./code/map/map_validation_aux.c \
-  ./code/map/map_parsing_aux.c \
   ./code/map/map_parsing.c \
   ./code/map/map_aux.c \
   ./code/main.c \
@@ -63,6 +63,7 @@ clean:
 	@make clean -C libft
 fclean:clean
 	@rm -f $(NAME)
+	@rm -rf -d $(MLX_PATH)
 	@make fclean -C libft
 
 re: fclean all

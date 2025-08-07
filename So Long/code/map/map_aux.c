@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:35:08 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:36:09 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 14:01:29 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ bool	is_first_line(char *map, int i)
 
 void	*which_ground(t_game *s, int i)
 {
-	int h, w;
+	int	h;
+	int	w;
+
 	if (s->map.map[i] == GROUND2)
 		return (mlx_xpm_file_to_image(s->mlx_ptr, GROUND_PATH "Ground2.xpm", &w,
 				&h));
@@ -74,7 +76,9 @@ void	*which_ground(t_game *s, int i)
 
 void	*which_sprite(t_game *s, int i)
 {
-	int h, w;
+	int	h;
+	int	w;
+
 	if (s->map.map[i] == KOJIMA_WALL)
 		return (mlx_xpm_file_to_image(s->mlx_ptr,
 				WALL_PATH "Absolute_Gameplay.xpm", &w, &h));
@@ -96,6 +100,5 @@ void	*which_sprite(t_game *s, int i)
 	else if (s->map.map[i] == DESTROYED_GROUND)
 		return (mlx_xpm_file_to_image(s->mlx_ptr,
 				OBSTACLES_PATH "Destroyed_Ground.xpm", &w, &h));
-	else
-		return (which_ground(s, i));
+	return (which_ground(s, i));
 }

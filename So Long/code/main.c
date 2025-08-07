@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 11:15:12 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 10:28:02 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:22:43 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,30 @@ void	free_grid(char **str)
 int	close_game(t_game *param)
 {
 	ft_printf("CLOSING GAME\n");
-	mlx_destroy_image(param->mlx_ptr, param->collectibles.sprite.img_ptr);
-	mlx_destroy_image(param->mlx_ptr, param->player.sprite.img_ptr);
-	mlx_destroy_image(param->mlx_ptr, param->base.img_ptr);
-	mlx_destroy_image(param->mlx_ptr, param->win.frame_buffer.img_ptr);
-	mlx_destroy_window(param->mlx_ptr, param->win.win_ptr);
-	mlx_destroy_display(param->mlx_ptr);
-	free_grid(param->map.grid);
-	free(param->collectibles.collectible);
-	free(param->map.map);
-	return (0);
+	if (param->mlx_ptr)
+	{
+		if (param->collectibles.sprite.img_ptr)
+			mlx_destroy_image(param->mlx_ptr,
+				param->collectibles.sprite.img_ptr);
+		if (param->player.sprite.img_ptr)
+			mlx_destroy_image(param->mlx_ptr, param->player.sprite.img_ptr);
+		if (param->base.img_ptr)
+			mlx_destroy_image(param->mlx_ptr, param->base.img_ptr);
+		if (param->win.frame_buffer.img_ptr)
+			mlx_destroy_image(param->mlx_ptr, param->win.frame_buffer.img_ptr);
+		if (param->win.win_ptr)
+			mlx_destroy_window(param->mlx_ptr, param->win.win_ptr);
+		mlx_destroy_display(param->mlx_ptr);
+	}
+	if (param->map.grid)
+		free_grid(param->map.grid);
+	if (param->collectibles.collectible)
+		free(param->collectibles.collectible);
+	if (param->map.map)
+		free(param->map.map);
+	free(param->mlx_ptr);
+	free(param);
+	exit (EXIT_SUCCESS);
 }
 
 int	invalid_map(t_game *s)
@@ -63,11 +77,9 @@ int	main(int argc, char **argv)
 		return (invalid_map(game));
 	game->mlx_ptr = mlx_init();
 	init_game(game);
-	mlx_hook(game->win.win_ptr, 17, 0, close_game, game);
 	mlx_key_hook(game->win.win_ptr, keyloop, game);
 	mlx_loop_hook(game->mlx_ptr, gameloop, game);
+	mlx_hook(game->win.win_ptr, 17, 0, close_game, game);
 	mlx_loop(game->mlx_ptr);
-	free(game->mlx_ptr);
-	free(game);
 	return (0);
 }

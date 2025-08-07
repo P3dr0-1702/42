@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 16:48:19 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 09:54:37 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 14:05:13 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	move_down(t_game *s)
 	}
 	return (0);
 }
+
 int	move_left(t_game *s)
 {
 	int	x;
@@ -61,10 +62,11 @@ int	move_left(t_game *s)
 	}
 	return (0);
 }
+
 int	move_right(t_game *s)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = s->player.coord.x / 128;
 	y = s->player.coord.y / 128;

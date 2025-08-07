@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 10:34:00 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:50:31 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int					ytile(char *map);
 char				*map_parser(char **argv);
 bool				is_valid(char *map);
 
-
 // Gameloop
 int					gameloop(t_game *param);
 int					keyloop(int key, t_game *game);
@@ -168,11 +167,11 @@ int					move(t_game *s, int dir);
 void				collected(t_game *s);
 // Rendering
 void				render_frame(t_game *s);
-void	render_base_into_buffer(t_game *s);
-void	render_collectible_into_buffer(t_game *s, t_collect *c);
-void	render_player_into_buffer(t_game *s);
-void	render_collectibles_into_buffer(t_game *s);
-void	clear_frame(t_game *s);
+void				render_base_into_buffer(t_game *s);
+void				render_collectible_into_buffer(t_game *s, t_collect *c);
+void				render_player_into_buffer(t_game *s);
+void				render_collectibles_into_buffer(t_game *s);
+void				clear_frame(t_game *s);
 
 // Utils
 void				ft_pixel_put(t_image *s, int x, int y, unsigned int color);

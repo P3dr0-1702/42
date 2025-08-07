@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:18:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:23:35 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:28:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool	is_closed(char *map)
 		return (false);
 	rectangular = is_rectangle(maparr);
 	free_grid(maparr);
-	return (true && rectangular);
+	return (rectangular);
 }
 
 t_point	p_coord(char **s)

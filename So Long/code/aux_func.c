@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:21:39 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 17:33:23 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/08 10:23:15 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ytile(char *map)
 			count++;
 		i++;
 	}
-	if(map[i - 1] != '\n')
+	if (map[i - 1] != '\n')
 		count++;
 	return (count);
 }

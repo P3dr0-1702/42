@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:38:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/08 10:03:23 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/08 10:37:30 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_image	init_tile_base(t_game *s, int i)
 
 	tile.img_ptr = which_sprite(s, i);
 	if (!tile.img_ptr)
-		exit(ft_printf("Failed to Load assets.\n"), close_game(s));
+	{
+		ft_printf("Failed to Base assets.\n");
+		close_game(s);
+	}
 	tile.img_addr = mlx_get_data_addr(tile.img_ptr, &tile.bpp, &tile.l_len,
 			&tile.endian);
 	tile.width = 128;

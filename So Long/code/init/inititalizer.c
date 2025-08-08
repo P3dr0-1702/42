@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:40:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/08 10:04:07 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/08 11:34:23 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	init_player(t_game *s)
 	spawn_point(s);
 	init_player_imgptr(s);
 	if (!s->player.sprite.img_ptr)
-		exit(close_game(s), EXIT_FAILURE);
+	{
+		ft_printf("Failed to get player\n");
+		close_game(s);
+	}
 	init_player_imgaddr(s);
 	s->player.collectibles = 0;
 	s->player.moves = 0;
@@ -33,16 +36,29 @@ void	init_window(t_game *s)
 			"TAE: Metal Gear");
 	s->win.frame_buffer.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width,
 			s->win.height);
-	s->win.frame_buffer.img_addr = mlx_get_data_addr(\
-s->win.frame_buffer.img_ptr,
+	s->win.frame_buffer.img_addr = \
+mlx_get_data_addr(s->win.frame_buffer.img_ptr,
 			&s->win.frame_buffer.bpp, &s->win.frame_buffer.l_len,
 			&s->win.frame_buffer.endian);
 	s->win.frame_buffer.width = s->win.width;
 	s->win.frame_buffer.heigth = s->win.height;
 }
 
+void	init_null(t_game *s)
+{
+	s->win.win_ptr = NULL;
+	s->win.frame_buffer.img_ptr = NULL;
+	s->win.frame_buffer.img_addr = NULL;
+	s->player.sprite.img_ptr = NULL;
+	s->player.sprite.img_addr = NULL;
+	s->collectibles.sprite.img_ptr = NULL;
+	s->collectibles.sprite.img_addr = NULL;
+	s->collectibles.collectible = NULL;
+}
+
 void	init_game(t_game *s)
 {
+	init_null(s);
 	init_map(s);
 	init_window(s);
 	s->base.img_ptr = mlx_new_image(s->mlx_ptr, s->win.width, s->win.height);
@@ -55,8 +71,13 @@ void	init_game(t_game *s)
 	s->collectibles.sprite.img_ptr = mlx_xpm_file_to_image(s->mlx_ptr,
 			ASSETS_PATH "Ration.xpm", &s->collectibles.sprite.width,
 			&s->collectibles.sprite.heigth);
-	s->collectibles.sprite.img_addr = mlx_get_data_addr(\
-s->collectibles.sprite.img_ptr,
+	if (!s->collectibles.sprite.img_ptr)
+	{
+		ft_printf("Failed to get \"Ration\" image data\n");
+		close_game(s);
+	}
+	s->collectibles.sprite.img_addr = \
+mlx_get_data_addr(s->collectibles.sprite.img_ptr,
 			&s->collectibles.sprite.bpp, &s->collectibles.sprite.l_len,
 			&s->collectibles.sprite.endian);
 	init_player(s);

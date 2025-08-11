@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 16:48:19 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 14:05:13 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:05:53 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	move_up(t_game *s)
 		s->player.coord.tile_y--;
 		s->player.coord.y -= 128;
 		s->player.moves++;
+		ft_printf("Total moves: %d\n", s->player.moves);
 		collected(s);
 	}
 	return (0);
@@ -41,6 +42,7 @@ int	move_down(t_game *s)
 		s->player.coord.tile_y++;
 		s->player.coord.y += 128;
 		s->player.moves++;
+		ft_printf("Total moves: %d\n", s->player.moves);
 		collected(s);
 	}
 	return (0);
@@ -58,6 +60,7 @@ int	move_left(t_game *s)
 		s->player.coord.tile_x--;
 		s->player.coord.x -= 128;
 		s->player.moves++;
+		ft_printf("Total moves: %d\n", s->player.moves);
 		collected(s);
 	}
 	return (0);
@@ -75,6 +78,7 @@ int	move_right(t_game *s)
 		s->player.coord.tile_x++;
 		s->player.coord.x += 128;
 		s->player.moves++;
+		ft_printf("Total moves: %d\n", s->player.moves);
 		collected(s);
 	}
 	return (0);

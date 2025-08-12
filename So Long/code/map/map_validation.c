@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:18:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 16:35:01 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:34:37 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	is_closed(char *map)
 	i = 0;
 	maparr = ft_split(map, '\n');
 	if (!maparr)
-		exit(EXIT_FAILURE);
+		return (free_grid(maparr), false);
 	if (!only_ones(maparr[0]))
 		return (free_grid(maparr), false);
 	while (maparr[i] != NULL)

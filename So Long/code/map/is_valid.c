@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:13:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/08 10:22:23 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:39:20 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	pre_flood_fill(char *map)
 	free_grid(temp);
 	if (collectibles > count)
 		return (false);
-	return (true);
+	return (exit);
 }
 
 bool	no_consecutive_newline(char *s)

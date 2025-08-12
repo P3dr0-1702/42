@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:26:05 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/11 09:55:25 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/12 11:30:17 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ char	*map_parser(char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (!debug_mode(NULL, argv) && !is_ber(argv[1]))
 	{
-		printf("Wrong file extension");
-		exit(EXIT_FAILURE);
+		printf("Wrong file extension\n");
+		return (NULL);
 	}
 	if (fd < 0)
 		return (NULL);

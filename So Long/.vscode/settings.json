@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"so_long.h": "c",
-		"cstdlib": "c",
-		"algorithm": "c",
-		"format": "c"
-	}
-}

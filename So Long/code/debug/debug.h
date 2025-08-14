@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:38:13 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 13:53:08 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 10:16:41 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	print_image(t_image *img);
 void	print_window(t_window *win);
 void	print_player(t_player *p);
 void	print_map(t_map *map);
+void	*debug_limits(t_game *s, int i);
 
 #endif

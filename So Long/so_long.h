@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/07 13:50:31 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 10:13:06 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef struct s_game
 // Debugging
 void				print_game(t_game *s);
 bool				debug_mode(t_game *s, char **argv);
-
+void				*debug_limits(t_game *s, int i);
 // Aux Func
 int					firstline(char *map);
 int					rng(void);

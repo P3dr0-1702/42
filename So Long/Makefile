@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/08/07 13:59:46 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/08/14 10:18:03 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ MLX = $(MLX_PATH)/libmlx.a
 SRC_FILES =	\
   ./code/debug/debug.c \
   ./code/debug/debug_aux_func.c \
+  ./code/debug/debug_limits.c \
   ./code/aux_func.c \
   ./code/init/init_base.c \
   ./code/init/init_collect.c \

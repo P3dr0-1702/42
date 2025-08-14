@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:30:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/11 10:02:54 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:26:30 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	keyloop(int key, t_game *game)
 	{
 		move_down(game);
 	}
+	if (game->player.moves > INT_MAX)
+		return(ft_printf("You're too bad. Quiting now"), close_game(game), 0);
 	return (0);
 }
 

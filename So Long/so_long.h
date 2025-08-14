@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:09 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/14 12:02:33 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:24:28 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_snake
 	t_image			sprite;
 	t_point			coord;
 	int				collectibles;
-	int				moves;
+	unsigned int	moves;
 }					t_player;
 
 typedef struct s_ration

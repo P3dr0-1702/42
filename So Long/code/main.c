@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 11:15:12 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/12 13:50:28 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 10:36:01 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	main(int argc, char **argv)
 	if (!game)
 		exit(EXIT_FAILURE);
 	game->map.map = map_parser(argv);
+	game->debug_mode = false;
 	if (!game->map.map || ((!is_valid(game->map.map) && !debug_mode(game, argv))
 			|| (argc == 3 && !debug_mode(game, argv))))
 		return (invalid_map(game));

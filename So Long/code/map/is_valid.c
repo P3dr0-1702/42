@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:13:00 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/12 11:39:20 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 11:11:22 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ bool	no_forbidden_chars(char *map)
 	while (map[i] != '\0')
 	{
 		if (!good_char(map[i]))
-			return (false);
+			return (ft_printf("Unknown Char (%c) found in %s\n", map[i], map),
+				false);
 		i++;
 	}
 	return (true);
@@ -59,6 +60,7 @@ bool	pre_flood_fill(char *map)
 	t_point	p_coords;
 	bool	exit;
 
+	exit = false;
 	temp = ft_split(map, '\n');
 	count = 0;
 	p_coords = p_coord(temp);
@@ -66,7 +68,9 @@ bool	pre_flood_fill(char *map)
 	flood_fill(temp, &count, p_coords, &exit);
 	free_grid(temp);
 	if (collectibles > count)
-		return (false);
+		return (ft_printf("Not all colectibles are reachable\n"), false);
+	if (exit == false)
+		ft_printf("Exit is Unreachable\n");
 	return (exit);
 }
 
@@ -89,16 +93,16 @@ bool	no_consecutive_newline(char *s)
 bool	is_valid(char *map)
 {
 	if (!no_forbidden_chars(map))
-		return (ft_printf("Forbidden Chars\n"), false);
+		return (ft_printf("Report: Forbidden Chars\n"), false);
 	if (!enough_objects(map))
-		return (ft_printf("Missing Player, Exit or Collectibles\n"), false);
+		return (ft_printf("Report: Invalid Map\n"), false);
 	if (!is_closed(map))
-		return (ft_printf("Map is not closed\n"), false);
+		return (ft_printf("Report: Map is not closed\n"), false);
 	if (!bounds(map))
-		return (ft_printf("Map is too Big\n"), false);
+		return (ft_printf("Report: Map is too Big\n"), false);
 	if (!no_consecutive_newline(map))
-		return (ft_printf("Empty Line in file\n"), false);
+		return (ft_printf("Report: Empty Line in file\n"), false);
 	if (!pre_flood_fill(map))
-		return (ft_printf("Map is Unwinable\n"), false);
+		return (ft_printf("Report: Map is Unwinable\n"), false);
 	return (true);
 }

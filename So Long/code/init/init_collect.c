@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:43:40 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/12 12:17:39 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:00:34 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void	init_collectibles(t_game *s)
 	s->collectibles.collectible = malloc(sizeof(t_collect)
 			* s->collectibles.count);
 	if (!s->collectibles.collectible)
+	{
+		ft_printf("Could not store all collectibles\n");
 		close_game(s);
+	}
 	init_collect(s);
 }

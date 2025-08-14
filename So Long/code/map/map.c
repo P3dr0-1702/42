@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:27:22 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/12 14:01:21 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:04:48 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ bool	should_put_wall(char *map, int i)
 	if (i == my_strlen(map))
 	{
 		if (map[i - 1] == '\n' || i == 0 || ((map[i + 1] == '1' && map[i
-						- 1] == '1') && (i < is_top(map) || i > is_bottom(map))
-			))
+						- 1] == '1') && (i < is_top(
+						map) || i > is_bottom(map))))
 			return (true);
 	}
 	if ((map[i - 1] == '\n' || map[i + 1] == '\n' || map[i + 1] == '\0'
@@ -92,9 +92,11 @@ char	*store_map(char *map)
 	i = 0;
 	x = 0;
 	y = 0;
+	if (!map)
+		return (NULL);
 	str = malloc(sizeof(char) * (ft_strlen(map) + 1));
 	if (!str)
-		return (NULL);
+		return (free(map), ft_printf("Could not store map\n"), NULL);
 	while (map[i] != '\0')
 	{
 		if (map[i] == '1')
@@ -106,6 +108,5 @@ char	*store_map(char *map)
 		i++;
 	}
 	str[i] = '\0';
-	free(map);
-	return (str);
+	return (free(map), str);
 }

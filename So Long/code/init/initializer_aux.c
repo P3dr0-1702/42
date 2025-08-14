@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:07:10 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/12 13:50:42 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 11:59:21 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ void	init_player_imgaddr(t_game *s)
 
 void	init_map(t_game *s)
 {
+	s->map.grid = NULL;
 	s->map.grid = ft_split(s->map.map, '\n');
+	if (!s->map.grid)
+		ft_printf("Could not store map matrix\n");
 	s->map.map = store_map(s->map.map);
 	if (!s->map.map || !s->map.grid)
 	{
-		ft_printf("Could not store map\n");
+		ft_printf("Report: No Memory\n");
 		close_game(s);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:40:03 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/08 11:34:23 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/14 11:32:15 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	init_null(t_game *s)
 	s->collectibles.sprite.img_ptr = NULL;
 	s->collectibles.sprite.img_addr = NULL;
 	s->collectibles.collectible = NULL;
+	s->base.img_ptr = NULL;
+	s->base.img_addr = NULL;
 }
 
 void	init_game(t_game *s)

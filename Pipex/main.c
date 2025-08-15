@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:45:53 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/14 18:13:36 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:37:04 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,33 @@ void	free_pipex(t_pipex *pipex)
 		free(pipex->absolute_path2);
 }
 
+void	first_command(t_pipex *pipex)
+{
+	dup2(pipex->infile_fd, STDIN_FILENO);
+	dup2(pipex->fd[1], STDOUT_FILENO);
+	close(pipex->fd[0]);
+	close(pipex->fd[1]);
+	close(pipex->infile_fd);
+	close(pipex->outfile_fd);
+	execve(pipex->absolute_path1, &pipex->cmd1[0], pipex->env);
+	perror("execve");
+	free_pipex(pipex);
+	exit(1);
+}
+
+void	second_command(t_pipex *pipex)
+{
+	dup2(pipex->fd[0], STDIN_FILENO);
+	dup2(pipex->outfile_fd, STDOUT_FILENO);
+	close(pipex->fd[1]);
+	close(pipex->fd[0]);
+	close(pipex->outfile_fd);
+	execve(pipex->absolute_path2, &pipex->cmd2[0], pipex->env);
+	perror("execve");
+	free_pipex(pipex);
+	exit(127);
+}
+
 void	pipexx(t_pipex *pipex)
 {
 	pid_t	pid;
@@ -49,32 +76,11 @@ void	pipexx(t_pipex *pipex)
 
 	pid = fork();
 	if (pid == 0)
-	{
-		dup2(pipex->infile_fd, STDIN_FILENO);
-		dup2(pipex->fd[1], STDOUT_FILENO);
-		close(pipex->fd[0]);
-		close(pipex->fd[1]);
-		close(pipex->infile_fd);
-		close(pipex->outfile_fd);
-		execve(pipex->absolute_path1, &pipex->cmd1[0], pipex->env);
-		perror("execve");
-		free_pipex(pipex);
-		exit(1);
-	}
+		first_command(pipex);
 	close(pipex->infile_fd);
 	pid2 = fork();
 	if (pid2 == 0)
-	{
-		dup2(pipex->fd[0], STDIN_FILENO);
-		dup2(pipex->outfile_fd, STDOUT_FILENO);
-		close(pipex->fd[1]);
-		close(pipex->fd[0]);
-		close(pipex->outfile_fd);
-		execve(pipex->absolute_path2, &pipex->cmd2[0], pipex->env);
-		perror("execve");
-		free_pipex(pipex);
-		exit(127);
-	}
+		second_command(pipex);
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
 	close(pipex->outfile_fd);
@@ -107,18 +113,26 @@ char	*command_to_str(char **path, char *command)
 		free(absolute_path);
 	}
 	fd = access(command, F_OK);
-	if(fd == 0)
-		return(command);
-	return(NULL);
+	if (fd == 0)
+		return (command);
+	return (NULL);
+}
+
+void check_permission(t_pipex *pipex)
+{
+	int fd;
+
+	fd = access(pipex->absolute_path1, X_OK);
+	if(fd != 0)
+		ft_printf("bash: %s: Permission denied\n", pipex->absolute_path1);
+	fd = access(pipex->absolute_path2, X_OK);
+	if(fd != 0)
+		ft_printf("bash: %s: Permission denied\n", pipex->absolute_path2);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_pipex	pipex;
-	// char	*str;
-	// char	*str2;
-	// int		str_1;
-	// int		str_2;
 
 	if (argc != 5)
 		return (ft_printf("Not those args\n"), -1);
@@ -129,30 +143,12 @@ int	main(int argc, char **argv, char **env)
 	if (pipex.infile_fd < 0)
 		return (ft_printf("bash: no such file or directory: %s\n", argv[1]), 1);
 	pipex.path = pathfinder(env);
-	// str_1 = command_exist(pipex.cmd1[0], pipex.path);
-	// str = NULL;
-	// if (str_1 >= 0)
-	// 	str = ft_strjoin(pipex.path[str_1], "/");
-	// str_2 = command_exist(pipex.cmd2[0], pipex.path);
-	// if (str_2 >= 0)
-	// 	str2 = ft_strjoin(pipex.path[str_2], "/");
-	// if (str_2 == -1)
-	// {
-	// 	free(str);
-	// 	free_pipex(&pipex);
-	// 	exit(127);
-	// }
-	// ft_printf("%s\n", str);
-	// ft_printf("%s\n", str2);
 	pipex.absolute_path1 = command_to_str(pipex.path, pipex.cmd1[0]);
 	pipex.absolute_path2 = command_to_str(pipex.path, pipex.cmd2[0]);
 	pipex.outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	// free(str);
-	// free(str2);
+	check_permissions(pipex);
 	pipex.env = env;
 	pipe(pipex.fd);
-	// if (command_exist(pipex.cmd1[0], pipex.path))
-	// 	ft_printf("%d\n", pipex.fd[1]);
 	pipexx(&pipex);
 	return (0);
 }

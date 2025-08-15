@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:07:10 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/14 11:59:21 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:31:59 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	init_map(t_game *s)
 	s->map.map = store_map(s->map.map);
 	if (!s->map.map || !s->map.grid)
 	{
-		ft_printf("Report: No Memory\n");
+		ft_printf("Report: No Memory, download more RAM\n");
 		close_game(s);
 	}
 }

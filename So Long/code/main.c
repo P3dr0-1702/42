@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 11:15:12 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/14 12:01:55 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:31:43 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 		return (ft_printf("Wrong args\n"));
 	game = malloc(sizeof(t_game));
 	if (!game)
-		return (ft_printf("No memory\n"), 1);
+		return (ft_printf("No memory, download more RAM\n"), 1);
 	game->map.map = map_parser(argv);
 	game->debug_mode = false;
 	if (!game->map.map || ((!is_valid(game->map.map) && !debug_mode(game, argv))

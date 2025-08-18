@@ -1,3 +1,0 @@
-allow absolute paths
-e.g. "/usr/bin/ls"
-handle errors for missing permisions

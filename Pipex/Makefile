@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/08/11 11:23:41 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/08/18 11:50:17 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBFT = libft/libft.a
 all: $(NAME) 
 
 $(NAME):$(OBJS) $(LIBFT) $(MLX)
-	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) -g $(OBJS) $(LIBFT) -o $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:48:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/12 14:58:10 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/18 11:00:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 # define PIPEX_H
 
 # include "libft/libft.h"
+# include <errno.h>
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
 
 char		**pathfinder(char **env);
-int		command_exist(char *command, char **path);
+int			command_exist(char *command, char **path);
 
 typedef struct s_pipex
 {
@@ -29,12 +30,11 @@ typedef struct s_pipex
 	char	**path;
 	int		infile_fd;
 	int		outfile_fd;
-	int		temp_file;
 	char	*absolute_path1;
 	char	*absolute_path2;
-	int	path_index1;
-	int	path_index2;
-	int	fd[2];
+	char	*infile;
+	char	*outfile;
+	int		fd[2];
 	char	**env;
 }			t_pipex;
 

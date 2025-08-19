@@ -5,44 +5,30 @@
 #                                                     +:+ +:+         +:+      #
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/08/11 11:23:41 by pfreire-         ###   ########.fr        #
+#    Created: 2025/04/14 11:26:05 by pfreire-          #+#    #+#              #
+#    Updated: 2025/04/25 16:29:49 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pipex
+NAME = libftprintf.a
+CFLAGS = -Wall -Werror -Wextra
+SRCS = ft_dprintf.c ft_dprinthex.c ft_dputchar.c ft_dputnbr_hex.c ft_dputstr.c ft_dputnbr_hexlow.c ft_dputnbr.c ft_dputunbr.c 
+OBJS = $(SRCS:.c=.o)
 
-CC = cc
-FLAGS = -Wall -Werror -Wextra -g
-SRC_FILES =	$(wildcard *.c)
-OBJS = $(SRC_FILES:.c=.o)
-LIBFT = libft/libft.a
+all: $(NAME)
 
-
-all: $(NAME) 
-
-$(NAME):$(OBJS) $(LIBFT) $(MLX)
-	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
-
-%.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 	
-$(LIBFT):
-	@$(MAKE) -C libft
-
+#$(OBJS): %.o: %.c
+#	cc $(CFLAGS) -c $< -o $@
+	
 clean:
-	@rm -f $(OBJS)
-	@make clean -C libft
-fclean:clean
-	@rm -f $(NAME)
-	@make fclean -C libft
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
-
-ra: re clean
-	@rm -f $(OBJS)
-	@make clean -C libft
-
-e: all clean
 
 .PHONY: all fclean clean re

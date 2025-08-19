@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 12:26:14 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/19 16:39:04 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:42:00 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	second_command(t_pipex *pipex)
 {
 	dup2(pipex->fd[0], STDIN_FILENO);
 	pipex->outfile_fd = open(pipex->outfile, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (pipex->outfile_fd < 0)
+	{
+		perror(pipex->outfile);
+		exit(1);
+	}
 	dup2(pipex->outfile_fd, STDOUT_FILENO);
 	close(pipex->fd[1]);
 	close(pipex->fd[0]);
@@ -100,7 +105,7 @@ t_pipex	init_pipex(char **argv, char **env)
 	pipex.cmd2 = ft_split(argv[3], ' ');
 	if (!pipex.cmd1 || !pipex.cmd2)
 	{
-		ft_printf("But more RAM\n");
+		ft_printf("Download more RAM\n");
 		free_pipex(&pipex);
 		exit(1);
 	}

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 10:48:49 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/18 11:00:36 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:40:17 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-
-char		**pathfinder(char **env);
-int			command_exist(char *command, char **path);
 
 typedef struct s_pipex
 {
@@ -37,5 +34,9 @@ typedef struct s_pipex
 	int		fd[2];
 	char	**env;
 }			t_pipex;
+
+char		**pathfinder(char **env);
+int			command_exist(char *command, char **path);
+void		free_pipex(t_pipex *pipex);
 
 #endif

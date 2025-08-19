@@ -6,150 +6,61 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 12:26:14 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/18 17:51:15 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:39:04 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_arr(char **c)
+int	first_command(t_pipex *pipex)
 {
-	int	i;
-
-	i = 0;
-	while (c[i] != NULL)
+	pipex->infile_fd = open(pipex->infile, O_RDONLY);
+	if (pipex->infile_fd < 0)
 	{
-		if (c[i])
-			free(c[i]);
-		i++;
-	}
-	free(c);
-}
-
-void	free_pipex(t_pipex *pipex)
-{
-	if (pipex->cmd1)
-	{
-		free_arr(pipex->cmd1);
-		pipex->cmd1 = NULL;
-	}
-	if (pipex->cmd2)
-	{
-		free_arr(pipex->cmd2);
-		pipex->cmd2 = NULL;
-	}
-	if (pipex->path)
-	{
-		free_arr(pipex->path);
-		pipex->path = NULL;
-	}
-	if (pipex->absolute_path1)
-	{
-		free(pipex->absolute_path1);
-		pipex->absolute_path1 = NULL;
-	}
-	if (pipex->absolute_path2)
-	{
-		free(pipex->absolute_path2);
-		pipex->absolute_path2 = NULL;
-	}
-}
-
-void	cmd_permissions(char *abs_path, t_pipex *pipex)
-{
-	int	fd;
-
-	fd = access(abs_path, F_OK);
-	if (fd < 0)
-	{
-		ft_printf("%s: command not found\n", abs_path);
-		free_pipex(pipex);
-		exit(127);
-	}
-	fd = access(abs_path, X_OK);
-	if (fd < 0)
-	{
-		ft_printf("pipex: %s: Permission Denied\n", abs_path);
-		free_pipex(pipex);
-		exit(126);
-	}
-}
-
-int	infile_permissions(char *file, t_pipex *pipex)
-{
-	int	fd;
-
-	fd = access(file, F_OK);
-	if (fd < 0)
-	{
-		ft_printf("pipex: %s: No such file\n", file);
-		free_pipex(pipex);
+		perror(pipex->infile);
 		exit(1);
 	}
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		ft_printf("pipex: %s: Permission Denied\n");
-		free_pipex(pipex);
-		exit(1);
-	}
-	return (fd);
-}
-
-int	outfile_permissions(char *file, t_pipex *pipex)
-{
-	int	fd;
-
-	fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (fd < 0)
-	{
-		ft_printf("pipex: %s: Permission Denied\n");
-		free_pipex(pipex);
-		exit(1);
-	}
-	return (fd);
-}
-
-void	first_command(t_pipex *pipex)
-{
-	(void)pipex;
-	pipex->infile_fd = infile_permissions(pipex->infile, pipex);
 	dup2(pipex->infile_fd, STDIN_FILENO);
-	cmd_permissions(pipex->absolute_path1, pipex);
 	dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
 	close(pipex->infile_fd);
-	// close(pipex->outfile_fd);
-	execve(pipex->absolute_path1, &pipex->cmd1[0], pipex->env);
-	perror("execve");
-	// free_pipex(pipex);
+	execve(pipex->absolute_path1, pipex->cmd1, pipex->env);
 	if (errno == ENOENT)
-		exit(127);
+	{
+		ft_dprintf(2, "%s: command not found\n", pipex->cmd1[0]);
+		return (free_pipex(pipex), exit(127), 1);
+	}
 	else if (errno == EACCES)
-		exit(126);
+	{
+		ft_dprintf(2, "%s: Permission denied\n", pipex->cmd1[0]);
+		return (free_pipex(pipex), exit(126), 1);
+	}
 	else
-		exit(1);
+		return (free_pipex(pipex), exit(1), 1);
 }
 
-void	second_command(t_pipex *pipex)
+int	second_command(t_pipex *pipex)
 {
 	dup2(pipex->fd[0], STDIN_FILENO);
-	pipex->outfile_fd = outfile_permissions(pipex->outfile, pipex);
-	cmd_permissions(pipex->absolute_path2, pipex);
+	pipex->outfile_fd = open(pipex->outfile, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	dup2(pipex->outfile_fd, STDOUT_FILENO);
 	close(pipex->fd[1]);
 	close(pipex->fd[0]);
 	close(pipex->outfile_fd);
-	execve(pipex->absolute_path2, &pipex->cmd2[0], pipex->env);
-	free_pipex(pipex);
-	perror("execve");
+	execve(pipex->absolute_path2, pipex->cmd2, pipex->env);
 	if (errno == ENOENT)
-		exit(127);
+	{
+		ft_dprintf(2, "%s: command not found\n", pipex->cmd2[0]);
+		return (free_pipex(pipex), exit(127), 1);
+	}
 	else if (errno == EACCES)
-		exit(126);
+	{
+		ft_dprintf(2, "%s: Permission denied\n", pipex->cmd2[0]);
+		return (free_pipex(pipex), exit(126), 1);
+	}
 	else
-		exit(1);
+		return (free_pipex(pipex), exit(1), 1);
 }
 
 char	*command_to_str(char **path, char *command)
@@ -161,7 +72,9 @@ char	*command_to_str(char **path, char *command)
 
 	i = 0;
 	fd = 0;
-	while (path[i] != NULL)
+	if (!command)
+		return (NULL);
+	while (path && path[i] != NULL)
 	{
 		path_slash = ft_strjoin(path[i], "/");
 		absolute_path = ft_strjoin(path_slash, command);
@@ -192,17 +105,13 @@ t_pipex	init_pipex(char **argv, char **env)
 		exit(1);
 	}
 	pipex.path = pathfinder(env);
-	if (!pipex.path)
-	{
-		ft_printf("Couldn't find an env nor a path\n");
-		free_pipex(&pipex);
-	}
 	pipex.absolute_path1 = command_to_str(pipex.path, pipex.cmd1[0]);
 	pipex.absolute_path2 = command_to_str(pipex.path, pipex.cmd2[0]);
 	pipe(pipex.fd);
 	pipex.infile = argv[1];
 	pipex.outfile = argv[4];
-	return (&pipex);
+	pipex.env = env;
+	return (pipex);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -215,19 +124,17 @@ int	main(int argc, char **argv, char **env)
 	if (argc != 5)
 		return (ft_printf("Not those args\n"), -1);
 	pipex = init_pipex(argv, env);
-	if (&pipex == NULL)
-		exit(EXIT_FAILURE);
 	child1 = fork();
 	if (child1 == 0)
 		first_command(&pipex);
 	close(pipex.fd[1]);
+	waitpid(child1, NULL, 0);
 	child2 = fork();
 	if (child2 == 0)
 		second_command(&pipex);
 	close(pipex.fd[0]);
-	waitpid(child1, NULL, 0);
 	waitpid(child2, &status, 0);
-	// free_pipex(&pipex);
+	free_pipex(&pipex);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (1);

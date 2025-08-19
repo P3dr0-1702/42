@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_finder.c                                      :+:      :+:    :+:   */
+/*   aux_funcs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:43:50 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/19 16:37:47 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/19 22:02:16 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,36 @@ void	free_pipex(t_pipex *pipex)
 		free(pipex->absolute_path2);
 		pipex->absolute_path2 = NULL;
 	}
+}
+
+
+/*Split that will accept "Words like this as one because of the quotes" the logic is to keep track of the open single and pdouble quotes using the 2 booleans below*/
+
+int	word_c_count(char *str, char c)
+{
+	int		i;
+	int	count;
+	bool	found_double;
+	bool	found_single;
+
+	found_double = false;
+	found_single = false;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if(str[i] == '\"')
+			found_double == !found_double;
+		if(str[i] == '\'' && !found_double)
+			found_single = !found_single;
+		if(!found_double && !found_single && str[i] == c)
+			count++;
+		i++;
+	}
+}
+
+char	**c_split(char *str, char c)
+{
+	char **arr;
+
+	arr = malloc(sizeof(char *) * word_c_count(str, c))
 }

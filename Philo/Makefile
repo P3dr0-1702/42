@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/08/21 11:40:13 by pedro            ###   ########.fr        #
+#    Updated: 2025/08/21 12:38:19 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,16 @@ $(NAME):$(OBJS)
 
 clean:
 	@rm -f $(OBJS)
-	@make clean -C libft
+
 fclean:clean
 	@rm -f $(NAME)
-	@make fclean -C libft
+
 
 re: fclean all
 
 ra: re clean
 	@rm -f $(OBJS)
-	@make clean -C libft
+
 
 e: all clean
 

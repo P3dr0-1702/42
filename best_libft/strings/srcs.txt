@@ -1,4 +1,5 @@
 strings
+ft_atoi.c
 ft_count_words.c
 ft_split.c
 ft_strchr.c

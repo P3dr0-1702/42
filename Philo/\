@@ -1,0 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pfreire- <pfreire-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/26 12:33:41 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/08/26 12:36:39 by pfreire-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+void	cogito_ergo_sum(t_table *table, char **argv)
+{
+	table->memento_mori = 0;
+	table->philo_nbr = atoi(argv[1]);
+	table->life_time = atoi(argv[2]);
+	table->eat_time = atoi(argv[3]);
+	table->sleep_time = atoi(argv[4]);
+	table->cycles = -1;
+	if (argv[5])
+		table->cycles = atoi(argv[5]);
+}
+
+void	*existance(void *arg)
+{
+	t_philo	*philo;
+	void *mall;
+	philo = (t_philo *)arg;
+	while (philo->table->memento_mori == 0)
+	{
+		printf("Hello");
+		mall= malloc(sizeof(int) * 100);
+	}
+	printf("%d has died\n", philo->table->memento_mori);
+	return (NULL);
+}
+
+void	start_philo(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	table->philo = calloc(table->philo_nbr, sizeof(t_philo));
+	while (i < table->philo_nbr)
+	{
+		table->philo[i].thread = malloc(sizeof(pthread_t));
+		table->philo[i].id = i;
+		table->philo[i].table = table;
+		pthread_create(table->philo[i].thread, NULL, existance,
+			(void *)&table->philo[i]);
+		i++;
+	}
+	table->memento_mori = 1;
+}
+
+int	main(int argc, char **argv)
+{
+	t_table	*table;
+
+	table = malloc(sizeof(t_table));
+	cogito_ergo_sum(table, argv);
+	start_philo(table);
+}

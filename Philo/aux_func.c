@@ -41,14 +41,16 @@ int	ft_atoi(const char *s)
 	return (result * signal);
 }
 
-bool is_only_nbr(char *str)
+bool	is_only_nbr(char *str)
 {
-	int i = 0;
-	while(str[i] != '\0')
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if(str[i] < 48 || str[i] > 57)
-			return false;
+		if (str[i] < 48 || str[i] > 57)
+			return (false);
 		i++;
 	}
-	return true;
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 12:31:18 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/22 12:18:42 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:35:45 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,21 @@ typedef struct s_philo
 	int					left_fork;
 	int					right_fork;
 	unsigned long int	death_time;
+	pthread_mutex_t		clairvoyant;
 }						t_philo;
 
 typedef struct s_table
 {
 	t_philo				*philo;
 	pthread_mutex_t		*forks;
+	pthread_mutex_t		print_lock;
 	int					philo_nbr;
 	int					eat_time;
 	int					think_time;
 	int					sleep_time;
 	int					life_time;
 	int					cycles;
-	unsigned long int	clock;
+	unsigned long int	start_time;
 	int					memento_mori;
 	pthread_t			grim_reaper;
 

@@ -25,18 +25,36 @@ unsigned int	get_clock(t_table *table)
 	return (time_stamp() - table->start_time);
 }
 
+void	msleep(t_philo *philo, unsigned long int a)
+{
+	unsigned long int	i;
+	int					morti;
+	unsigned long int	end;
+
+	i = get_clock(philo->table);
+	end = i + (a / 1000);
+	while (i < end)
+	{
+		pthread_mutex_lock(&philo->table->memento_lock);
+		morti = philo->table->memento_mori;
+		pthread_mutex_unlock(&philo->table->memento_lock);
+		if (morti != 0)
+			break ;
+		usleep(10);
+		i = get_clock(philo->table);
+	}
+}
+
 int	safe_print(t_philo *philo, const char *msg)
 {
+	if (philo->table->memento_mori != 0)
+		return (0);
+	pthread_mutex_lock(&philo->table->memento_lock);
 	pthread_mutex_lock(&philo->table->print_lock);
 	if (philo->table->memento_mori == 0)
-	{
-		printf("%u %d %s\n", get_clock(philo->table), philo->id,
-			msg);
-		pthread_mutex_unlock(&philo->table->print_lock);
-		return (0);
-	}
-	usleep(1000);
+		printf("%u %d %s\n", get_clock(philo->table), philo->id, msg);
 	pthread_mutex_unlock(&philo->table->print_lock);
+	pthread_mutex_unlock(&philo->table->memento_lock);
 	return (0);
 }
 
@@ -45,6 +63,7 @@ void	*grim_reaper(void *arg)
 	t_table				*table;
 	int					i;
 	unsigned long int	now;
+	int					j;
 
 	table = (t_table *)arg;
 	while (table->memento_mori == 0)
@@ -52,23 +71,28 @@ void	*grim_reaper(void *arg)
 		usleep(200);
 		now = get_clock(table);
 		i = 0;
+		j = 0;
 		while (i < table->philo_nbr)
 		{
+			pthread_mutex_lock(&table->memento_lock);
 			pthread_mutex_lock(&table->philo[i].clairvoyant);
-			if (now >= table->philo[i].death_time)
+			if (now > table->philo[i].death_time)
 			{
+				table->memento_mori = table->philo[i].id;
 				pthread_mutex_lock(&table->print_lock);
-				if(table->memento_mori == 0)
-				{
-					table->memento_mori = table->philo[i].id;
-					printf("%lu %d has died\n", now, table->philo[i].id);
-				}
-				pthread_mutex_unlock(&table->print_lock);
-				return NULL;
+				printf("%lu %d died\n", now, table->philo[i].id);
+				return (pthread_mutex_unlock(&table->print_lock),
+					pthread_mutex_unlock(&table->philo[i].clairvoyant),
+					pthread_mutex_unlock(&table->memento_lock), NULL);
 			}
+			if (table->cycles == table->philo[i].meals)
+				j++;
 			pthread_mutex_unlock(&table->philo[i].clairvoyant);
+			pthread_mutex_unlock(&table->memento_lock);
 			i++;
 		}
+		if (j == table->philo_nbr)
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -93,6 +117,52 @@ void	cogito_ergo_sum(t_table *table, char **argv)
 		i++;
 	}
 	pthread_mutex_init(&table->print_lock, NULL);
+	pthread_mutex_init(&table->memento_lock, NULL);
+}
+
+void	get_forks(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
+		safe_print(philo, "has taken a fork");
+		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+		safe_print(philo, "has taken a fork");
+		safe_print(philo, "is eating");
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+		safe_print(philo, "has taken a fork");
+		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
+		safe_print(philo, "has taken a fork");
+		safe_print(philo, "is eating");
+	}
+}
+
+void	drop_forks(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
+		//safe_print(philo, "has dropped a right fork");
+		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
+		//safe_print(philo, "has dropped a left fork");
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
+		//safe_print(philo, "has dropped a left fork");
+		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
+		//safe_print(philo, "has dropped a right fork");
+	}
+}
+
+void	*one_must_imagine_socrates_happy(t_philo *philo)
+{
+	safe_print(philo, "has taken a fork");
+	msleep(philo, philo->table->life_time / 1000);
+	return (NULL);
 }
 
 void	*existance(void *arg)
@@ -100,31 +170,33 @@ void	*existance(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(philo->table->eat_time / 2);
+	if (philo->table->philo_nbr == 1)
+		return (one_must_imagine_socrates_happy(philo));
+	pthread_mutex_lock(&philo->table->memento_lock);
 	while (philo->table->memento_mori == 0)
 	{
-		if (philo->id % 2 == 0 && philo->table->memento_mori == 0)
-		{
-			pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
-			pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
-		}
-		else
-		{
-			pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
-			pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
-		}
-		safe_print(philo, "is Eating");
-		usleep(philo->table->eat_time);
+		pthread_mutex_unlock(&philo->table->memento_lock);
+		get_forks(philo);
+		philo->meals++;
 		pthread_mutex_lock(&philo->clairvoyant);
-		philo->death_time = get_clock(philo->table)
-			+ philo->table->life_time / 1000;
+		philo->death_time = get_clock(philo->table) + philo->table->life_time
+			/ 1000;
+		if (philo->meals == philo->table->cycles)
+			return (pthread_mutex_unlock(&philo->clairvoyant),
+				drop_forks(philo), NULL);
 		pthread_mutex_unlock(&philo->clairvoyant);
-		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
-		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
-		safe_print(philo, "is Sleeping");
-		usleep(philo->table->sleep_time);
-		safe_print(philo, "is Thinking");
+		msleep(philo, philo->table->eat_time);
+		drop_forks(philo);
+		safe_print(philo, "is sleeping");
+		msleep(philo, philo->table->sleep_time);
+		safe_print(philo, "is thinking");
+		if (philo->table->philo_nbr % 2 != 0)
+			msleep(philo, (2 * philo->table->eat_time) - philo->table->sleep_time);
+		pthread_mutex_lock(&philo->table->memento_lock);
 	}
-	
+	pthread_mutex_unlock(&philo->table->memento_lock);
 	return (NULL);
 }
 
@@ -143,6 +215,7 @@ void	start_philo(t_table *table)
 		table->philo[i].id = i + 1;
 		table->philo[i].table = table;
 		table->philo[i].left_fork = i;
+		table->philo[i].meals = 0;
 		table->philo[i].right_fork = (i + 1) % table->philo_nbr;
 		pthread_mutex_lock(&table->philo[i].clairvoyant);
 		table->philo[i].death_time = get_clock(table) + table->life_time / 1000;
@@ -151,13 +224,17 @@ void	start_philo(t_table *table)
 			(void *)&table->philo[i]);
 		i++;
 	}
-	table->memento_mori = 0;
+	// table->memento_mori = 0;
 }
 
-void cleanup(t_table *table)
+void	cleanup(t_table *table)
 {
-	int i = 0;
-	while (i< table->philo_nbr)
+	int	i;
+
+	i = 0;
+	if (!table)
+		return ;
+	while (i < table->philo_nbr)
 	{
 		pthread_mutex_destroy(&table->forks[i]);
 		pthread_mutex_destroy(&table->philo[i].clairvoyant);
@@ -165,9 +242,39 @@ void cleanup(t_table *table)
 		i++;
 	}
 	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->memento_lock);
 	free(table->forks);
 	free(table->philo);
 	free(table);
+}
+
+bool	only_nbrs(char *a)
+{
+	int	i;
+
+	i = 0;
+	while (a[i] != '\0')
+	{
+		if (a[i] > '9' || a[i] < '0')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	isvalid(char **argv)
+{
+	if (!only_nbrs(argv[1]))
+		return (false);
+	if (!only_nbrs(argv[2]))
+		return (false);
+	if (!only_nbrs(argv[3]))
+		return (false);
+	if (!only_nbrs(argv[4]))
+		return (false);
+	if (argv[5] && !only_nbrs(argv[5]))
+		return (false);
+	return (true);
 }
 
 int	main(int argc, char **argv)
@@ -175,6 +282,8 @@ int	main(int argc, char **argv)
 	t_table	*table;
 	int		i;
 
+	if ((argc < 5 || argc > 6) || !isvalid(argv))
+		return (printf("Wrong args\n"), 0);
 	table = malloc(sizeof(t_table));
 	table->start_time = time_stamp();
 	cogito_ergo_sum(table, argv);
@@ -187,7 +296,6 @@ int	main(int argc, char **argv)
 		pthread_join(*table->philo[i].thread, NULL);
 		i++;
 	}
-	printf("Goona Cleanup\n");
 	cleanup(table);
-	return 0;
+	return (0);
 }

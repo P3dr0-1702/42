@@ -32,6 +32,7 @@ typedef struct s_philo
 	int					right_fork;
 	unsigned long int	death_time;
 	pthread_mutex_t		clairvoyant;
+	int	meals;
 }						t_philo;
 
 typedef struct s_table
@@ -39,6 +40,7 @@ typedef struct s_table
 	t_philo				*philo;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_lock;
+	pthread_mutex_t		memento_lock;
 	int					philo_nbr;
 	int					eat_time;
 	int					think_time;

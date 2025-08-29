@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfreire- <pfreire-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 12:31:18 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/27 15:35:45 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:32:47 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include "limits.h"
+# include "stdint.h"
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -32,7 +34,7 @@ typedef struct s_philo
 	int					right_fork;
 	unsigned long int	death_time;
 	pthread_mutex_t		clairvoyant;
-	int	meals;
+	int					meals;
 }						t_philo;
 
 typedef struct s_table
@@ -55,4 +57,15 @@ typedef struct s_table
 
 bool					is_only_nbr(char *str);
 int						ft_atoi(const char *s);
+void					msleep(t_philo *philo, unsigned long int a);
+unsigned int			get_clock(t_table *table);
+unsigned long			time_stamp(void);
+void					*grim_reaper(void *arg);
+void					drop_forks(t_philo *philo);
+void					get_forks(t_philo *philo);
+int						safe_print(t_philo *philo, const char *msg);
+void					*existance(void *arg);
+bool					only_nbrs(char *a);
+bool					isvalid(char **argv);
+void					*ft_calloc(size_t nmemb, size_t size);
 #endif

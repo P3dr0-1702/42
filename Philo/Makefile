@@ -6,7 +6,7 @@
 #    By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/04 16:26:27 by pfreire-          #+#    #+#              #
-#    Updated: 2025/08/19 16:39:39 by pfreire-         ###   ########.fr        #
+#    Updated: 2025/08/29 15:11:46 by pfreire-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc
 FLAGS = -Wall -Werror -Wextra -g
-SRC_FILES =	main.c aux_funcs.c
+SRC_FILES =	main.c aux_funcs.c grim_reaper.c routine.c parsing.c
 OBJS = $(SRC_FILES:.c=.o)
 
 

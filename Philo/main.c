@@ -3,46 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfreire- <pfreire-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 12:33:41 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/27 18:15:26 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:03:16 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
-unsigned long	time_stamp(void)
+void destroy_forks(t_table *table, int done)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
-
-unsigned int	get_clock(t_table *table)
-{
-	return (time_stamp() - table->start_time);
-}
-
-void	msleep(t_philo *philo, unsigned long int a)
-{
-	unsigned long int	i;
-	int					morti;
-	unsigned long int	end;
-
-	i = get_clock(philo->table);
-	end = i + (a / 1000);
-	while (i < end)
+	int i = 0;
+	while(i < done)
 	{
-		pthread_mutex_lock(&philo->table->memento_lock);
-		morti = philo->table->memento_mori;
-		pthread_mutex_unlock(&philo->table->memento_lock);
-		if (morti != 0)
-			break ;
-		usleep(10);
-		i = get_clock(philo->table);
+		pthread_mutex_destroy(&table->forks[i]);
+		i++;
 	}
+}
+
+void destroy_clairvoyants(t_table *table, int done)
+{
+	int i = 0;
+	while(i < done)
+	{
+		pthread_mutex_destroy(&table->philo[i].clairvoyant);
+		i++;
+	}
+}
+
+void	cleanup(t_table *table, int code)
+{
+	int	i;
+
+	i = 0;
+	if (!table)
+		return ;
+	while (code == 999 && i < table->philo_nbr)
+	{
+		pthread_mutex_destroy(&table->forks[i]);
+		pthread_mutex_destroy(&table->philo[i].clairvoyant);
+		free(table->philo[i].thread);
+		i++;
+	}
+	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->memento_lock);
+	free(table->forks);
+	free(table->philo);
+	free(table);
 }
 
 int	safe_print(t_philo *philo, const char *msg)
@@ -58,58 +67,25 @@ int	safe_print(t_philo *philo, const char *msg)
 	return (0);
 }
 
-void	*grim_reaper(void *arg)
-{
-	t_table				*table;
-	int					i;
-	unsigned long int	now;
-	int					j;
-
-	table = (t_table *)arg;
-	while (table->memento_mori == 0)
-	{
-		usleep(200);
-		now = get_clock(table);
-		i = 0;
-		j = 0;
-		while (i < table->philo_nbr)
-		{
-			pthread_mutex_lock(&table->memento_lock);
-			pthread_mutex_lock(&table->philo[i].clairvoyant);
-			if (now > table->philo[i].death_time)
-			{
-				table->memento_mori = table->philo[i].id;
-				pthread_mutex_lock(&table->print_lock);
-				printf("%lu %d died\n", now, table->philo[i].id);
-				return (pthread_mutex_unlock(&table->print_lock),
-					pthread_mutex_unlock(&table->philo[i].clairvoyant),
-					pthread_mutex_unlock(&table->memento_lock), NULL);
-			}
-			if (table->cycles == table->philo[i].meals)
-				j++;
-			pthread_mutex_unlock(&table->philo[i].clairvoyant);
-			pthread_mutex_unlock(&table->memento_lock);
-			i++;
-		}
-		if (j == table->philo_nbr)
-			return (NULL);
-	}
-	return (NULL);
-}
-
 void	cogito_ergo_sum(t_table *table, char **argv)
 {
 	int	i;
 
 	table->memento_mori = 0;
-	table->philo_nbr = atoi(argv[1]);
-	table->life_time = atoi(argv[2]) * 1000;
-	table->eat_time = atoi(argv[3]) * 1000;
-	table->sleep_time = atoi(argv[4]) * 1000;
+	table->philo_nbr = ft_atoi(argv[1]);
+	table->life_time = ft_atoi(argv[2]) * 1000;
+	table->eat_time = ft_atoi(argv[3]) * 1000;
+	table->sleep_time = ft_atoi(argv[4]) * 1000;
 	table->cycles = -1;
 	if (argv[5])
 		table->cycles = atoi(argv[5]);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nbr);
+	//table->forks = NULL;
+	if (!table->forks)
+	{
+		cleanup(table, 0);
+		return ;
+	}
 	i = 0;
 	while (i < table->philo_nbr)
 	{
@@ -145,59 +121,17 @@ void	drop_forks(t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
-		//safe_print(philo, "has dropped a right fork");
+		// safe_print(philo, "has dropped a right fork");
 		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
-		//safe_print(philo, "has dropped a left fork");
+		// safe_print(philo, "has dropped a left fork");
 	}
 	else
 	{
 		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
-		//safe_print(philo, "has dropped a left fork");
+		// safe_print(philo, "has dropped a left fork");
 		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
-		//safe_print(philo, "has dropped a right fork");
+		// safe_print(philo, "has dropped a right fork");
 	}
-}
-
-void	*one_must_imagine_socrates_happy(t_philo *philo)
-{
-	safe_print(philo, "has taken a fork");
-	msleep(philo, philo->table->life_time / 1000);
-	return (NULL);
-}
-
-void	*existance(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		usleep(philo->table->eat_time / 2);
-	if (philo->table->philo_nbr == 1)
-		return (one_must_imagine_socrates_happy(philo));
-	pthread_mutex_lock(&philo->table->memento_lock);
-	while (philo->table->memento_mori == 0)
-	{
-		pthread_mutex_unlock(&philo->table->memento_lock);
-		get_forks(philo);
-		philo->meals++;
-		pthread_mutex_lock(&philo->clairvoyant);
-		philo->death_time = get_clock(philo->table) + philo->table->life_time
-			/ 1000;
-		if (philo->meals == philo->table->cycles)
-			return (pthread_mutex_unlock(&philo->clairvoyant),
-				drop_forks(philo), NULL);
-		pthread_mutex_unlock(&philo->clairvoyant);
-		msleep(philo, philo->table->eat_time);
-		drop_forks(philo);
-		safe_print(philo, "is sleeping");
-		msleep(philo, philo->table->sleep_time);
-		safe_print(philo, "is thinking");
-		if (philo->table->philo_nbr % 2 != 0)
-			msleep(philo, (2 * philo->table->eat_time) - philo->table->sleep_time);
-		pthread_mutex_lock(&philo->table->memento_lock);
-	}
-	pthread_mutex_unlock(&philo->table->memento_lock);
-	return (NULL);
 }
 
 void	start_philo(t_table *table)
@@ -205,7 +139,7 @@ void	start_philo(t_table *table)
 	int	i;
 
 	i = 0;
-	table->philo = calloc(table->philo_nbr, sizeof(t_philo));
+	table->philo = ft_calloc(table->philo_nbr, sizeof(t_philo));
 	while (i < table->philo_nbr)
 	{
 		table->philo[i].thread = malloc(sizeof(pthread_t));
@@ -224,57 +158,6 @@ void	start_philo(t_table *table)
 			(void *)&table->philo[i]);
 		i++;
 	}
-	// table->memento_mori = 0;
-}
-
-void	cleanup(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	if (!table)
-		return ;
-	while (i < table->philo_nbr)
-	{
-		pthread_mutex_destroy(&table->forks[i]);
-		pthread_mutex_destroy(&table->philo[i].clairvoyant);
-		free(table->philo[i].thread);
-		i++;
-	}
-	pthread_mutex_destroy(&table->print_lock);
-	pthread_mutex_destroy(&table->memento_lock);
-	free(table->forks);
-	free(table->philo);
-	free(table);
-}
-
-bool	only_nbrs(char *a)
-{
-	int	i;
-
-	i = 0;
-	while (a[i] != '\0')
-	{
-		if (a[i] > '9' || a[i] < '0')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-bool	isvalid(char **argv)
-{
-	if (!only_nbrs(argv[1]))
-		return (false);
-	if (!only_nbrs(argv[2]))
-		return (false);
-	if (!only_nbrs(argv[3]))
-		return (false);
-	if (!only_nbrs(argv[4]))
-		return (false);
-	if (argv[5] && !only_nbrs(argv[5]))
-		return (false);
-	return (true);
 }
 
 int	main(int argc, char **argv)
@@ -285,6 +168,8 @@ int	main(int argc, char **argv)
 	if ((argc < 5 || argc > 6) || !isvalid(argv))
 		return (printf("Wrong args\n"), 0);
 	table = malloc(sizeof(t_table));
+	if(!table)
+		cleanup(table, 0);
 	table->start_time = time_stamp();
 	cogito_ergo_sum(table, argv);
 	start_philo(table);
@@ -296,6 +181,6 @@ int	main(int argc, char **argv)
 		pthread_join(*table->philo[i].thread, NULL);
 		i++;
 	}
-	cleanup(table);
+	cleanup(table, 999);
 	return (0);
 }

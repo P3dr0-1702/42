@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 14:58:19 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/29 15:38:07 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/09/01 18:25:07 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ bool	less_than_max(char *argv)
 	int	i;
 
 	i = ft_atoi(argv);
-	printf("atoi is %d\n", i);
 	if (i == -1)
 		return (false);
 	return (true);
@@ -68,16 +67,6 @@ bool	isvalid(char **argv)
 {
 	int	i;
 
-	// if (!only_nbrs(argv[1]))
-	// 	return (false);
-	// if (!only_nbrs(argv[2]))
-	// 	return (false);
-	// if (!only_nbrs(argv[3]))
-	// 	return (false);
-	// if (!only_nbrs(argv[4]))
-	// 	return (false);
-	// if (argv[5] && !only_nbrs(argv[5]))
-	// 	return (false);
 	i = 1;
 	while (i <= 5)
 	{

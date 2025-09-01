@@ -6,11 +6,12 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 12:10:44 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/29 12:16:28 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/09/01 18:25:43 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <limits.h>
 
 void	*one_must_imagine_socrates_happy(t_philo *philo)
 {
@@ -23,11 +24,11 @@ bool	inescapable_dread(t_philo *philo)
 {
 	pthread_mutex_unlock(&philo->table->memento_lock);
 	get_forks(philo);
-	philo->meals++;
 	pthread_mutex_lock(&philo->clairvoyant);
+	philo->meals++;
 	philo->death_time = get_clock(philo->table) + philo->table->life_time
 		/ 1000;
-	if (philo->meals == philo->table->cycles)
+	if (philo->meals >= philo->table->cycles)
 		return (pthread_mutex_unlock(&philo->clairvoyant), drop_forks(philo),
 			false);
 	pthread_mutex_unlock(&philo->clairvoyant);
@@ -44,7 +45,7 @@ bool	inescapable_dread(t_philo *philo)
 
 void	*existance(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)

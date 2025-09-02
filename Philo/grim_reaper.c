@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 12:04:52 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/09/01 18:31:03 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:12:33 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	scythe(t_table *table, unsigned long int now, int i, int *j)
 			pthread_mutex_unlock(&table->philo[i].clairvoyant),
 			pthread_mutex_unlock(&table->memento_lock), 1);
 	}
-	//below (line30) sometyhing is unitialized
 	if (table->cycles <= table->philo[i].meals)
 		(*j)++;
 	pthread_mutex_unlock(&table->philo[i].clairvoyant);

@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 12:31:18 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/09/01 18:29:13 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:30:11 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,6 @@ bool					isvalid(char **argv);
 void					*ft_calloc(size_t nmemb, size_t size);
 int						cleanup(t_table *table, int forks, int clairs,
 							int three);
+int						clean_philos(t_table *table, int i);
+void					philo_join(t_table *table);
 #endif

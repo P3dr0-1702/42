@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 18:26:15 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/09/01 18:26:51 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:03:34 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,17 @@ void	drop_forks(t_philo *philo)
 	{
 		pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
 		pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
+	}
+}
+
+void	philo_join(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_nbr)
+	{
+		pthread_join(*table->philo[i].thread, NULL);
+		i++;
 	}
 }

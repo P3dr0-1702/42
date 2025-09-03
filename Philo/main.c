@@ -6,7 +6,7 @@
 /*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 12:33:41 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/09/02 13:02:11 by pfreire-         ###   ########.fr       */
+/*   Updated: 2025/09/02 14:27:21 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	cogito_ergo_sum(t_table *table, char **argv)
 	table->sleep_time = ft_atoi(argv[4]) * 1000;
 	table->cycles = -1;
 	if (argv[5])
-		table->cycles = atoi(argv[5]);
+		table->cycles = ft_atoi(argv[5]);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nbr);
 	if (!table->forks)
 		return (cleanup(table, 0, -2, 0), 1);
@@ -77,7 +77,7 @@ int	start_philo(t_table *table)
 		table->philo[i].thread = malloc(sizeof(pthread_t));
 		if (!table->philo[i].thread)
 			return (clean_philos(table, i));
-		if (pthread_mutex_init(&table->philo[i].clairvoyant, NULL) || 1)
+		if (pthread_mutex_init(&table->philo[i].clairvoyant, NULL))
 			return (clean_philos(table, i));
 		init_philo(table, i);
 		pthread_mutex_lock(&table->philo[i].clairvoyant);

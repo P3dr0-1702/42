@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_chararr.c                                  :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pfreire- <pfreire-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pfreire- <pfreire-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 12:11:04 by pfreire-          #+#    #+#             */
-/*   Updated: 2025/08/19 11:49:50 by pfreire-         ###   ########.fr       */
+/*   Created: 2025/09/18 11:52:17 by pfreire-          #+#    #+#             */
+/*   Updated: 2025/09/18 12:03:36 by pfreire-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "memory.h"
+#include "ctype.h"
 
-/// @brief Frees all memory allocated for an array
-/// @param array array to be freed
-void	free_chararr(char **array)
+int	ft_isupper(int c)
 {
-	int	i;
-
-	i = -1;
-	while (array[++i])
-		free(array[i]);
-	free(array);
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
 }
